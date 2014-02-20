@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -14,51 +15,50 @@ import android.widget.*;
 public class LoginActivity extends Activity {
 
 	EditText password, username;
-	Toast incorrect;
+	public Toast incorrect;
 	Logger logger;
-	
-	public static String loginUsername;
-	public static String loginPassword;
-	private DatabaseHelper db;
-	
+	LoginActivity activity;
+
 	@SuppressLint("ShowToast")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		activity = this;
 		setContentView(R.layout.activity_login);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		final Context context = this;
 		/** sets up the nonUI Login Handler */
 		logger = new Logger();
-		db = new DatabaseHelper(this);
 		/** sets up toast */
-		CharSequence text = getResources().getString(
-				R.string.invalid_login);
+		CharSequence text = "";
 		int duration = Toast.LENGTH_SHORT;
 		incorrect = Toast.makeText(this, text, duration);
+		incorrect.setMargin(.02f, .5f);
 		Button loginButton = (Button) findViewById(R.id.loginSubmit);
-		loginButton.setOnClickListener(new OnClickListener(){
+		loginButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				loginUsername = ((EditText) findViewById(R.id.usernameEditText)).getText().toString();
-				loginPassword = ((EditText) findViewById(R.id.passwordEditText)).getText().toString();
-				User checkingUser = db.getUserByUsername(loginUsername);
-				if(checkingUser != null){
-					if(checkingUser.getUsername().compareTo(loginUsername) == 0 
-							&& checkingUser.getPassword().compareTo(loginPassword) == 0){
-						Intent intent = new Intent(context, UserHomeActivity.class);
-						((TextView)findViewById(R.id.loginSubmitText)).setText("");
-						startActivity(intent);
-					}else{
-						((TextView)findViewById(R.id.loginSubmitText)).setText("Invalid Password!");
-					}
-				}else
-					((TextView)findViewById(R.id.loginSubmitText)).setText("User Doesn't Exist!");
-			}	
+				switch (logger.attemptLogin(activity)) {
+				case 0: // valid password and username
+					Intent intent = new Intent(activity, UserHomeActivity.class);
+					activity.startActivity(intent);
+					break;
+				case 1: // invalid password
+					showToast(getResources().getString(R.string.invalid_login_password));
+					break;
+				case 2: // invalid username
+					showToast(getResources().getString(R.string.invalid_login_username));
+					break;
+				}
+			}
 		});
-		
+
+	}
+
+	protected void showToast(String text) {
+		incorrect.setText(text);
+		incorrect.show();
 	}
 
 	/**
@@ -70,7 +70,6 @@ public class LoginActivity extends Activity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
-
 
 	@Override
 	protected void onPause() {

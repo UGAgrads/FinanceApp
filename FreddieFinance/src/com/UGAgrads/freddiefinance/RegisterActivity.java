@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.annotation.TargetApi;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -18,12 +19,18 @@ public class RegisterActivity extends Activity {
 	public static String registerUsername;
 	public static String registerEmail;
 	public static String registerPassword;
+	private Toast registerFeedback;
 	private DatabaseHelper db;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
+		/** sets up toast */
+		CharSequence text = "";
+		int duration = Toast.LENGTH_SHORT;
+		registerFeedback = Toast.makeText(this, text, duration);
+		registerFeedback.setMargin(.02f, .5f);
 		db = new DatabaseHelper(this);
 		// Show the Up button in the action bar.
 		setupActionBar();
@@ -35,9 +42,9 @@ public class RegisterActivity extends Activity {
 				registerEmail = ((EditText) findViewById(R.id.emailEditText)).getText().toString();
 				registerPassword = ((EditText) findViewById(R.id.passwordEditText)).getText().toString();
 				if(registerNewUser(new User(registerUsername, registerEmail, registerPassword))){
-					((TextView)findViewById(R.id.registerSubmitText)).setText("Successfully Registered");
+					showToast("Successfully Registered");
 				}else{
-					((TextView)findViewById(R.id.registerSubmitText)).setText("Invalid Username!");
+					showToast("Invalid Username!");
 				}
 			}
 		});
@@ -65,10 +72,19 @@ public class RegisterActivity extends Activity {
 			db.addNewUserToDatabase(newUser);
 			return true;
 		}
-		return false;
-		
+		return false;		
 	}
-
-
+	
+	protected void showToast(String text) {
+		registerFeedback.setText(text);
+		registerFeedback.show();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		// remove toast if activity is not showing
+		registerFeedback.cancel();
+	}
 
 }

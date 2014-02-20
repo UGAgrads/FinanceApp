@@ -1,22 +1,42 @@
 package com.UGAgrads.freddiefinance;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class Logger {
+	private DatabaseHelper db;
+	public static String loginUsername;
+	public static String loginPassword;
 
-	public boolean attemptLogin(Activity activity) {
+	/**
+	 * This class handles login of a user
+	 * 
+	 * @param activity
+	 * @return integer value encoding login success information
+	 */
+	public int attemptLogin(LoginActivity activity) {
+		db = new DatabaseHelper(activity);
 		EditText password = (EditText) activity.findViewById(R.id.passwordEditText);
 		EditText username = (EditText) activity.findViewById(R.id.usernameEditText);
-		// <Snippet Only for M4 replace with database calls for M5
-		if (password.getText().toString().equals("pass123")
-				&& username.getText().toString().equals("admin")) {
-			return true;
-		} else {
-			return false;
+		loginUsername = ((EditText) activity.findViewById(R.id.usernameEditText))
+				.getText().toString();
+		loginPassword = ((EditText) activity.findViewById(R.id.passwordEditText))
+				.getText().toString();
+		User checkingUser = db.getUserByUsername(loginUsername);
+		if (checkingUser != null) {
+			if (checkingUser.getUsername().compareTo(loginUsername) == 0
+					&& checkingUser.getPassword().compareTo(
+							loginPassword) == 0) { // valid password and username
+				return 0;
+			} else { // invalid password
+				return 1;  
+			}
+		} else { // invalid username
+			return 2;
 		}
-		// \Snippet>
 	}
 
 }

@@ -63,7 +63,8 @@ public final class R {
         public static final int button_register=0x7f050004;
         public static final int email=0x7f05000a;
         public static final int hello_world=0x7f05000e;
-        public static final int invalid_login=0x7f05000c;
+        public static final int invalid_login_password=0x7f05000c;
+        public static final int invalid_login_username=0x7f05000f;
         public static final int login=0x7f050005;
         public static final int loginSuccessful=0x7f050008;
         public static final int password=0x7f050007;
