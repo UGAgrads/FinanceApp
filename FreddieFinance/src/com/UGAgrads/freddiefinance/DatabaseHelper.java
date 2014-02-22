@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
 	private static final String DATABASE_NAME = "FreddieFinance.db";
 
@@ -21,6 +21,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String KEY_USERNAME = "username";
 	private static final String KEY_PASSWORD = "password";
 	private static final String KEY_EMAIL = "email";
+	private static final String KEY_NAME = "name";
+	private static final String KEY_ACCOUNTS = "accounts";
+	private static final String KEY_TOTAL_ASSETS = "total_assets";
+	private static final String KEY_ACCOUNT_TYPE = "account_type";
+	
+	//Account table in FF.db
+	private static final String TABLE_ACCOUNTS = "accounts";
+	//columns for the account table
+	//private static final String KEY_ID = "id";
+	private static final String KEY_ACCOUNT_NAME = "account_name";
+	private static final String KEY_OWNER = "owner";
+	private static final String KEY_TRANSACTIONS = "transactions";
+	//private static final String KEY_TOTAL_ASSETS = "total_assets";
+	//private static final String KEY_ACCOUNT_TYPE = "account_type";
+	private static final String KEY_INTERESTRATE = "accounts";
+	
+	
+	/*
+	   User Table
+	   _________________________________________________________________________________________________________
+	  |   ID  |  Username  |  Password  |  Email  |  Accounts  |  Total Assets(worth)  |  Primary Account Type  | 
+	  |   1   |	 UGAgrad1  |  pass123   |admin@yay| {12-S,15-C}|		 $10,000	   |		Savings		    |
+
+	   
+	   Account Table
+	   ______________________________________________________________________________________________________
+	  |  ID  |  Account Name  |  Owner  |  Account Type  |  Transactions  |  Total Assets  |  Interest Rate  |
+	  |  1   |     12-S       |UGAgrad1 |    Savings	 |   {1-W,14-D}   |     $15,000    |      0.1%       |
+	  
+	
+	*/
 	
 	
 	public DatabaseHelper(Context context) {
@@ -31,8 +62,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(
 				"CREATE TABLE " + TABLE_USERS + "("
-				+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_USERNAME + " TEXT,"
-				+ KEY_PASSWORD + " TEXT," + KEY_EMAIL + " TEXT" + ")"
+				+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_USERNAME + " TEXT, "
+				+ KEY_PASSWORD + " TEXT, " + KEY_EMAIL + " TEXT, " + KEY_NAME + " TEXT, "+ 
+				KEY_ACCOUNTS + " TEXT, " + KEY_TOTAL_ASSETS + " TEXT, " + KEY_ACCOUNT_TYPE + " TEXT" + ")"
+		);
+		
+		db.execSQL(
+				"CREATE TABLE " + TABLE_ACCOUNTS + "("
+				+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ACCOUNT_NAME + " TEXT, "
+				+ KEY_OWNER + " TEXT, " + KEY_ACCOUNT_TYPE + " TEXT, " + KEY_TRANSACTIONS + " TEXT, "
+				+ KEY_TOTAL_ASSETS + " TEXT, " + KEY_INTERESTRATE + "TEXT" + ")"
 		);
 	}
 
