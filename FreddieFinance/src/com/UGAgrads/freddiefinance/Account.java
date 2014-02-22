@@ -1,18 +1,29 @@
 package com.UGAgrads.freddiefinance;
 
+
+/*
+  Brainstorming Account Creation page inputs...
+  
+  Account Name:
+  Account Type [Dropdown Box]
+  Starting Investment:
+  Interest Rate: [Fixed??]
+  
+ */
+
 public class Account {
 	
-	private static String owner;
-	private static String accountNumber;
-	private static long totalAssets;
-	private static String accountType;
-	private static long interestRate;
+	private String owner;
+	private String accountName;
+	private long totalAssets;
+	private String accountType;
+	private long interestRate;
 	
-	Account(String newAccountOwner, String newAccountType){
-		owner = newAccountOwner;
-		totalAssets = 0;
-		accountNumber = newAccountType.substring(0, 1) + "-" + (int)(Math.random() * 100);
-		accountType = newAccountType;
+	Account(String accountOwner, String accountName, String accountType, String accountInvestment){
+		owner = accountOwner;
+		totalAssets = Long.valueOf(accountInvestment);
+		accountName = accountName;
+		accountType = accountType;
 		interestRate = 0;
 	}
 	
@@ -20,22 +31,26 @@ public class Account {
 		return totalAssets;
 	}
 	
-	public String getAccountNumber(){
-		return accountNumber;
+	public String getAccountName(){
+		return accountName;
 	}
 	
 	public String getAccountOwner(){
 		return owner;
 	}
 	
+	public long getInterestRate(){
+		return interestRate;
+	}
+	
+	public String getAccountType(){
+		return accountType;
+	}
+		
 	private void setUpdateAssets(long ammount){
 		totalAssets += ammount;
 	}
 	
-	
-	
-	//make transactions
-	//update assets
 	
 	
 }
