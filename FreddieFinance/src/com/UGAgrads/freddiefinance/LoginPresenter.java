@@ -6,7 +6,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class Logger {
+public class LoginPresenter {
 	private DatabaseHelper db;
 	public static String loginUsername;
 	public static String loginPassword;
@@ -19,8 +19,6 @@ public class Logger {
 	 */
 	public int attemptLogin(LoginActivity activity) {
 		db = new DatabaseHelper(activity);
-		EditText password = (EditText) activity.findViewById(R.id.passwordEditText);
-		EditText username = (EditText) activity.findViewById(R.id.usernameEditText);
 		loginUsername = ((EditText) activity.findViewById(R.id.usernameEditText))
 				.getText().toString();
 		loginPassword = ((EditText) activity.findViewById(R.id.passwordEditText))

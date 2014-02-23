@@ -19,6 +19,7 @@ public class RegisterActivity extends Activity {
 	public static String registerUsername;
 	public static String registerEmail;
 	public static String registerPassword;
+	private RegisterActivity activity;
 	private Toast registerFeedback;
 	private DatabaseHelper db;
 	
@@ -31,6 +32,7 @@ public class RegisterActivity extends Activity {
 		int duration = Toast.LENGTH_SHORT;
 		registerFeedback = Toast.makeText(this, text, duration);
 		registerFeedback.setMargin(.02f, .5f);
+		activity = this;
 		db = new DatabaseHelper(this);
 		// Show the Up button in the action bar.
 		setupActionBar();
@@ -38,13 +40,19 @@ public class RegisterActivity extends Activity {
 		registerButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				registerUsername = ((EditText) findViewById(R.id.usernameEditText)).getText().toString();
-				registerEmail = ((EditText) findViewById(R.id.emailEditText)).getText().toString();
-				registerPassword = ((EditText) findViewById(R.id.passwordEditText)).getText().toString();
-				if(registerNewUser(new User(registerUsername, registerEmail, registerPassword))){
+				switch(RegisterPresenter.attemptRegister(activity)) {
+				case 0:
 					showToast("Successfully Registered");
-				}else{
-					showToast("Invalid Username!");
+					break;
+				case 1:
+					showToast("Must enter a Username!");
+					break;
+				case 2:
+					showToast("Must enter a Password!");
+					break;
+				case 3:
+					showToast("Username already taken!");
+					break;
 				}
 			}
 		});
@@ -66,14 +74,7 @@ public class RegisterActivity extends Activity {
 		getMenuInflater().inflate(R.menu.register, menu);
 		return true;
 	}
-	
-	private boolean registerNewUser(User newUser){
-		if(!db.doesUserAlreadyExist(newUser.getUsername())){
-			db.addNewUserToDatabase(newUser);
-			return true;
-		}
-		return false;		
-	}
+
 	
 	protected void showToast(String text) {
 		registerFeedback.setText(text);

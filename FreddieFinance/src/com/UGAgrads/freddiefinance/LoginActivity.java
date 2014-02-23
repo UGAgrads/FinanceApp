@@ -16,7 +16,7 @@ public class LoginActivity extends Activity {
 
 	EditText password, username;
 	public Toast incorrect;
-	Logger logger;
+	LoginPresenter loginPresenter;
 	LoginActivity activity;
 
 	@SuppressLint("ShowToast")
@@ -28,7 +28,7 @@ public class LoginActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		/** sets up the nonUI Login Handler */
-		logger = new Logger();
+		loginPresenter = new LoginPresenter();
 		/** sets up toast */
 		CharSequence text = "";
 		int duration = Toast.LENGTH_SHORT;
@@ -39,7 +39,7 @@ public class LoginActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				switch (logger.attemptLogin(activity)) {
+				switch (loginPresenter.attemptLogin(activity)) {
 				case 0: // valid password and username
 					Intent intent = new Intent(activity, UserHomeActivity.class);
 					activity.startActivity(intent);
