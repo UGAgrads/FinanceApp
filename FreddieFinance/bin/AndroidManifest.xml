@@ -46,6 +46,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.UGAgrads.freddiefinance.LoginActivity" />
         </activity>
+        <activity
+            android:name="com.UGAgrads.freddiefinance.CreateAccountActivity"
+            android:label="@string/title_activity_create_account"
+            android:parentActivityName="com.UGAgrads.freddiefinance.UserHomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.UGAgrads.freddiefinance.UserHomeActivity" />
+        </activity>
     </application>
 
 </manifest>

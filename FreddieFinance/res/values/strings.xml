@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">FreddieFinance</string>
@@ -16,5 +17,13 @@
     <string name="title_activity_user_home">UserHomeActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="invalid_login_username">User Doesn\'t Exist!</string>
+    <string name="title_activity_create_account">CreateAccountActivity</string>
+
+    <string-array name="account_types_array">
+        <item>Brokerage</item>
+        <item>Savings</item>
+        <item>Checking</item>
+        <item>Other</item>
+    </string-array>
 
 </resources>

@@ -1,6 +1,5 @@
 package com.UGAgrads.freddiefinance;
 
-import android.util.Log;
 import android.widget.EditText;
 
 public class RegisterPresenter {

@@ -1,27 +1,22 @@
 package com.UGAgrads.freddiefinance;
 
-public class Transaction {
-	private static User moneySender;
-	private static User moneyReciever;
-	private static Account sendingAccount;
-	private static Account recievingAccount;
-	private static long ammountTransfered;
-	private static String transactionReferenceNumber;
-	
-	Transaction(User transactionSender, User transactionReciever, Account transactionSendingAccount,
-			Account transactionRecievingAccount, long transactionMoneyAmmount){
-		moneySender = transactionSender;
-		moneyReciever = transactionReciever;
-		sendingAccount = transactionSendingAccount;
-		recievingAccount = transactionRecievingAccount;
-		ammountTransfered = transactionMoneyAmmount;
-		transactionReferenceNumber =  "" + ((int) (Math.random() * 1000));
-		
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import android.annotation.SuppressLint;
+import android.text.format.DateFormat;
+
+public abstract class Transaction {
+	double quantity;
+	String dateEntered;
+	String dateEffiective;
+
+	@SuppressLint("SimpleDateFormat")
+	Transaction(double amountTransfered, DateFormat dateEffective) {
+		Calendar c = Calendar.getInstance();
+		System.out.println("Current time => " + c.getTime());
+		SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+		dateEntered = df.format(c.getTime());
 	}
-	
-	private void completeTransaction(){
-		
-	}
-	
-	
+
 }

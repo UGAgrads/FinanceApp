@@ -7,6 +7,7 @@ public class User {
 	private String username;
 	private String password;
 	private String email;
+	
 	private ArrayList<Account> accounts;
 	
 	public User(String username, String email, String password){

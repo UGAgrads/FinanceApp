@@ -1,5 +1,7 @@
 package com.UGAgrads.freddiefinance;
 
+import java.util.ArrayList;
+
 
 /*
   Brainstorming Account Creation page inputs...
@@ -15,16 +17,18 @@ public class Account {
 	
 	private String owner;
 	private String accountName;
-	private long balance;
 	private String accountType;
+	private long balance;
 	private long interestRate;
 	
-	Account(String accountOwner, String accountName, String accountType, String accountInvestment, String accountInterestRate){
+	private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+	
+	Account(String accountOwner, String accountName, String accountType, String balance, String interestRate){
 		owner = accountOwner;
-		balance = Long.valueOf(accountInvestment);
-		accountName = accountName;
-		accountType = accountType;
-		interestRate = Long.valueOf(accountInterestRate);
+		this.balance = Long.valueOf(balance);
+		this.accountName = accountName;
+		this.accountType = accountType;
+		this.interestRate = Long.valueOf(interestRate);
 	}
 	
 	public long getBalance(){
@@ -47,8 +51,8 @@ public class Account {
 		return accountType;
 	}
 		
-	private void setUpdateAssets(long ammount){
-		balance += ammount;
+	public void setAssets(long ammount){
+		balance = ammount;
 	}
 	
 	

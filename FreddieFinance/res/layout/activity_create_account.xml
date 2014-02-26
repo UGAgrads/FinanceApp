@@ -1,0 +1,109 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/activity_main_selector" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".CreateAccountActivity" >
+
+        <TextView
+            android:id="@+id/createActivityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:singleLine="true"
+            android:text="CREATE NEW ACCOUNT"
+            android:textColor="#000089"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/createTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createActivityTitle"
+            android:layout_marginTop="4dp"
+            android:text="Title:"
+            android:textColor="#005200"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/createTitleEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createTitleTextView"
+            android:hint="Summer Savings" />
+
+        <TextView
+            android:id="@+id/createBalanceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createTitleEditText"
+            android:layout_marginTop="12dp"
+            android:singleLine="true"
+            android:text="Balance:"
+            android:textColor="#005200"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/createBalanceEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createBalanceTextView"
+            android:hint="100.00"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/createInterestTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createBalanceEditText"
+            android:layout_marginTop="12dp"
+            android:singleLine="true"
+            android:text="(yearly) Interest Rate:"
+            android:textColor="#005200"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/accountTypeEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/createInterestTextView"
+            android:hint="2"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/accountTypeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/accountTypeEditText"
+            android:layout_marginTop="4dp"
+            android:text="Account Type:"
+            android:textColor="#005200"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/create_type_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/accountTypeTextView" />
+
+        <Button
+            android:id="@+id/createSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/create_type_spinner"
+            android:layout_marginTop="8dp"
+            android:text="Create This Account"
+            android:textColor="#620000"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</ScrollView>
