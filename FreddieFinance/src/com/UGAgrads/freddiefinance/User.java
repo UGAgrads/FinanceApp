@@ -1,10 +1,13 @@
 package com.UGAgrads.freddiefinance;
 
+import java.util.ArrayList;
+
 public class User {
 
-	private static String username;
-	private static String password;
-	private static String email;
+	private String username;
+	private String password;
+	private String email;
+	private ArrayList<Account> accounts;
 	
 	public User(String username, String email, String password){
 		this.username = username;
@@ -36,6 +39,12 @@ public class User {
 		return this.email;
 	}
 	
+	public void populateAccounts(ArrayList<Account> userAccounts){
+		accounts = userAccounts;
+	}
 	
+	public ArrayList<Account> getAccounts(){
+		return accounts;
+	}
 	
 }

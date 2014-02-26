@@ -15,20 +15,20 @@ public class Account {
 	
 	private String owner;
 	private String accountName;
-	private long totalAssets;
+	private long balance;
 	private String accountType;
 	private long interestRate;
 	
-	Account(String accountOwner, String accountName, String accountType, String accountInvestment){
+	Account(String accountOwner, String accountName, String accountType, String accountInvestment, String accountInterestRate){
 		owner = accountOwner;
-		totalAssets = Long.valueOf(accountInvestment);
+		balance = Long.valueOf(accountInvestment);
 		accountName = accountName;
 		accountType = accountType;
-		interestRate = 0;
+		interestRate = Long.valueOf(accountInterestRate);
 	}
 	
-	public long getTotalAssets(){
-		return totalAssets;
+	public long getBalance(){
+		return balance;
 	}
 	
 	public String getAccountName(){
@@ -48,7 +48,7 @@ public class Account {
 	}
 		
 	private void setUpdateAssets(long ammount){
-		totalAssets += ammount;
+		balance += ammount;
 	}
 	
 	
