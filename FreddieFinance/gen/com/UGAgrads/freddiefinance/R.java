@@ -29,12 +29,12 @@ public final class R {
     }
     public static final class id {
         public static final int ScrollView01=0x7f090000;
-        public static final int accountTypeEditText=0x7f090007;
         public static final int accountTypeTextView=0x7f090008;
         public static final int action_settings=0x7f09001a;
         public static final int createActivityTitle=0x7f090001;
         public static final int createBalanceEditText=0x7f090005;
         public static final int createBalanceTextView=0x7f090004;
+        public static final int createInterestEditText=0x7f090007;
         public static final int createInterestTextView=0x7f090006;
         public static final int createSubmit=0x7f09000a;
         public static final int createTitleEditText=0x7f090003;

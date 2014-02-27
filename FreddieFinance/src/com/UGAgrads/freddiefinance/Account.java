@@ -18,20 +18,20 @@ public class Account {
 	private String owner;
 	private String accountName;
 	private String accountType;
-	private long balance;
-	private long interestRate;
+	private String balance;
+	private String interestRate;
 	
 	private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 	
 	Account(String accountOwner, String accountName, String accountType, String balance, String interestRate){
 		owner = accountOwner;
-		this.balance = Long.valueOf(balance);
+		this.balance = balance;
 		this.accountName = accountName;
 		this.accountType = accountType;
-		this.interestRate = Long.valueOf(interestRate);
+		this.interestRate = interestRate;;
 	}
 	
-	public long getBalance(){
+	public String getBalance(){
 		return balance;
 	}
 	
@@ -43,16 +43,12 @@ public class Account {
 		return owner;
 	}
 	
-	public long getInterestRate(){
+	public String getInterestRate(){
 		return interestRate;
 	}
 	
 	public String getAccountType(){
 		return accountType;
-	}
-		
-	public void setAssets(long ammount){
-		balance = ammount;
 	}
 	
 	

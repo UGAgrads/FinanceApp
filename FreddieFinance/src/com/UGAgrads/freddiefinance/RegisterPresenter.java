@@ -30,11 +30,10 @@ public class RegisterPresenter {
 		}
 		if (registerNewUser(new User(registerUsername, registerEmail,
 				registerPassword))) {
-				return 0; // valid username
+			return 0; // valid username
 		} else { // username taken
 			return 3;
 		}
-
 	}
 
 	private static boolean registerNewUser(User newUser) {

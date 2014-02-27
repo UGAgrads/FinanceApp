@@ -9,10 +9,11 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 
 	private static final String DATABASE_NAME = "FreddieFinance.db";
 
@@ -63,6 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		Log.d("leSawce", "dbonCreate");
 		db.execSQL(
 				"CREATE TABLE " + TABLE_USERS + "("
 				+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_USERNAME + " TEXT, "
@@ -74,10 +76,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				"CREATE TABLE " + TABLE_ACCOUNTS + "("
 				+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ACCOUNT_NAME + " TEXT, "
 				+ KEY_OWNER + " TEXT, " + KEY_ACCOUNT_TYPE + " TEXT, " 
-				+ KEY_BALANCE + " TEXT, " + KEY_INTERESTRATE + "TEXT" + ")"
+				+ KEY_BALANCE + " TEXT, " + KEY_INTERESTRATE + " TEXT" + ")"
 		);
-		
-		addNewUserToDatabase(new User("admin", "pass123", "admin@whatevs.com"));
+
 	}
 
 	@Override
@@ -148,11 +149,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void addNewAccountToDatabase(Account newAccount){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
-		values.put(KEY_ACCOUNT_NAME, newAccount.getAccountName().toString());
-		values.put(KEY_OWNER, newAccount.getAccountOwner().toString());
-		values.put(KEY_ACCOUNT_TYPE, newAccount.getAccountType().toString());
-		values.put(KEY_INTERESTRATE, newAccount.getInterestRate());
+		values.put(KEY_ACCOUNT_NAME, newAccount.getAccountName());
+		values.put(KEY_OWNER, newAccount.getAccountOwner());
+		values.put(KEY_ACCOUNT_TYPE, newAccount.getAccountType());
 		values.put(KEY_BALANCE, newAccount.getBalance());
+		values.put(KEY_INTERESTRATE, newAccount.getInterestRate());
 		db.insert(TABLE_ACCOUNTS, null, values);
 		db.close();
 	}
@@ -196,7 +197,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public Account getAccountByAccountName(String accountName){
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] 
-				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_TOTAL_ASSETS, KEY_INTERESTRATE},
+				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTERESTRATE},
 				KEY_ACCOUNT_NAME + "=?", new String[] {accountName}, null, null, null, null);
 		if(cursor != null){
 			cursor.moveToFirst();
@@ -225,6 +226,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public boolean doesAccountExist(String accountName){
 		return (getAccountByAccountName(accountName) != null);
 	}
+	
+	public boolean doesAccountNameAlreadyExistForOwner(String accountName, String owner){
+	    SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] 
+				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTERESTRATE},
+				KEY_OWNER + "=?", new String[] {owner}, null, null, null, null);
+		if(cursor != null){
+			cursor.moveToFirst();
+			try{
+			    if(cursor.getString(1).toString().compareTo(accountName) == 0){
+				db.close();
+				return true;
+			    }
+			    while(cursor.moveToNext()){
+				if(cursor.getString(1).toString().compareTo(accountName) == 0){
+					db.close();
+					return true;
+				}
+			    }
+			}catch(CursorIndexOutOfBoundsException e){
+				db.close();
+				return false;
+			}
+		}
+		db.close();
+	    
+	    return false;
+	
+	}
+	
 	
 	
 }

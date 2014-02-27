@@ -25,11 +25,14 @@ public class UserHomeActivity extends Activity {
 	ListView lv;
 	ArrayAdapter<String> arrayAdapt;
 	String newAccount = "CREATE NEW ACCOUNT";
+	DatabaseHelper db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d("leSawce", "inOnCreate");
 		setContentView(R.layout.activity_user_home);
+		db = new DatabaseHelper(this);
 		// Show the Up button in the action bar.
 		setupActionBar();
 		lv = (ListView) findViewById(R.id.listView);
@@ -37,8 +40,12 @@ public class UserHomeActivity extends Activity {
 		registerForContextMenu(lv);
 		// The data to show
 		accountsList = new ArrayList<String>();
-		accountsList.add("Embezzled Checking Account");
-		accountsList.add("Doomsday Device Savings Account");
+		try {
+		List<Account> accounts = db.getAccountsByOwner(LoginPresenter.loginUsername);
+		for (Account account : accounts) {
+			accountsList.add(account.getAccountName());
+		}
+		} catch(Exception e) {Log.d("leSawce", e.getMessage());};
 		accountsList.add("CREATE NEW ACCOUNT");
 		arrayAdapt = new ArrayAdapter<String>(this,
 				R.layout.custom_list_item_1, accountsList);
@@ -66,6 +73,7 @@ public class UserHomeActivity extends Activity {
 			}
 		});
 	}
+	
 
 	// This method is called when user selects an Item in the Context menu
 	@Override
@@ -92,7 +100,7 @@ public class UserHomeActivity extends Activity {
 		Log.d("leSawce", String.valueOf(newAccount.equals(accountTitle)));
 		if (accountTitle.equals(newAccount)) {
 			menu.add(1, 1, 1, "Create");
-			
+
 		} else {
 			menu.add(1, 1, 1, "Edit");
 			menu.add(1, 2, 2, "Delete");

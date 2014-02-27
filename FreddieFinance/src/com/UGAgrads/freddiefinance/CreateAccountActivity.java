@@ -2,10 +2,17 @@ package com.UGAgrads.freddiefinance;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -42,7 +49,34 @@ public class CreateAccountActivity extends Activity {
 		// Specify the layout to use when the list of choices appears
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
-		spinner.setAdapter(adapter);
+		spinner.setAdapter(adapter);	
+		
+		Button createButton = (Button) findViewById(R.id.createSubmit);
+		createButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				switch (CreateAccountPresenter.attemptCreate(activity)) {
+					case EMPTY_TITLE:
+						showToast("Must enter a title!");
+						break;
+					case PREXISTING_TITLE:
+						showToast("You already have an account by that name!");
+						break;
+					case EMPTY_BALANCE:
+						showToast("Must enter a starting balance!");
+						break;
+					case EMPTY_INTEREST:
+						showToast("Must enter an interest rate! (0 is possible)");
+						break;
+					case NO_ERROR:
+						showToast("Account successfully created!");
+						break;
+						
+					
+				}
+			}
+		});
 	}
 	
 	/**
