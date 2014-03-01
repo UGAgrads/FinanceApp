@@ -1,6 +1,7 @@
 package com.UGAgrads.freddiefinance;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.annotation.TargetApi;
@@ -22,7 +23,7 @@ import android.widget.Toast;
 
 public class UserHomeActivity extends Activity {
 	List<String> accountsList;
-	ListView lv;
+	ListView listView;
 	ArrayAdapter<String> arrayAdapt;
 	String newAccount = "CREATE NEW ACCOUNT";
 	DatabaseHelper db;
@@ -30,29 +31,38 @@ public class UserHomeActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d("leSawce", "inOnCreate");
 		setContentView(R.layout.activity_user_home);
+
 		db = new DatabaseHelper(this);
-		// Show the Up button in the action bar.
-		setupActionBar();
-		lv = (ListView) findViewById(R.id.listView);
-		// we register for the contextmneu
-		registerForContextMenu(lv);
+
+		setupList();
+	}
+
+	private void setupList() {
+		listView = (ListView) findViewById(R.id.listView);
+
+		registerForContextMenu(listView);
 		// The data to show
 		accountsList = new ArrayList<String>();
-		try {
-		List<Account> accounts = db.getAccountsByOwner(LoginPresenter.loginUsername);
+
+		List<Account> accounts = db
+				.getAccountsByOwner(LoginPresenter.loginUsername);
 		for (Account account : accounts) {
 			accountsList.add(account.getAccountName());
 		}
-		} catch(Exception e) {Log.d("leSawce", e.getMessage());};
+		
+		Collections.sort(accountsList);
+		
+		/**create new account always at end */ 
 		accountsList.add("CREATE NEW ACCOUNT");
+		
 		arrayAdapt = new ArrayAdapter<String>(this,
 				R.layout.custom_list_item_1, accountsList);
-		lv.setAdapter(arrayAdapt);
+		
+		listView.setAdapter(arrayAdapt);
+		
 		// React to user clicks on item
-		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parentAdapter, View view,
 					int position, long id) {
 
@@ -63,12 +73,13 @@ public class UserHomeActivity extends Activity {
 					Intent intent = new Intent(UserHomeActivity.this,
 							CreateAccountActivity.class);
 					startActivity(intent);
-				}
+				}else {
 				Toast.makeText(
 						UserHomeActivity.this,
 						"Item with id [" + id + "] - Position [" + position
 								+ "] - Account[" + clickedView.getText() + "]",
 						Toast.LENGTH_SHORT).show();
+				}
 
 			}
 		});
@@ -83,9 +94,10 @@ public class UserHomeActivity extends Activity {
 			Intent intent = new Intent(UserHomeActivity.this,
 					CreateAccountActivity.class);
 			startActivity(intent);
-		}
+		}else {
 		Toast.makeText(this, "Item id [" + itemId + "]", Toast.LENGTH_SHORT)
 				.show();
+		}
 		return true;
 	}
 
@@ -106,15 +118,4 @@ public class UserHomeActivity extends Activity {
 			menu.add(1, 2, 2, "Delete");
 		}
 	}
-
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-	}
-
 }

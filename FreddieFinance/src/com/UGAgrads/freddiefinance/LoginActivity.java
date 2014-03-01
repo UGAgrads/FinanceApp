@@ -16,33 +16,39 @@ public class LoginActivity extends Activity {
 
 	EditText password, username;
 	public Toast incorrect;
-	LoginPresenter loginPresenter;
-	LoginActivity activity;
 
-	@SuppressLint("ShowToast")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		activity = this;
 		setContentView(R.layout.activity_login);
-		// Show the Up button in the action bar.
-		setupActionBar();
-		/** sets up the nonUI Login Handler */
-		loginPresenter = new LoginPresenter();
-		/** sets up toast */
+		
+		setupToast();
+		
+		setupLoginButton();
+	}
+
+	protected void showToast(String text) {
+		incorrect.setText(text);
+		incorrect.show();
+	}
+	
+	@SuppressLint("ShowToast") private void setupToast() {
 		CharSequence text = "";
 		int duration = Toast.LENGTH_SHORT;
 		incorrect = Toast.makeText(this, text, duration);
 		incorrect.setMargin(.02f, .5f);
+	}
+	
+	private void setupLoginButton() {
 		Button loginButton = (Button) findViewById(R.id.loginSubmit);
 		loginButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				switch (loginPresenter.attemptLogin(activity)) {
+				switch (LoginPresenter.attemptLogin(LoginActivity.this)) {
 				case 0: // valid password and username
-					Intent intent = new Intent(activity, UserHomeActivity.class);
-					activity.startActivity(intent);
+					Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+					LoginActivity.this.startActivity(intent);
 					break;
 				case 1: // invalid password
 					showToast(getResources().getString(R.string.invalid_login_password));
@@ -53,22 +59,6 @@ public class LoginActivity extends Activity {
 				}
 			}
 		});
-
-	}
-
-	protected void showToast(String text) {
-		incorrect.setText(text);
-		incorrect.show();
-	}
-
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
 	}
 
 	@Override
@@ -77,5 +67,7 @@ public class LoginActivity extends Activity {
 		// remove toast if activity is not showing
 		incorrect.cancel();
 	}
+	
+
 
 }

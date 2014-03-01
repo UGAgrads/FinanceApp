@@ -16,12 +16,6 @@ public class MainActivity extends Activity {
 		MainPresenter.registerAdmin(this);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 
 	/** Called when the user clicks the login button */
 	public void toLogin(View view) {

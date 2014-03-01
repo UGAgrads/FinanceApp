@@ -1,5 +1,6 @@
 package com.UGAgrads.freddiefinance;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 
@@ -20,11 +21,11 @@ public class Account {
 	private String accountType;
 	private String balance;
 	private String interestRate;
-	
+	private BigDecimal balanceBacking;
 	private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 	
-	Account(String accountOwner, String accountName, String accountType, String balance, String interestRate){
-		owner = accountOwner;
+	Account(String owner, String accountName, String accountType, String balance, String interestRate){
+		this.owner = owner;
 		this.balance = balance;
 		this.accountName = accountName;
 		this.accountType = accountType;

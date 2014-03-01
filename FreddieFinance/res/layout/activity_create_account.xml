@@ -58,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/createBalanceTextView"
             android:hint="100.00"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:maxLength="10" />
 
         <TextView
             android:id="@+id/createInterestTextView"
@@ -77,8 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/createInterestTextView"
             android:hint="2%"
-            android:maxLength="3"
-            android:inputType="number" />
+            android:inputType="number"
+            android:maxLength="6" />
 
         <TextView
             android:id="@+id/accountTypeTextView"

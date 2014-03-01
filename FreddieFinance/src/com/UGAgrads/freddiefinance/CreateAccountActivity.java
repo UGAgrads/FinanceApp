@@ -1,5 +1,6 @@
 package com.UGAgrads.freddiefinance;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -18,90 +19,75 @@ import android.widget.Toast;
 
 public class CreateAccountActivity extends Activity {
 
-	public static String balance;
-	public static String title; // must be unique
-	public static String interestRate;
-	public static String type;
-	private CreateAccountActivity activity;
 	private Toast createAccountFeedback;
-	private DatabaseHelper db;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_account);
-		/** sets up toast */
+
+		setupToast();
+
+		setupSpinner();
+
+		setupCreateButton();
+	}
+
+
+	protected void showToast(String text) {
+		createAccountFeedback.setText(text);
+		createAccountFeedback.show();
+	}
+
+	@SuppressLint("ShowToast") private void setupToast() {
 		CharSequence text = "";
 		int duration = Toast.LENGTH_SHORT;
 		createAccountFeedback = Toast.makeText(this, text, duration);
 		createAccountFeedback.setMargin(.02f, .5f);
-		activity = this;
-		db = new DatabaseHelper(this);
-		// Show the Up button in the action bar.
-		setupActionBar();
-		
-		
-		/* sets up spinner **/
+	}
+
+	private void setupSpinner() {
 		Spinner spinner = (Spinner) findViewById(R.id.create_type_spinner);
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-		        R.array.account_types_array, android.R.layout.simple_spinner_item);
+		// Create an ArrayAdapter using the string array and a default spinner
+		// layout
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+				this, R.array.account_types_array,
+				android.R.layout.simple_spinner_item);
 		// Specify the layout to use when the list of choices appears
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
-		spinner.setAdapter(adapter);	
-		
+		spinner.setAdapter(adapter);
+	}
+
+	private void setupCreateButton() {
 		Button createButton = (Button) findViewById(R.id.createSubmit);
 		createButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				switch (CreateAccountPresenter.attemptCreate(activity)) {
-					case EMPTY_TITLE:
-						showToast("Must enter a title!");
-						break;
-					case PREXISTING_TITLE:
-						showToast("You already have an account by that name!");
-						break;
-					case EMPTY_BALANCE:
-						showToast("Must enter a starting balance!");
-						break;
-					case EMPTY_INTEREST:
-						showToast("Must enter an interest rate! (0 is possible)");
-						break;
-					case NO_ERROR:
-						showToast("Account successfully created!");
-						break;
-						
-					
+				switch (CreateAccountPresenter
+						.attemptCreate(CreateAccountActivity.this)) {
+				case EMPTY_TITLE:
+					showToast("Must enter a title!");
+					break;
+				case PREXISTING_TITLE:
+					showToast("You already have an account by that name!");
+					break;
+				case EMPTY_BALANCE:
+					showToast("Must enter a starting balance!");
+					break;
+				case EMPTY_INTEREST:
+					showToast("Must enter an interest rate! (0 is possible)");
+					break;
+				case NO_ERROR:
+					showToast("Account successfully created!");
+					break;
+
 				}
 			}
 		});
 	}
-	
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.register, menu);
-		return true;
-	}
-
-	
-	protected void showToast(String text) {
-		createAccountFeedback.setText(text);
-		createAccountFeedback.show();
-	}
-	
 	@Override
 	protected void onPause() {
 		super.onPause();
