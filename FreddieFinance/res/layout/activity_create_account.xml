@@ -59,7 +59,7 @@
             android:layout_below="@+id/createBalanceTextView"
             android:hint="100.00"
             android:inputType="numberDecimal"
-            android:maxLength="10" />
+            android:maxLength="9" />
 
         <TextView
             android:id="@+id/createInterestTextView"
