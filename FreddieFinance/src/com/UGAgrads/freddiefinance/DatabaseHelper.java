@@ -33,6 +33,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String KEY_INTEREST_RATE = "interest_rate";
 	private static final String KEY_ACCOUNT_TYPE = "account_type";
 	
+	//Transaction Table in FF.db
+	private static final String TABLE_TRANSACTIONS = "transactions";
+	//Columns in the transaction table
+		//ID
+		//username
+		//Account name
+	private static final String KEY_TRANSACTION_TYPE = "transaction_type";
+	private static final String KEY_TRANSACTION_AMMOUNT = "transaction_ammount";
+	private static final String KEY_DATE_ENTERED = "date_entered";
+	private static final String KEY_DATE_EFFECTIVE = "date_effective";
+	private static final String KEY_DESCRIPTION = "transaction_description";
+	private static final String KEY_SPEND_SOURCE = "spend_source";
+	
+	
 	//For Future Purposes
 	//private static final String KEY_TRANSACTIONS = "transactions";
 	
@@ -49,7 +63,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	  |  ID  |  Account Name  |  Owner  |  Account Type  |  Balance  |  Interest Rate  |
 	  |  1   |     12-S       |UGAgrad1 |    Savings	 |  $15,000  |      0.1%       |
 	  
-	
+	  
+	   Transaction Table
+	   ________________________________________________________________________________________________________________________
+	  |  ID  |  User  |  Acount Name  |  Type  |  Amount  |  Date Entered  |  Date Effective  |  Description  |  SPEND/SOURCE  |
+ 	   	
+ 	  
 	*/
 	
 	
@@ -73,6 +92,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ KEY_OWNER + " TEXT, " + KEY_ACCOUNT_TYPE + " TEXT, " 
 				+ KEY_BALANCE + " TEXT, " + KEY_INTEREST_RATE + " TEXT" + ")"
 		);
+		
+		db.execSQL("CREATE TABLE " + TABLE_TRANSACTIONS + "(" 
+				+ KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_USERNAME + " TEXT, " 
+				+ KEY_ACCOUNT_NAME + " TEXT, " + KEY_TRANSACTION_TYPE + " TEXT, " + KEY_TRANSACTION_AMMOUNT + " TEXT, "
+				+ KEY_DATE_ENTERED + " TEXT, " + KEY_DATE_EFFECTIVE + " TEXT, " + KEY_DESCRIPTION + " TEXT, "
+				+ KEY_SPEND_SOURCE + " TEXT" + ")"
+				);
 
 	}
 
@@ -110,6 +136,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return !(getUserByUsername(username) == null);
 	}
 	
+	/**
+	 * Finds and returns a user given the parameter username
+	 * @param username Name of the user were looking for
+	 * @return User if found, else Null
+	 */
 	public User getUserByUsername(String username){
 		SQLiteDatabase db = this.getReadableDatabase();
 		
@@ -131,6 +162,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 		db.close();
 		return null;
+	}
+	
+	/**
+	 * Updates the user info.  Takes in an existing user and updates the information by searching for the name(doesnt change)
+	 * @param updatingUser updated user info
+	 * @return True if account existed and was updated, else False
+	 */
+	public boolean updateUserInfo(User updatingUser){
+		
+		return false;
 	}
 	
 	
@@ -183,6 +224,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 				
 		return accounts;
+		
+	}
+	
+	/**
+	 * Gets account by owner and account name
+	 * @param ownerUsername Account owner
+	 * @param accountName Name of account
+	 * @return Account if exists, else Null
+	 */
+	public Account getAccountByOwnerAndAccountName(String ownerUsername, String accountName){
+		SQLiteDatabase db = this.getReadableDatabase();
+		ArrayList<Account> accounts = new ArrayList<Account>();
+		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] 
+				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTEREST_RATE},
+				KEY_OWNER + "=?", new String[] {ownerUsername}, null, null, null, null);
+		if(cursor != null){
+			cursor.moveToFirst();
+			try{
+				if(cursor.getString(1).toString().compareTo(accountName) == 0)
+					return new Account(cursor.getString(0).toString(), cursor.getString(1).toString(), 
+							cursor.getString(2).toString(), cursor.getString(3).toString(), 
+							cursor.getString(4).toString()
+							);
+				while(cursor.moveToNext()){
+					if(cursor.getString(1).toString().compareTo(accountName) == 0)
+						return new Account(cursor.getString(0).toString(), cursor.getString(1).toString(), 
+								cursor.getString(2).toString(), cursor.getString(3).toString(), 
+								cursor.getString(4).toString()
+								);
+				}
+				db.close();
+			}catch(CursorIndexOutOfBoundsException e){
+				db.close();
+				return null;
+			}
+		}
+				
+		return null;
 		
 	}
 	
@@ -260,6 +339,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	}
 	
+	
+	/**
+	 * Updates account info by searching for name then inputing new data
+	 * @param updatingAccount Account were searching for and looking to update
+	 * @return True if account found and updated, else False
+	 */
+	public boolean updateAccountInfo(Account updatingAccount){
+		
+		return false;
+	}
+	
+	public void addNewTransactionToDatabase(Transaction newTransaction){
+		
+		
+	}
 	
 	
 }
