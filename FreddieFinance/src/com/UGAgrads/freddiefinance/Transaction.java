@@ -7,9 +7,9 @@ import android.annotation.SuppressLint;
 import android.text.format.DateFormat;
 
 public abstract class Transaction {
-	double quantity;
+	double quantity; // negative means withdrawl, positive means deposit
 	String dateEntered;
-	String dateEffiective;
+	String dateEffective;
 
 	@SuppressLint("SimpleDateFormat")
 	Transaction(double amountTransfered, DateFormat dateEffective) {
