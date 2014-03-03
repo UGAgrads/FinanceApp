@@ -13,7 +13,6 @@ public class CreateAccountPresenter {
 	private static DatabaseHelper db;
 	public static String accountTitle; // which must be unique among other accounts
 	public static String balance; // will automatically get formatted to dollar amount
-	public static BigDecimal balanceBacking;
 	public static String interestRate; // will automatically be 0 or 100
 	public static String accountType; // foolproof ;)
 	
@@ -35,10 +34,6 @@ public class CreateAccountPresenter {
 
 		// this formats balance to dollar value
 		EditText balanceEditText = (EditText) activity.findViewById(R.id.createBalanceEditText);
-		if (balanceEditText.getText().toString() != "" && balanceEditText.getText().toString() != ".") {
-			balanceBacking = new BigDecimal(balanceEditText.getText().toString());
-			Log.d("leSawce", balanceBacking.toString());
-		}
 		balance = formatBalance(balanceEditText.getText().toString());
 		
 		interestRate = ((EditText) activity

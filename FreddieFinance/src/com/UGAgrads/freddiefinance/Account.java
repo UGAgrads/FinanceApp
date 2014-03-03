@@ -21,7 +21,6 @@ public class Account {
 	private String accountType;
 	private String balance;
 	private String interestRate;
-	private BigDecimal balanceBacking;
 	private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 	
 	Account(String owner, String accountName, String accountType, String balance, String interestRate){
