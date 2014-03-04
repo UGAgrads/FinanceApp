@@ -323,10 +323,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				return true;
 			    }
 			    while(cursor.moveToNext()){
-				if(cursor.getString(1).toString().compareTo(accountName) == 0){
-					db.close();
-					return true;
-				}
+					if(cursor.getString(1).toString().compareTo(accountName) == 0){
+						db.close();
+						return true;
+					}
 			    }
 			}catch(CursorIndexOutOfBoundsException e){
 				db.close();
@@ -351,8 +351,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	public void addNewTransactionToDatabase(Transaction newTransaction){
-		
-		
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(KEY_USERNAME, newTransaction.getTransactionUsername());
+		values.put(KEY_ACCOUNT_NAME, newTransaction.getTransactionAccountName());
+		values.put(KEY_TRANSACTION_TYPE, newTransaction.getClass().toString());
+		values.put(KEY_TRANSACTION_AMMOUNT, newTransaction.getTransactionAmmount());
+		values.put(KEY_DATE_ENTERED, newTransaction.getTransactionDateEntered());
+		values.put(KEY_DATE_EFFECTIVE, newTransaction.getTransactionDateEffective());
+		values.put(KEY_DESCRIPTION, newTransaction.getTransactionDescription());
+		values.put(KEY_SPEND_SOURCE, newTransaction.getSpendSourceInfo());	
+		db.insert(TABLE_TRANSACTIONS, null, values);
+		db.close();
 	}
 	
 	

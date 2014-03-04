@@ -4,7 +4,19 @@ import android.text.format.DateFormat;
 
 public class Withdrawl extends Transaction {
 	
-	public Withdrawl(double amountTransfered, DateFormat dateEffective) {
-		super(amountTransfered, dateEffective);
+	private Expense moneyExpense;
+	
+	public Withdrawl(double amountTransfered, DateFormat dateEffective, User user, Account userAccount, Expense moneyExpense, String withdrawalDescription) {
+		super(amountTransfered, dateEffective, user, userAccount, withdrawalDescription);
+		this.moneyExpense = moneyExpense;
+	}
+	
+	public String getWithdrawalMoneyExpense(){
+		return moneyExpense.getValue();
+	}
+	
+	@Override
+	public String getSpendSourceInfo(){
+		return getWithdrawalMoneyExpense();
 	}
 }
