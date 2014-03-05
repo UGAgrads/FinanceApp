@@ -15,7 +15,7 @@
         tools:context=".AccountHomeActivity" >
 
         <TextView
-            android:id="@+id/AccountTitle"
+            android:id="@+id/AccountHomeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -28,12 +28,12 @@
             android:id="@+id/usernameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/loginTitle"
+            android:layout_below="@+id/AccountHomeTitle"
             android:layout_marginTop="12dp"
             android:singleLine="true"
-            android:text="@string/username"
+            android:text=""
             android:textColor="#005200"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/usernameEditText"

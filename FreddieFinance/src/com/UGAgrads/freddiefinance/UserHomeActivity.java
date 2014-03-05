@@ -25,6 +25,7 @@ public class UserHomeActivity extends Activity {
 
 	ListView listView;
 	ArrayAdapter<String> arrayAdapt;
+	String accountTitle = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +58,13 @@ public class UserHomeActivity extends Activity {
 					Intent intent = new Intent(UserHomeActivity.this,
 							CreateAccountActivity.class);
 					startActivity(intent);
-				}else {
-				Toast.makeText(
-						UserHomeActivity.this,
-						"Item with id [" + id + "] - Position [" + position
-								+ "] - Account[" + clickedView.getText() + "]",
-						Toast.LENGTH_SHORT).show();
+				}else if (clickedView.getText()!= null) { // must be legitimate account
+					accountTitle = (String)clickedView.getText();
+					Intent intent = new Intent(UserHomeActivity.this,
+							AccountHomeActivity.class);
+					intent.putExtra("accountTitle", accountTitle);
+					Log.d("leSawce", "ISSS THIS your titlee? :D " + accountTitle);
+					startActivity(intent);
 				}
 
 			}
@@ -73,7 +75,7 @@ public class UserHomeActivity extends Activity {
 	// This method is called when user selects an Item in the Context menu
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		int itemId = item.getItemId();
+		
 		String contextItem = (String) item.getTitle();
 		
 		if (contextItem.equals("Create")) {
@@ -82,10 +84,12 @@ public class UserHomeActivity extends Activity {
 			startActivity(intent);
 		
 		} else if (contextItem.equals("Open")){
-			
+			Intent intent = new Intent(UserHomeActivity.this,
+					AccountHomeActivity.class);
+			intent.putExtra("accountTitle", accountTitle);
+			Log.d("leSawce", "ISSS THIS your titlee? :D " + accountTitle);
+			startActivity(intent);
 		}
-		Toast.makeText(this, "Item id [" + itemId + "]", Toast.LENGTH_SHORT)
-				.show();
 		return true;
 	}
 
@@ -95,12 +99,13 @@ public class UserHomeActivity extends Activity {
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		AdapterContextMenuInfo aInfo = (AdapterContextMenuInfo) menuInfo;
-		String accountTitle = arrayAdapt.getItem(aInfo.position);
+		String title = arrayAdapt.getItem(aInfo.position);
 		menu.setHeaderTitle("Options for " + accountTitle);
 		if (accountTitle.equals("CREATE NEW ACCOUNT")) {
 			menu.add(1, 1, 1, "Create");
 
 		} else {
+			accountTitle = title;
 			menu.add(1, 1, 1, "Edit");
 			menu.add(1, 2, 2, "Delete");
 			menu.add(3, 3, 3, "Open");

@@ -6,7 +6,8 @@ import android.widget.TextView;
 
 public class AccountHomeActivity extends Activity {
 	
-	private TextView accountTitle;
+	private TextView accountHomeTitle;
+	private String accountTitle;
 	private Account account;
 	
 	@Override
@@ -14,8 +15,14 @@ public class AccountHomeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_account_home);
 		
+		accountTitle = getIntent().getStringExtra("accountTitle");
+		
+		setupViews();
+		
 	}
 	
-	protected void 
+	private void setupViews() {
+		
+	}
 
 }
