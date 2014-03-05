@@ -1,10 +1,5 @@
 package com.UGAgrads.freddiefinance;
 
-import java.math.BigDecimal;
-import java.text.NumberFormat;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -44,9 +39,8 @@ public class CreateAccountPresenter {
 		if (err != FieldError.NO_ERROR) {
 			return err;
 		} else {
-			Log.d("leSawce", "adding new account");
 			Account account = new Account(LoginPresenter.loginUsername, accountTitle, accountType, balance, interestRate);
-			db.addNewAccountToDatabase(new Account(LoginPresenter.loginUsername, accountTitle, accountType, balance, interestRate));
+			db.addNewAccountToDatabase(account);
 			return err;
 		}
 

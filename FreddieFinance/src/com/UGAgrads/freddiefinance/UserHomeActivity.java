@@ -22,19 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class UserHomeActivity extends Activity {
-	List<String> accountsList;
+
 	ListView listView;
 	ArrayAdapter<String> arrayAdapt;
-	String newAccount = "CREATE NEW ACCOUNT";
-	DatabaseHelper db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_home);
-
-		db = new DatabaseHelper(this);
-
 		setupList();
 	}
 
@@ -42,22 +37,11 @@ public class UserHomeActivity extends Activity {
 		listView = (ListView) findViewById(R.id.listView);
 
 		registerForContextMenu(listView);
-		// The data to show
-		accountsList = new ArrayList<String>();
 
-		List<Account> accounts = db
-				.getAccountsByOwner(LoginPresenter.loginUsername);
-		for (Account account : accounts) {
-			accountsList.add(account.getAccountName());
-		}
-		
-		Collections.sort(accountsList);
-		
-		/**create new account always at end */ 
-		accountsList.add("CREATE NEW ACCOUNT");
-		
+
+		List<String> SortedAccountNames = UserHomePresenter.getAccounts(this);
 		arrayAdapt = new ArrayAdapter<String>(this,
-				R.layout.custom_list_item_1, accountsList);
+				R.layout.custom_list_item_1, SortedAccountNames);
 		
 		listView.setAdapter(arrayAdapt);
 		
@@ -90,14 +74,18 @@ public class UserHomeActivity extends Activity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		int itemId = item.getItemId();
-		if (item.getTitle().equals("Create")) {
+		String contextItem = (String) item.getTitle();
+		
+		if (contextItem.equals("Create")) {
 			Intent intent = new Intent(UserHomeActivity.this,
 					CreateAccountActivity.class);
 			startActivity(intent);
-		}else {
+		
+		} else if (contextItem.equals("Open")){
+			
+		}
 		Toast.makeText(this, "Item id [" + itemId + "]", Toast.LENGTH_SHORT)
 				.show();
-		}
 		return true;
 	}
 
@@ -109,13 +97,13 @@ public class UserHomeActivity extends Activity {
 		AdapterContextMenuInfo aInfo = (AdapterContextMenuInfo) menuInfo;
 		String accountTitle = arrayAdapt.getItem(aInfo.position);
 		menu.setHeaderTitle("Options for " + accountTitle);
-		Log.d("leSawce", String.valueOf(newAccount.equals(accountTitle)));
-		if (accountTitle.equals(newAccount)) {
+		if (accountTitle.equals("CREATE NEW ACCOUNT")) {
 			menu.add(1, 1, 1, "Create");
 
 		} else {
 			menu.add(1, 1, 1, "Edit");
 			menu.add(1, 2, 2, "Delete");
+			menu.add(3, 3, 3, "Open");
 		}
 	}
 }
