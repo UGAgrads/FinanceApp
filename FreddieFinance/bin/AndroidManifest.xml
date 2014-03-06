@@ -62,6 +62,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.UGAgrads.freddiefinance.UserHomeActivity" />
         </activity>
+        
+       <activity
+            android:name="com.UGAgrads.freddiefinance.CreateTransactionActivity"
+            android:label="@string/title_activity_create_trans"
+            android:parentActivityName="com.UGAgrads.freddiefinance.AccountHomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.UGAgrads.freddiefinance.AccountHomeActivity" />
+        </activity>
+        <activity
+            android:name="com.UGAgrads.freddiefinance.TransactionActivity"
+            android:label="@string/title_activity_trans"
+            android:parentActivityName="com.UGAgrads.freddiefinance.CreateTransactionActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.UGAgrads.freddiefinance.CreateTransactionActivity" />
+        </activity>
     </application>
 
 </manifest>

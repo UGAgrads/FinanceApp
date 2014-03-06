@@ -32,11 +32,9 @@ public class CreateTransactionActivity extends Activity {
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 		        Object item = parent.getItemAtPosition(pos);
 		        if (item.toString().equalsIgnoreCase("Deposit")) {
-					//display the deposit fields ---> new activity?
 		        	goToDeposit();
 				}
 				if (item.toString().equalsIgnoreCase("Withdrawal")) {
-					//display the withdraw fields ---> new activity?
 					goToWithdrawal();
 				}
 		    }

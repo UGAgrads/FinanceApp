@@ -18,6 +18,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="invalid_login_username">User Doesn\'t Exist!</string>
     <string name="title_activity_create_account">CreateAccountActivity</string>
+    <string name="title_activity_create_trans">Create Transaction</string>
+    <string name="title_activity_trans">Create Transaction</string>
     <string name="enterAmount">Enter an amount:</string>
 
     <string-array name="account_types_array">
@@ -28,6 +30,7 @@
     </string-array>
     
      <string-array name="transaction_array">
+         <item>Select</item>
         <item>Deposit</item>
         <item>Withdrawal</item>
     </string-array>

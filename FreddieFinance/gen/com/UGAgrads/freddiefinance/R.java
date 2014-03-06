@@ -107,7 +107,7 @@ public final class R {
         public static final int button_login=0x7f050003;
         public static final int button_register=0x7f050004;
         public static final int email=0x7f05000a;
-        public static final int enterAmount=0x7f050011;
+        public static final int enterAmount=0x7f050013;
         public static final int hello_world=0x7f05000e;
         public static final int invalid_login_password=0x7f05000c;
         public static final int invalid_login_username=0x7f05000f;
@@ -116,6 +116,8 @@ public final class R {
         public static final int password=0x7f050007;
         public static final int register=0x7f05000b;
         public static final int title_activity_create_account=0x7f050010;
+        public static final int title_activity_create_trans=0x7f050011;
+        public static final int title_activity_trans=0x7f050012;
         public static final int title_activity_user_home=0x7f05000d;
         public static final int username=0x7f050006;
         public static final int welcome=0x7f050002;
