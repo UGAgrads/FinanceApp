@@ -1,0 +1,85 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/activity_main_selector" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".TransactionActivity" >
+
+        <TextView
+            android:id="@+id/transDepositTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:singleLine="true"
+            android:text="New Deposit"
+            android:textColor="#000089"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/transDepositAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/transDepositTitle"
+            android:layout_marginTop="4dp"
+            android:text="@string/enterAmount"
+            android:textColor="#005200"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editTransDepositAmount"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/transDepositAmount"
+            android:hint="100.00"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/sourceOfMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTransDepositAmount"
+            android:layout_marginTop="12dp"
+            android:singleLine="true"
+            android:text="Source of money:"
+            android:textColor="#005200"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editSourceOfMoney"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sourceOfMoney"
+            android:hint="salary, interest, gift" />
+
+        <!-- <TextView
+            android:id="@+id/updatingBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTransDepositAmount"
+            android:layout_marginTop="4dp"
+            android:text="Balance: "
+            android:textColor="#005200"
+            android:textSize="20sp" />
+            -->
+
+        <Button
+            android:id="@+id/depositSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editSourceOfMoney"
+            android:layout_marginTop="8dp"
+            android:text="Add Deposit"
+            android:textColor="#620000"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</ScrollView>

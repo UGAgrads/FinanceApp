@@ -1,0 +1,102 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/activity_main_selector" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".TransactionActivity" >
+
+        <TextView
+            android:id="@+id/transWithdrawalTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:singleLine="true"
+            android:text="New Withdrawal"
+            android:textColor="#000089"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/transWithdrawalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/transWithdrawalTitle"
+            android:layout_marginTop="4dp"
+            android:text="@string/enterAmount"
+            android:textColor="#005200"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editTransWithdrawalAmount"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/transWithdrawalAmount"
+            android:hint="100.00"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/withdrawalReason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTransWithdrawalAmount"
+            android:layout_marginTop="12dp"
+            android:singleLine="true"
+            android:text="Reason for withdrawal:"
+            android:textColor="#005200"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editWithdrawalReason"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/withdrawalReason"
+            android:hint="fred's tuition" />
+        
+        <TextView
+            android:id="@+id/expenseCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editWithdrawalReason"
+            android:layout_marginTop="12dp"
+            android:singleLine="true"
+            android:text="Expense Category:"
+            android:textColor="#005200"
+            android:textSize="20sp" />
+
+        <Spinner
+		    android:id="@+id/expense_category_spinner"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@+id/expenseCategory" />
+        
+        <!-- <TextView
+            android:id="@+id/updatingBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTransDepositAmount"
+            android:layout_marginTop="4dp"
+            android:text="Balance: "
+            android:textColor="#005200"
+            android:textSize="20sp" />
+            -->
+
+        <Button
+            android:id="@+id/withdrawSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/expense_category_spinner"
+            android:layout_marginTop="8dp"
+            android:text="Add Withdrawal"
+            android:textColor="#620000"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</ScrollView>
