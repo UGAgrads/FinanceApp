@@ -18,12 +18,26 @@
     <string name="hello_world">Hello world!</string>
     <string name="invalid_login_username">User Doesn\'t Exist!</string>
     <string name="title_activity_create_account">CreateAccountActivity</string>
+    <string name="enterAmount">Enter an amount:</string>
 
     <string-array name="account_types_array">
         <item>Brokerage</item>
         <item>Savings</item>
         <item>Checking</item>
         <item>Other</item>
+    </string-array>
+    
+     <string-array name="transaction_array">
+        <item>Deposit</item>
+        <item>Withdrawal</item>
+    </string-array>
+    
+    <string-array name="expense_category_array">
+        <item>Food</item>
+        <item>Rent</item>
+        <item>Entertainment</item>
+        <item>Clothing</item>
+        <item>Other</item> <!-- should we allow an other category? -->
     </string-array>
 
 </resources>

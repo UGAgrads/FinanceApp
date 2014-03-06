@@ -10,6 +10,10 @@ package com.UGAgrads.freddiefinance;
 public final class R {
     public static final class array {
         public static final int account_types_array=0x7f060000;
+        /**  should we allow an other category? 
+         */
+        public static final int expense_category_array=0x7f060002;
+        public static final int transaction_array=0x7f060001;
     }
     public static final class attr {
     }
@@ -36,7 +40,7 @@ public final class R {
         public static final int AccountHomeType=0x7f090002;
         public static final int ScrollView01=0x7f090000;
         public static final int accountTypeTextView=0x7f09000e;
-        public static final int action_settings=0x7f090021;
+        public static final int action_settings=0x7f090022;
         public static final int createActivityTitle=0x7f090007;
         public static final int createBalanceEditText=0x7f09000b;
         public static final int createBalanceTextView=0x7f09000a;
@@ -46,31 +50,33 @@ public final class R {
         public static final int createTitleEditText=0x7f090009;
         public static final int createTitleTextView=0x7f090008;
         public static final int create_type_spinner=0x7f09000f;
-        public static final int emailEditText=0x7f09001c;
-        public static final int emailTextView=0x7f09001b;
-        public static final int listView=0x7f090020;
-        public static final int loginButton=0x7f090019;
-        public static final int loginSubmit=0x7f090016;
-        public static final int loginSubmitText=0x7f090017;
-        public static final int loginTitle=0x7f090011;
-        public static final int password=0x7f090014;
-        public static final int passwordEditText=0x7f090015;
-        public static final int registerButton=0x7f09001a;
-        public static final int registerSubmit=0x7f09001d;
-        public static final int registerSubmitText=0x7f09001e;
-        public static final int userHomeTitle=0x7f09001f;
-        public static final int usernameEditText=0x7f090013;
-        public static final int usernameTextView=0x7f090012;
-        public static final int welcome=0x7f090018;
+        public static final int emailEditText=0x7f09001d;
+        public static final int emailTextView=0x7f09001c;
+        public static final int listView=0x7f090021;
+        public static final int loginButton=0x7f09001a;
+        public static final int loginSubmit=0x7f090017;
+        public static final int loginSubmitText=0x7f090018;
+        public static final int loginTitle=0x7f090012;
+        public static final int password=0x7f090015;
+        public static final int passwordEditText=0x7f090016;
+        public static final int registerButton=0x7f09001b;
+        public static final int registerSubmit=0x7f09001e;
+        public static final int registerSubmitText=0x7f09001f;
+        public static final int transaction_spinner=0x7f090011;
+        public static final int userHomeTitle=0x7f090020;
+        public static final int usernameEditText=0x7f090014;
+        public static final int usernameTextView=0x7f090013;
+        public static final int welcome=0x7f090019;
     }
     public static final class layout {
         public static final int activity_account_home=0x7f030000;
         public static final int activity_create_account=0x7f030001;
-        public static final int activity_login=0x7f030002;
-        public static final int activity_main=0x7f030003;
-        public static final int activity_register=0x7f030004;
-        public static final int activity_user_home=0x7f030005;
-        public static final int custom_list_item_1=0x7f030006;
+        public static final int activity_create_transaction=0x7f030002;
+        public static final int activity_login=0x7f030003;
+        public static final int activity_main=0x7f030004;
+        public static final int activity_register=0x7f030005;
+        public static final int activity_user_home=0x7f030006;
+        public static final int custom_list_item_1=0x7f030007;
     }
     public static final class menu {
         public static final int login=0x7f080000;
@@ -85,6 +91,7 @@ public final class R {
         public static final int button_login=0x7f050003;
         public static final int button_register=0x7f050004;
         public static final int email=0x7f05000a;
+        public static final int enterAmount=0x7f050011;
         public static final int hello_world=0x7f05000e;
         public static final int invalid_login_password=0x7f05000c;
         public static final int invalid_login_username=0x7f05000f;
