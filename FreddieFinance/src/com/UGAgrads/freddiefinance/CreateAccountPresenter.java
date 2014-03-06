@@ -63,20 +63,20 @@ public class CreateAccountPresenter {
 		String formatted = "$";
 		
 		if (!unformatted.contains(".")) {
-			return formatted + String.valueOf(Integer.valueOf(unformatted)); // necessary to get rid of leading zeros
+			return formatted + String.valueOf(Integer.valueOf(unformatted)) + ".00"; // necessary to get rid of leading zeros
 		}	
 		
 		if (unformatted.charAt(unformatted.length() - 1) == '.') { // means decimal at the end
-			return formatted + String.valueOf(Integer.valueOf(unformatted.substring(0, unformatted.length() - 1)));
+			return formatted + String.valueOf(Integer.valueOf(unformatted.substring(0, unformatted.length() - 1))) + ".00";
 		}
 		
 		String[] splitArray = unformatted.split("[.]"); 
 		
-		formatted += (splitArray[0].length() == 0) ? "0" :  String.valueOf(Integer.valueOf(splitArray[1]));
+		formatted += (splitArray[0].length() == 0) ? "0" :  String.valueOf(Integer.valueOf(splitArray[0]));
 		
 		formatted += ".";
 	
-		formatted += (splitArray[1].length() == 1) ? splitArray[1] + "0" :  splitArray[1].substring(0, 1);
+		formatted += (splitArray[1].length() == 1) ? splitArray[1] + "0" :  splitArray[1].substring(0, 2);
 		
 		return formatted;
 		
@@ -100,7 +100,7 @@ public class CreateAccountPresenter {
 			return FieldError.EMPTY_BALANCE;
 		}
 		Log.d("leSawce", "rate" + interestRate);
-		if(interestRate.equals(""))  {
+		if(interestRate.equals("%"))  {
 			
 			return FieldError.EMPTY_INTEREST;
 		}

@@ -54,6 +54,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.UGAgrads.freddiefinance.UserHomeActivity" />
         </activity>
+        <activity
+            android:name="com.UGAgrads.freddiefinance.AccountHomeActivity"
+            android:label="@string/title_activity_user_home"
+            android:parentActivityName="com.UGAgrads.freddiefinance.UserHomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.UGAgrads.freddiefinance.UserHomeActivity" />
+        </activity>
     </application>
 
 </manifest>
