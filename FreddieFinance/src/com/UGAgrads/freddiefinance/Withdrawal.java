@@ -2,11 +2,11 @@ package com.UGAgrads.freddiefinance;
 
 import android.text.format.DateFormat;
 
-public class Withdrawl extends Transaction {
+public class Withdrawal extends Transaction {
 	
 	private Expense moneyExpense;
 	
-	public Withdrawl(double amountTransfered, DateFormat dateEffective, User user, Account userAccount, Expense moneyExpense, String withdrawalDescription) {
+	public Withdrawal(double amountTransfered, DateFormat dateEffective, User user, Account userAccount, Expense moneyExpense, String withdrawalDescription) {
 		super(amountTransfered, dateEffective, user, userAccount, withdrawalDescription);
 		this.moneyExpense = moneyExpense;
 	}
@@ -14,7 +14,7 @@ public class Withdrawl extends Transaction {
 	public String getWithdrawalMoneyExpense(){
 		return moneyExpense.getValue();
 	}
-	
+
 	@Override
 	public String getSpendSourceInfo(){
 		return getWithdrawalMoneyExpense();

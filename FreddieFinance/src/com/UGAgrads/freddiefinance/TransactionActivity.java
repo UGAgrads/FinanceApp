@@ -39,6 +39,7 @@ public class TransactionActivity extends Activity {
 	
 	private void displayDepositFields() {
 		setContentView(R.layout.activity_transdeposit);
+		setUpSpinner2();
 		setUpButton();
 	}
 	
@@ -59,6 +60,19 @@ public class TransactionActivity extends Activity {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
 		spinner.setAdapter(adapter);
+	}
+	
+	private void setUpSpinner2() {
+		Spinner spinner2 = (Spinner) findViewById(R.id.money_source_spinner);
+		// Create an ArrayAdapter using the string array and a default spinner
+		// layout
+		ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
+				this, R.array.money_source_array,
+				android.R.layout.simple_spinner_item);
+		// Specify the layout to use when the list of choices appears
+		adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		// Apply the adapter to the spinner
+		spinner2.setAdapter(adapter2);
 	}
 	
 	private void setUpButton() {
@@ -88,14 +102,18 @@ public class TransactionActivity extends Activity {
 //					String err3 = "Must choose an expense category!";
 //					Toast.makeText(context, err3, Toast.LENGTH_SHORT).show();
 //					break;
-					
-				//cases can be changed to whatever fits with what the Presenter
-					//returns, these are just what i thought of off the top of my head
+//				case 3:
+//					String err4 = "Must choose an expense category!";
+//					Toast.makeText(context, err4, Toast.LENGTH_SHORT).show();
+//					break;
+//					
+//				//cases can be changed to whatever fits with what the Presenter
+//					//returns, these are just what i thought of off the top of my head
 //
 //				}
 //			}
 //		});
-		
+//		
 	}
 
 }

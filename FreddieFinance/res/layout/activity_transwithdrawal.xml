@@ -77,6 +77,24 @@
 		    android:layout_height="wrap_content"
 		    android:layout_below="@+id/expenseCategory" />
         
+        <TextView
+            android:id="@+id/dateEffective"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/expense_category_spinner"
+            android:layout_marginTop="12dp"
+            android:singleLine="true"
+            android:text="Date Effective:"
+            android:textColor="#005200"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/editDateEffective"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dateEffective"
+            android:hint="3/6/2014" />
+        
         <!-- <TextView
             android:id="@+id/updatingBalance"
             android:layout_width="wrap_content"
@@ -92,7 +110,7 @@
             android:id="@+id/withdrawSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/expense_category_spinner"
+            android:layout_below="@+id/editDateEffective"
             android:layout_marginTop="8dp"
             android:text="Add Withdrawal"
             android:textColor="#620000"
