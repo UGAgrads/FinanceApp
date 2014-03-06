@@ -6,10 +6,10 @@ import android.widget.Spinner;
 
 public class CreateAccountPresenter {
 	private static DatabaseHelper db;
-	public static String accountTitle; // which must be unique among other accounts
-	public static String balance; // will automatically get formatted to dollar amount
-	public static String interestRate; // will automatically be 0 or 100
-	public static String accountType; // foolproof ;)
+	public static String accountTitle; // must be unique among other accounts of same user
+	public static String balance; // will automatically get formatted to floored to two decimal dollar amount
+	public static String interestRate; 
+	public static String accountType; 
 	
 	
 	public static enum FieldError {
@@ -32,7 +32,7 @@ public class CreateAccountPresenter {
 		balance = formatBalance(balanceEditText.getText().toString());
 		
 		interestRate = ((EditText) activity
-				.findViewById(R.id.createInterestEditText)).getText().toString();
+				.findViewById(R.id.createInterestEditText)).getText().toString() + "%";
 		accountType = ((Spinner) activity
 				.findViewById(R.id.create_type_spinner)).getSelectedItem().toString();
 		FieldError err = checkFields();
@@ -48,6 +48,7 @@ public class CreateAccountPresenter {
 	
 	/**
 	 * This method formats a string in US dollars
+	 * (rounded down 2 decimal places with a dollar sign in front)
 	 * 
 	 * @param String string before being formatted
 	 * @return String string formatted as US currency
@@ -69,7 +70,7 @@ public class CreateAccountPresenter {
 			return formatted + String.valueOf(Integer.valueOf(unformatted.substring(0, unformatted.length() - 1)));
 		}
 		
-		String[] splitArray = unformatted.split("[.]");
+		String[] splitArray = unformatted.split("[.]"); 
 		
 		formatted += (splitArray[0].length() == 0) ? "0" :  String.valueOf(Integer.valueOf(splitArray[1]));
 		

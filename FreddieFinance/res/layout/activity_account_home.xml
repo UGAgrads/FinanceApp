@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -20,69 +20,65 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:singleLine="true"
-            android:text=""
+            android:text="Summer Savings"
             android:textColor="#006400"
-            android:textSize="20sp" />
+            android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/usernameTextView"
+            android:id="@+id/AccountHomeType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/AccountHomeTitle"
-            android:layout_marginTop="12dp"
+            android:layout_marginLeft="30dp"
+            android:layout_centerHorizontal="true"
             android:singleLine="true"
-            android:text=""
+            android:text="(Brokerage)"
             android:textColor="#005200"
-            android:textSize="15sp" />
-
-        <EditText
-            android:id="@+id/usernameEditText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/usernameTextView"
-            android:hint="@string/username"
-            android:inputType="text" />
+            android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/password"
-            android:layout_width="wrap_content"
+            android:id="@+id/AccountHomeBalance"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/usernameEditText"
-            android:layout_marginTop="4dp"
-            android:text="@string/password"
+            android:layout_below="@+id/AccountHomeType"
+            android:layout_marginTop="30dp"
+            android:text="Balance: $200.54"
             android:textColor="#000052"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/passwordEditText"
+        <TextView
+            android:id="@+id/AccountHomeInterestRate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/password"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:layout_below="@+id/AccountHomeBalance"
+            android:layout_marginTop="30dp"
+            android:text="Interest Rate: 67%"
+            android:textColor="#000052"
+            android:textSize="20sp" />
 
         <Button
-            android:id="@+id/loginSubmit"
+            android:id="@+id/AccountHomeTransactionHistoryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/password"
-            android:layout_below="@+id/passwordEditText"
-            android:layout_marginTop="8dp"
-            android:text="@string/login"
+            android:layout_below="@+id/AccountHomeInterestRate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:singleLine="true"
+            android:text="View Transaction History"
             android:textColor="#620000"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/loginSubmitText"
+        <Button
+            android:id="@+id/AccountHomeNewTransactionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/loginTitle"
-            android:layout_below="@+id/loginSubmit"
-            android:layout_marginTop="26dp"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/holo_red_dark" />
-
+            android:layout_below="@+id/AccountHomeTransactionHistoryButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:singleLine="true"
+            android:text="Create New Transaction"
+            android:textColor="#620000"
+            android:textSize="20sp" />
     </RelativeLayout>
 
 </ScrollView>
