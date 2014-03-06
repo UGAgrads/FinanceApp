@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,8 @@ public class TransactionActivity extends Activity {
 
 	boolean isDeposit;
 	private Context context;
+	String userAccountName;
+	Account userAccount;
 	
 	//putExtra with intent --> send a boolean
 	//then use that boolean to display either deposit or withdrawal
@@ -22,14 +25,18 @@ public class TransactionActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		context = this;
-		
+
+		DatabaseHelper db = new DatabaseHelper(context);
 		setContentView(R.layout.activity_create_transaction);
 
 		Intent intent = getIntent();
 		
 		isDeposit = intent.getExtras().getBoolean("isDeposit");
+		userAccountName = intent.getExtras().getString("account");
+
+		userAccount = db.getAccountByOwnerAndAccountName(LoginPresenter.loginUsername, userAccountName);
+		Log.d("mash", String.valueOf(userAccount == null));
 		
 		if (!isDeposit) {
 			displayWithdrawalFields();
@@ -80,40 +87,42 @@ public class TransactionActivity extends Activity {
 		Button addButton = (Button) findViewById(R.id.depositSubmit);
 		if (!isDeposit)
 			addButton = (Button) findViewById(R.id.withdrawSubmit);
-//		addButton.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				switch (CreateTransactionPresenter.verifyTransaction
-//						(TransactionActivity.this)) {
-//				case 0:
-//					String err0 = "Must enter an amount!";
-//					Toast.makeText(context, err0, Toast.LENGTH_SHORT).show();
-//					break;
-//				case 1:
-//					String err1 = "Must enter a source of money!";
-//					Toast.makeText(context, err1, Toast.LENGTH_SHORT).show();
-//					break;
-//				case 2:
-//					String err2 = "Must enter a reason for withdrawal!";
-//					Toast.makeText(context, err2, Toast.LENGTH_SHORT).show();
-//					break;
-//				case 3:
-//					String err3 = "Must choose an expense category!";
-//					Toast.makeText(context, err3, Toast.LENGTH_SHORT).show();
-//					break;
-//				case 3:
-//					String err4 = "Must choose an expense category!";
-//					Toast.makeText(context, err4, Toast.LENGTH_SHORT).show();
-//					break;
-//					
-//				//cases can be changed to whatever fits with what the Presenter
-//					//returns, these are just what i thought of off the top of my head
-//
-//				}
-//			}
-//		});
-//		
+		addButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Log.d("mash", String.valueOf(userAccount == null));
+				switch (CreateTransactionPresenter.verifyTransaction
+						(TransactionActivity.this, userAccount)) {
+				case 0:
+					String err0 = "Must enter an amount!";
+					Toast.makeText(context, err0, Toast.LENGTH_SHORT).show();
+					break;
+				case 1:
+					String err1 = "Must enter a source of money!";
+					Toast.makeText(context, err1, Toast.LENGTH_SHORT).show();
+					break;
+				case 2:
+					String err2 = "Must enter a reason for withdrawal!";
+					Toast.makeText(context, err2, Toast.LENGTH_SHORT).show();
+					break;
+				case 3:
+					String err3 = "Must choose an expense category!";
+					Toast.makeText(context, err3, Toast.LENGTH_SHORT).show();
+					break;
+				case 4:
+					String err4 = "Not enough money in your account!";
+					Toast.makeText(context, err4, Toast.LENGTH_SHORT).show();
+					break;
+				case 5:
+					CreateTransactionPresenter.makeTheTransaction(TransactionActivity.this);
+		            Toast.makeText(context, "Transaction successful", Toast.LENGTH_SHORT).show();
+					break;
+
+				}
+			}
+		});
+		
 	}
 
 }

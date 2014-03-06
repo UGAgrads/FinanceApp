@@ -235,7 +235,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public Account getAccountByOwnerAndAccountName(String ownerUsername, String accountName){
 		SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<Account> accounts = new ArrayList<Account>();
 		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] 
 				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTEREST_RATE},
 				KEY_OWNER + "=?", new String[] {ownerUsername}, null, null, null, null);
@@ -271,7 +270,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * @param accountName
 	 * @return Account if the account is found, null if it is not found
 	 */
-	public Account getAccountByAccountName(String accountName){
+	/*public Account getAccountByAccountName(String accountName){
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] 
 				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTEREST_RATE},
@@ -293,16 +292,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 		db.close();
 		return null;
-	}
+	}*/
 	
 	/**
 	 * Checks if there is an account by searching for account by account name
 	 * @param accountName
 	 * @return True if Account exists, False if not
 	 */
-	public boolean doesAccountExist(String accountName){
+	/*public boolean doesAccountExist(String accountName){
 		return (getAccountByAccountName(accountName) != null);
-	}
+	}*/
 	
 	/**
 	 * Checks if a specific user already has an account with a specific name

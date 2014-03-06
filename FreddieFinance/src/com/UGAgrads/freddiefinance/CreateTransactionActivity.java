@@ -3,19 +3,22 @@ package com.UGAgrads.freddiefinance;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 public class CreateTransactionActivity extends Activity {
+	
+	String accnt;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_transaction);
 		
+		Intent intent = getIntent();
+		accnt = intent.getExtras().getString("accountName");
 		setUpSpinner();
 	}
 	
@@ -46,12 +49,14 @@ public class CreateTransactionActivity extends Activity {
 	private void goToDeposit() {
 		Intent intent = new Intent(this, TransactionActivity.class);
 		intent.putExtra("isDeposit", true);
+		intent.putExtra("account", accnt);
 		startActivity(intent);
 	}
 	
 	private void goToWithdrawal() {
 		Intent intent = new Intent(this, TransactionActivity.class);
 		intent.putExtra("isDeposit", false);
+		intent.putExtra("account", accnt);
 		startActivity(intent);
 		
 	}

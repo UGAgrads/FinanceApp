@@ -35,6 +35,10 @@ public class Account {
 		return balance;
 	}
 	
+	public void setBalance(String value){
+		balance = value;
+	}
+	
 	public String getAccountName(){
 		return accountName;
 	}
@@ -51,6 +55,8 @@ public class Account {
 		return accountType;
 	}
 	
-	
+	public ArrayList<Transaction> getTransactions(){
+		return transactions;
+	}
 	
 }
