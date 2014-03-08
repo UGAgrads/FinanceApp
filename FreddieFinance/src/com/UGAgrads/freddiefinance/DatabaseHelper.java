@@ -143,22 +143,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public User getUserByUsername(String username){
 		SQLiteDatabase db = this.getReadableDatabase();
-		
 		Cursor cursor = db.query(TABLE_USERS, new String[] { KEY_USERNAME,
 				KEY_EMAIL, KEY_PASSWORD, KEY_ID}, KEY_USERNAME + "=?", 
 				new String[] {username}, null, null, null, null);
 		if(cursor != null){
-			cursor.moveToFirst();
-			try{
-				if(cursor.getString(0).toString().compareTo(username) == 0){
-					db.close();
-					return new User(cursor.getString(0).toString(), cursor.getString(1).toString(), cursor.getString(2).toString());	
-				}
-			}catch(CursorIndexOutOfBoundsException e){
+			if(cursor.moveToFirst()){
 				db.close();
-				return null;
-			}
-			
+				return new User(cursor.getString(0).toString(), cursor.getString(1).toString(), cursor.getString(2).toString());	
+			}	
 		}
 		db.close();
 		return null;
@@ -170,7 +162,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * @return True if account existed and was updated, else False
 	 */
 	public boolean updateUserInfo(User updatingUser){
-		
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(KEY_USERNAME, updatingUser.getUsername().toString());
+		values.put(KEY_PASSWORD, updatingUser.getPassword().toString());
+		values.put(KEY_EMAIL, updatingUser.getEmail().toString());
+		db.update(TABLE_USERS, values, KEY_USERNAME + "=?", new String[]{updatingUser.getUsername()});
 		return false;
 	}
 	
@@ -204,25 +201,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTEREST_RATE},
 				KEY_OWNER + "=?", new String[] {username}, null, null, null, null);
 		if(cursor != null){
-			cursor.moveToFirst();
-			try{
-				accounts.add(new Account(cursor.getString(0).toString(), cursor.getString(1).toString(), 
-						cursor.getString(2).toString(), cursor.getString(3).toString(), 
-						cursor.getString(4).toString()
-						));
-				while(cursor.moveToNext()){
-					accounts.add(new Account(cursor.getString(0).toString(), cursor.getString(1).toString(), 
-							cursor.getString(2).toString(), cursor.getString(3).toString(), 
-							cursor.getString(4).toString()
-							));
-				}
-				db.close();
-			}catch(CursorIndexOutOfBoundsException e){
-				db.close();
-				return accounts;
+			if(cursor.moveToFirst()){
+				accounts.add(new Account(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));
+			}
+			while(cursor.moveToNext()){
+				accounts.add(new Account(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));
+
 			}
 		}
-				
 		return accounts;
 		
 	}
@@ -237,71 +223,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] 
 				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTEREST_RATE},
-				KEY_OWNER + "=?", new String[] {ownerUsername}, null, null, null, null);
+				KEY_OWNER + "=? AND " + KEY_ACCOUNT_NAME + "=?" , new String[] {ownerUsername, accountName}, null, null, null, null);
 		if(cursor != null){
-			cursor.moveToFirst();
-			try{
-				if(cursor.getString(1).toString().compareTo(accountName) == 0)
-					return new Account(cursor.getString(0).toString(), cursor.getString(1).toString(), 
-							cursor.getString(2).toString(), cursor.getString(3).toString(), 
-							cursor.getString(4).toString()
-							);
-				while(cursor.moveToNext()){
-					if(cursor.getString(1).toString().compareTo(accountName) == 0)
-						return new Account(cursor.getString(0).toString(), cursor.getString(1).toString(), 
-								cursor.getString(2).toString(), cursor.getString(3).toString(), 
-								cursor.getString(4).toString()
-								);
-				}
+			if(cursor.moveToFirst()){
 				db.close();
-			}catch(CursorIndexOutOfBoundsException e){
-				db.close();
-				return null;
+				return new Account(cursor.getString(0).toString(), cursor.getString(1).toString(), 
+						cursor.getString(2).toString(), cursor.getString(3).toString(), 
+						cursor.getString(4).toString()
+						);
+				
 			}
 		}
 				
 		return null;
-		
 	}
 	
-	
-	/**
-	 * Tries to find the account in the Account Table by searching by account name
-	 * @param accountName
-	 * @return Account if the account is found, null if it is not found
-	 */
-	/*public Account getAccountByAccountName(String accountName){
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] 
-				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTEREST_RATE},
-				KEY_ACCOUNT_NAME + "=?", new String[] {accountName}, null, null, null, null);
-		if(cursor != null){
-			cursor.moveToFirst();
-			try{
-				if(cursor.getString(0).toString().compareTo(accountName) == 0){
-					db.close();
-					return new Account(cursor.getString(0).toString(), cursor.getString(1).toString(), 
-							cursor.getString(2).toString(), cursor.getString(3).toString(), 
-							cursor.getString(4).toString()
-							);
-				}
-			}catch(CursorIndexOutOfBoundsException e){
-				db.close();
-				return null;
-			}
-		}
-		db.close();
-		return null;
-	}*/
-	
-	/**
-	 * Checks if there is an account by searching for account by account name
-	 * @param accountName
-	 * @return True if Account exists, False if not
-	 */
-	/*public boolean doesAccountExist(String accountName){
-		return (getAccountByAccountName(accountName) != null);
-	}*/
 	
 	/**
 	 * Checks if a specific user already has an account with a specific name
@@ -313,29 +249,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] 
 				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTEREST_RATE},
-				KEY_OWNER + "=?", new String[] {owner}, null, null, null, null);
+				KEY_OWNER + "=? AND " + KEY_ACCOUNT_NAME + "=?", new String[] {owner, accountName}, null, null, null, null);
 		if(cursor != null){
-			cursor.moveToFirst();
-			try{
-			    if(cursor.getString(1).toString().compareTo(accountName) == 0){
+			if(cursor.moveToFirst()){
 				db.close();
 				return true;
-			    }
-			    while(cursor.moveToNext()){
-					if(cursor.getString(1).toString().compareTo(accountName) == 0){
-						db.close();
-						return true;
-					}
-			    }
-			}catch(CursorIndexOutOfBoundsException e){
-				db.close();
-				return false;
 			}
 		}
-		db.close();
-	    
-	    return false;
-	
+			db.close();
+			return false;
 	}
 	
 	
@@ -345,8 +267,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * @return True if account found and updated, else False
 	 */
 	public boolean updateAccountInfo(Account updatingAccount){
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(KEY_ACCOUNT_NAME, updatingAccount.getAccountName());
+		values.put(KEY_OWNER, updatingAccount.getAccountOwner());
+		values.put(KEY_ACCOUNT_TYPE, updatingAccount.getAccountType());
+		values.put(KEY_BALANCE, updatingAccount.getBalance());
+		values.put(KEY_INTEREST_RATE, updatingAccount.getInterestRate());
+		//Returns true if more than 0 rows were effected
+		return (db.update(TABLE_ACCOUNTS, values, KEY_OWNER + "=? AND " + KEY_ACCOUNT_NAME + "=?", 
+				new String[]{updatingAccount.getAccountOwner(), updatingAccount.getAccountName()}) > 0);
 		
-		return false;
 	}
 	
 	public void addNewTransactionToDatabase(Transaction newTransaction){
