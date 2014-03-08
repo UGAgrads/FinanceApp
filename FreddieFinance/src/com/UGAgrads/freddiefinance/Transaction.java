@@ -16,12 +16,12 @@ public abstract class Transaction {
 	
 
 	@SuppressLint("SimpleDateFormat")
-	Transaction(double amountTransfered, DateFormat dateEffective, User user, Account userAccount, String transactionDescription) {
+	Transaction(double amountTransfered, String dateEffective, User user, Account userAccount, String transactionDescription) {
 		Calendar c = Calendar.getInstance();
 		System.out.println("Current time => " + c.getTime());
 		SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
 		this.dateEntered = df.format(c.getTime());
-		this.dateEffective = df.format(dateEffective);
+		this.dateEffective = dateEffective;
 		this.quantity = amountTransfered;
 		this.user = user;
 		this.userAccount = userAccount;

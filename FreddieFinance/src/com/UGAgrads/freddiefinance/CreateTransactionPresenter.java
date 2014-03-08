@@ -15,8 +15,8 @@ public class CreateTransactionPresenter {
 	public static String sourceString;
 	public static String moneySource;
 	public static String withdrawReason;
-	public static Expense expenseCategory;
-	public static DateFormat dateEffective;
+	public static String expenseCategory;
+	public static String dateEffective;
 	public static DatabaseHelper db;
 	public static String transactionDescription = "";
 
@@ -26,7 +26,7 @@ public class CreateTransactionPresenter {
 		Log.d("mash", "made it");
 		userAccount = acct;
 		isDeposit = activity.isDeposit;
-		user = activity.getIntent().getExtras().getString("user");
+		user = userAccount.getAccountOwner();
 		// transactionDescription = ((EditText)
 		// activity.findViewById(R.id.transactionDescription)).getText().toString();
 		if (isDeposit) {
@@ -36,6 +36,8 @@ public class CreateTransactionPresenter {
 			moneySource = ((Spinner) activity
 					.findViewById(R.id.money_source_spinner)).getSelectedItem()
 					.toString();
+					
+			dateEffective = ((EditText) activity.findViewById(R.id.editDateEffective)).toString();
 		} else {
 			withdrawReason = ((EditText) activity
 					.findViewById(R.id.editWithdrawalReason)).getText()
@@ -43,6 +45,7 @@ public class CreateTransactionPresenter {
 			amount = ((EditText) activity
 					.findViewById(R.id.editTransWithdrawalAmount)).getText()
 					.toString();
+			dateEffective = ((EditText) activity.findViewById(R.id.editDateEffective)).toString();
 			// expenseCategory = Expense.((Spinner)
 			// activity.findViewById(R.id.expense_category_spinner)).getSelectedItem().toString();
 			if (Integer.parseInt(amount) > Integer.parseInt(acct.getBalance())) {
@@ -78,21 +81,21 @@ public class CreateTransactionPresenter {
 		return drawl;
 	}
 
-	public static void changeAccValues(Account acct, int amount,
+	public static void changeAccValues(Account acct, double amount,
 			boolean isDeposit) {
-		int res = 0;
+		double res = 0;
 		Log.d("mash", String.valueOf(acct == null));
-		int startValue = Integer.parseInt(acct.getBalance());
-		int modifier = (isDeposit) ? 1 : -1;
+		double startValue = (int) Double.parseDouble(acct.getBalance());
+		double modifier = (isDeposit) ? 1 : -1;
 		res = startValue + amount * modifier;
-		acct.setBalance(Integer.toString(res));
+		acct.setBalance(Double.toString(res));
+		
 	}
 
 	public static void saveTransaction(Transaction action, Account acct) {
-		//db.addNewTransactionToDatabase(action);
-		//db.updateAccountInfo(acct);
-//	^^	commented out until bind at index 1 error null is resolved ^^
-		acct.getTransactions().add(action);
+		db.addNewTransactionToDatabase(action);
+		db.updateAccountInfo(acct);
+		//update user info as well
 	}
 
 	public static void makeTheTransaction(TransactionActivity activity) {

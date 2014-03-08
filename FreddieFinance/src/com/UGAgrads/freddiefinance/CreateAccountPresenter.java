@@ -60,7 +60,7 @@ public class CreateAccountPresenter {
 			return "";
 		}
 		
-		String formatted = "$";
+		String formatted = "";
 		
 		if (!unformatted.contains(".")) {
 			return formatted + String.valueOf(Integer.valueOf(unformatted)) + ".00"; // necessary to get rid of leading zeros

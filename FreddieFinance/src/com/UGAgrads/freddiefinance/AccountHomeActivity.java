@@ -45,7 +45,7 @@ public class AccountHomeActivity extends Activity {
 		
 		accountHomeType.setText("(" + account.getAccountType() + ")");
 		
-		accountHomeBalance.setText("Balance: " + account.getBalance());
+		accountHomeBalance.setText("Balance: $" + account.getBalance());
 		
 		accountHomeInterestRate.setText("Interest Rate: " + account.getInterestRate());
 	}

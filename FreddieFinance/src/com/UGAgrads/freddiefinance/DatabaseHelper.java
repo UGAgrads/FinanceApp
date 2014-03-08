@@ -286,7 +286,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		values.put(KEY_USERNAME, newTransaction.getTransactionUsername());
 		values.put(KEY_ACCOUNT_NAME, newTransaction.getTransactionAccountName());
 		values.put(KEY_TRANSACTION_TYPE, newTransaction.getClass().toString());
-		values.put(KEY_TRANSACTION_AMMOUNT, newTransaction.getTransactionAmmount());
+		values.put(KEY_TRANSACTION_AMMOUNT, String.valueOf(newTransaction.getTransactionAmmount()));
 		values.put(KEY_DATE_ENTERED, newTransaction.getTransactionDateEntered());
 		values.put(KEY_DATE_EFFECTIVE, newTransaction.getTransactionDateEffective());
 		values.put(KEY_DESCRIPTION, newTransaction.getTransactionDescription());
