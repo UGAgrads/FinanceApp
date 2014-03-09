@@ -88,18 +88,17 @@
             android:textColor="#005200"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/editDateEffective"
-            android:layout_width="fill_parent"
+        <Button android:id="@+id/editDateEffective"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/dateEffective"
-            android:hint="3/6/2014" />
+            android:text="Pick a date" />
         
         <!-- <TextView
             android:id="@+id/updatingBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editTransDepositAmount"
+            android:layout_below="@+id/editDateEffective"
             android:layout_marginTop="4dp"
             android:text="Balance: "
             android:textColor="#005200"
@@ -108,7 +107,7 @@
 
         <Button
             android:id="@+id/withdrawSubmit"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editDateEffective"
             android:layout_marginTop="8dp"

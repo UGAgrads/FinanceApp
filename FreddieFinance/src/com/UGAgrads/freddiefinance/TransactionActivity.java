@@ -10,7 +10,9 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.app.DialogFragment;
 
 public class TransactionActivity extends Activity {
 
@@ -84,6 +86,36 @@ public class TransactionActivity extends Activity {
 	
 	private void setUpButton() {
 		
+		Button dateButton = (Button) findViewById(R.id.editDateEffective);
+		dateButton.setOnClickListener(new OnClickListener() {
+
+			DatePickerFragment d;
+			@Override
+			public void onClick(View arg0) {
+				d = new DatePickerFragment();
+				d.showDatePickerDialog(arg0);
+				updateDisplay();
+				displayToast();
+				
+			}
+			
+			private void updateDisplay() {
+				((Button) findViewById(R.id.editDateEffective)).setText(
+		            new StringBuilder()
+		                    .append(d.getMonth()).append("/")
+		                    .append(d.getDay()).append("/")
+		                    .append(d.getYear()).append(" "));
+		    }
+			/** Displays a notification when the date is updated */
+			private void displayToast() {
+		        Toast.makeText(context, new StringBuilder().append("Date choosen is ").
+		        		append((TextView)(findViewById(R.id.editDateEffective))).toString(),
+		        		Toast.LENGTH_SHORT).show();
+		             
+		    }
+		});
+		
+		//Adding a withdrawal or deposit
 		Button addButton = (Button) findViewById(R.id.depositSubmit);
 		if (!isDeposit)
 			addButton = (Button) findViewById(R.id.withdrawSubmit);
@@ -91,7 +123,6 @@ public class TransactionActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Log.d("mash", String.valueOf(userAccount == null));
 				switch (CreateTransactionPresenter.verifyTransaction
 						(TransactionActivity.this, userAccount)) {
 				case 0:
@@ -103,11 +134,11 @@ public class TransactionActivity extends Activity {
 					Toast.makeText(context, err1, Toast.LENGTH_SHORT).show();
 					break;
 				case 2:
-					String err2 = "Must enter a reason for withdrawal!";
+					String err2 = "Must choose a money source!";
 					Toast.makeText(context, err2, Toast.LENGTH_SHORT).show();
 					break;
 				case 3:
-					String err3 = "Must choose an expense category!";
+					String err3 = "Must enter a reason for withdrawal!";
 					Toast.makeText(context, err3, Toast.LENGTH_SHORT).show();
 					break;
 				case 4:
@@ -115,6 +146,9 @@ public class TransactionActivity extends Activity {
 					Toast.makeText(context, err4, Toast.LENGTH_SHORT).show();
 					break;
 				case 5:
+					String err5 = "Enter a date for this transaction!";
+					Toast.makeText(context, err5, Toast.LENGTH_SHORT).show();
+				case 6:
 					CreateTransactionPresenter.makeTheTransaction(TransactionActivity.this);
 		            Toast.makeText(context, "Transaction successful", Toast.LENGTH_SHORT).show();
 					break;

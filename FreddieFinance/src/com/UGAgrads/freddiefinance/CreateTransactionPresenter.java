@@ -3,6 +3,7 @@ package com.UGAgrads.freddiefinance;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -23,12 +24,9 @@ public class CreateTransactionPresenter {
 	public static int verifyTransaction(TransactionActivity activity,
 			Account acct) {
 		db = new DatabaseHelper(activity);
-		Log.d("mash", "made it");
 		userAccount = acct;
 		isDeposit = activity.isDeposit;
 		user = userAccount.getAccountOwner();
-		// transactionDescription = ((EditText)
-		// activity.findViewById(R.id.transactionDescription)).getText().toString();
 		if (isDeposit) {
 			amount = ((EditText) activity
 					.findViewById(R.id.editTransDepositAmount)).getText()
@@ -37,7 +35,9 @@ public class CreateTransactionPresenter {
 					.findViewById(R.id.money_source_spinner)).getSelectedItem()
 					.toString();
 					
-			dateEffective = ((EditText) activity.findViewById(R.id.editDateEffective)).toString();
+			dateEffective = ((Button) activity.findViewById(R.id.editDateEffective)).toString();
+			transactionDescription = ((EditText)
+					activity.findViewById(R.id.editTransactionDescription)).getText().toString();
 		} else {
 			withdrawReason = ((EditText) activity
 					.findViewById(R.id.editWithdrawalReason)).getText()
@@ -45,10 +45,11 @@ public class CreateTransactionPresenter {
 			amount = ((EditText) activity
 					.findViewById(R.id.editTransWithdrawalAmount)).getText()
 					.toString();
-			dateEffective = ((EditText) activity.findViewById(R.id.editDateEffective)).toString();
-			// expenseCategory = Expense.((Spinner)
-			// activity.findViewById(R.id.expense_category_spinner)).getSelectedItem().toString();
-			if (Integer.parseInt(amount) > Integer.parseInt(acct.getBalance())) {
+			transactionDescription = withdrawReason;
+			dateEffective = ((Button) activity.findViewById(R.id.editDateEffective)).toString();
+			expenseCategory = ((Spinner)
+			activity.findViewById(R.id.expense_category_spinner)).getSelectedItem().toString();
+			if (Double.parseDouble(amount) > Double.parseDouble(acct.getBalance())) {
 				return 4;
 			}
 		}
@@ -61,8 +62,10 @@ public class CreateTransactionPresenter {
 			}
 		} else if (withdrawReason.equals("")) {
 			return 3;
+		} else if (dateEffective.equals("")) {
+			return 5;
 		}
-		return 5;
+		return 6;
 	}
 
 	public static Transaction createDeposit(TransactionActivity activity) {
@@ -73,7 +76,7 @@ public class CreateTransactionPresenter {
 		return depo;
 	}
 
-	public static Transaction createWithdrawl(TransactionActivity activity) {
+	public static Transaction createWithdrawal(TransactionActivity activity) {
 		db = new DatabaseHelper(activity);
 		Withdrawal drawl = new Withdrawal(Double.parseDouble(amount),
 				dateEffective, db.getUserByUsername(user), userAccount,
@@ -84,7 +87,6 @@ public class CreateTransactionPresenter {
 	public static void changeAccValues(Account acct, double amount,
 			boolean isDeposit) {
 		double res = 0;
-		Log.d("mash", String.valueOf(acct == null));
 		double startValue = (int) Double.parseDouble(acct.getBalance());
 		double modifier = (isDeposit) ? 1 : -1;
 		res = startValue + amount * modifier;
@@ -103,7 +105,7 @@ public class CreateTransactionPresenter {
 		if (isDeposit) {
 			saveTransaction(createDeposit(activity), userAccount);
 		} else {
-			saveTransaction(createWithdrawl(activity), userAccount);
+			saveTransaction(createWithdrawal(activity), userAccount);
 		}
 	}
 }

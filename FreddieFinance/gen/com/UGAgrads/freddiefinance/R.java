@@ -41,7 +41,7 @@ public final class R {
         public static final int AccountHomeType=0x7f090002;
         public static final int ScrollView01=0x7f090000;
         public static final int accountTypeTextView=0x7f09000e;
-        public static final int action_settings=0x7f090032;
+        public static final int action_settings=0x7f090034;
         public static final int createActivityTitle=0x7f090007;
         public static final int createBalanceEditText=0x7f09000b;
         public static final int createBalanceTextView=0x7f09000a;
@@ -51,17 +51,18 @@ public final class R {
         public static final int createTitleEditText=0x7f090009;
         public static final int createTitleTextView=0x7f090008;
         public static final int create_type_spinner=0x7f09000f;
-        public static final int dateEffective=0x7f090025;
-        public static final int depositSubmit=0x7f090027;
-        public static final int editDateEffective=0x7f090026;
+        public static final int dateEffective=0x7f090027;
+        public static final int depositSubmit=0x7f090029;
+        public static final int editDateEffective=0x7f090028;
         public static final int editTransDepositAmount=0x7f090022;
-        public static final int editTransWithdrawalAmount=0x7f09002a;
-        public static final int editWithdrawalReason=0x7f09002c;
+        public static final int editTransWithdrawalAmount=0x7f09002c;
+        public static final int editTransactionDescription=0x7f090026;
+        public static final int editWithdrawalReason=0x7f09002e;
         public static final int emailEditText=0x7f09001d;
         public static final int emailTextView=0x7f09001c;
-        public static final int expenseCategory=0x7f09002d;
-        public static final int expense_category_spinner=0x7f09002e;
-        public static final int listView=0x7f090031;
+        public static final int expenseCategory=0x7f09002f;
+        public static final int expense_category_spinner=0x7f090030;
+        public static final int listView=0x7f090033;
         public static final int loginButton=0x7f09001a;
         public static final int loginSubmit=0x7f090017;
         public static final int loginSubmitText=0x7f090018;
@@ -75,15 +76,16 @@ public final class R {
         public static final int sourceOfMoney=0x7f090023;
         public static final int transDepositAmount=0x7f090021;
         public static final int transDepositTitle=0x7f090020;
-        public static final int transWithdrawalAmount=0x7f090029;
-        public static final int transWithdrawalTitle=0x7f090028;
+        public static final int transWithdrawalAmount=0x7f09002b;
+        public static final int transWithdrawalTitle=0x7f09002a;
+        public static final int transactionDescription=0x7f090025;
         public static final int transaction_spinner=0x7f090011;
-        public static final int userHomeTitle=0x7f090030;
+        public static final int userHomeTitle=0x7f090032;
         public static final int usernameEditText=0x7f090014;
         public static final int usernameTextView=0x7f090013;
         public static final int welcome=0x7f090019;
-        public static final int withdrawSubmit=0x7f09002f;
-        public static final int withdrawalReason=0x7f09002b;
+        public static final int withdrawSubmit=0x7f090031;
+        public static final int withdrawalReason=0x7f09002d;
     }
     public static final class layout {
         public static final int activity_account_home=0x7f030000;
