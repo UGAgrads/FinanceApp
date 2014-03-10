@@ -15,7 +15,7 @@ import android.widget.Toast;
 import android.app.DialogFragment;
 
 public class TransactionActivity extends Activity {
-
+	public static TransactionActivity transactionActivity;
 	boolean isDeposit;
 	private Context context;
 	String userAccountName;
@@ -26,6 +26,7 @@ public class TransactionActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		transactionActivity = this;
 		super.onCreate(savedInstanceState);
 		context = this;
 

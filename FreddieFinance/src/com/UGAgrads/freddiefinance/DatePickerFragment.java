@@ -28,6 +28,8 @@ public class DatePickerFragment extends DialogFragment implements
 		return new DatePickerDialog(getActivity(), this, year, month, day);
 	}
 	
+	
+	
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		this.year = year;
 		this.month = month;
@@ -37,10 +39,8 @@ public class DatePickerFragment extends DialogFragment implements
 	public void showDatePickerDialog(View v) {
 	    DialogFragment newFragment = new DatePickerFragment();
 	    Log.d("mashal", "activity null " + String.valueOf(getActivity()==null));
-	    newFragment.show(getActivity().getFragmentManager(), "datePicker");
-	    //not sure how to make this activity not null. also this should actually be
-	    //getSupportFragmentManager anyways but it gives an error bc apparently
-	    //its not supported. idk. sleep.
+	    newFragment.show(TransactionActivity.transactionActivity.getFragmentManager(), "datePicker");
+	    // added a static reference of TransactionActivty to itself in its class 
 	}
 	
 	public int getMonth() {
