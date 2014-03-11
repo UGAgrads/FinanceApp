@@ -80,6 +80,7 @@ public class CreateAccountActivity extends Activity {
 			}
 		});
 	}
+	
 
 	@Override
 	protected void onPause() {

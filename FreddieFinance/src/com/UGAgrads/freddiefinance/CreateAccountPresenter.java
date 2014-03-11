@@ -29,7 +29,7 @@ public class CreateAccountPresenter {
 
 		// this formats balance to dollar value
 		EditText balanceEditText = (EditText) activity.findViewById(R.id.createBalanceEditText);
-		balance = formatBalance(balanceEditText.getText().toString());
+		balance = balanceEditText.getText().toString();
 		
 		interestRate = ((EditText) activity
 				.findViewById(R.id.createInterestEditText)).getText().toString() + "%";
@@ -53,7 +53,7 @@ public class CreateAccountPresenter {
 	 * @param String string before being formatted
 	 * @return String string formatted as US currency
 	 */
-	private static String formatBalance(String unformatted) {
+	public static String formatBalance(String unformatted) {
 		
 		// covers invalid input
 		if (unformatted.equals(".") || unformatted.equals("")) {

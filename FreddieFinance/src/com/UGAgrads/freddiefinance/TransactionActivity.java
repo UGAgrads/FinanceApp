@@ -138,7 +138,7 @@ DatePickerDialog.OnDateSetListener {
 
 			@Override
 			public void onClick(View v) {
-				switch (CreateTransactionPresenter.verifyTransaction
+				switch (TransactionPresenter.verifyTransaction
 						(TransactionActivity.this, userAccount)) {
 				case 0:
 					String err0 = "Must enter an amount!";
@@ -149,7 +149,7 @@ DatePickerDialog.OnDateSetListener {
 					Toast.makeText(context, err1, Toast.LENGTH_SHORT).show();
 					break;
 				case 2:
-					String err2 = "Must choose a money source!";
+					String err2 = "Must enter a specific description of source!";
 					Toast.makeText(context, err2, Toast.LENGTH_SHORT).show();
 					break;
 				case 3:
@@ -163,8 +163,9 @@ DatePickerDialog.OnDateSetListener {
 				case 5:
 					String err5 = "Enter a date for this transaction!";
 					Toast.makeText(context, err5, Toast.LENGTH_SHORT).show();
+					break;
 				case 6:
-					CreateTransactionPresenter.makeTheTransaction(TransactionActivity.this);
+					TransactionPresenter.makeTheTransaction(TransactionActivity.this);
 		            Toast.makeText(context, "Transaction successful", Toast.LENGTH_SHORT).show();
 					break;
 

@@ -32,7 +32,7 @@ public class Account {
 	}
 	
 	public String getBalance(){
-		return balance;
+		return CreateAccountPresenter.formatBalance(balance);
 	}
 	
 	public void setBalance(String value){
@@ -58,5 +58,6 @@ public class Account {
 	public ArrayList<Transaction> getTransactions(){
 		return transactions;
 	}
+	
 	
 }

@@ -34,7 +34,7 @@ public class AccountHomeActivity extends Activity {
 		setupButtons();
 		
 	}
-	
+
 	private void setupViews() {
 		accountHomeTitle = (TextView) findViewById(R.id.AccountHomeTitle);
 		accountHomeType = (TextView) findViewById(R.id.AccountHomeType);

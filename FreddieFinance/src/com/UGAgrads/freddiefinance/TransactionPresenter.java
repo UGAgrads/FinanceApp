@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class CreateTransactionPresenter {
+public class TransactionPresenter {
 
 	public static boolean isDeposit;
 	public static Account userAccount;
@@ -35,7 +35,7 @@ public class CreateTransactionPresenter {
 					.findViewById(R.id.money_source_spinner)).getSelectedItem()
 					.toString();
 					
-			dateEffective = ((Button) activity.findViewById(R.id.editDateEffective)).toString();
+			dateEffective = ((Button) activity.findViewById(R.id.editDateEffective)).getText().toString();
 			transactionDescription = ((EditText)
 					activity.findViewById(R.id.editTransactionDescription)).getText().toString();
 		} else {
@@ -53,16 +53,18 @@ public class CreateTransactionPresenter {
 				return 4;
 			}
 		}
+		Log.d("leSawce", "dateEffective" + dateEffective);
 		if (amount.equals("")) {
 			return 0;
 		}
 		if (isDeposit) {
-			if (moneySource.equals("")) {
+			if (transactionDescription.equals("")) {
 				return 2;
 			}
 		} else if (withdrawReason.equals("")) {
 			return 3;
-		} else if (dateEffective.equals("")) {
+		} 
+		if (dateEffective.equals("Pick a date")) {
 			return 5;
 		}
 		return 6;
@@ -87,7 +89,7 @@ public class CreateTransactionPresenter {
 	public static void changeAccValues(Account acct, double amount,
 			boolean isDeposit) {
 		double res = 0;
-		double startValue = (int) Double.parseDouble(acct.getBalance());
+		double startValue = Double.parseDouble(acct.getBalance());
 		double modifier = (isDeposit) ? 1 : -1;
 		res = startValue + amount * modifier;
 		acct.setBalance(Double.toString(res));
@@ -101,7 +103,7 @@ public class CreateTransactionPresenter {
 	}
 
 	public static void makeTheTransaction(TransactionActivity activity) {
-		changeAccValues(userAccount, Integer.parseInt(amount), isDeposit);
+		changeAccValues(userAccount, Double.parseDouble(amount), isDeposit);
 		if (isDeposit) {
 			saveTransaction(createDeposit(activity), userAccount);
 		} else {
