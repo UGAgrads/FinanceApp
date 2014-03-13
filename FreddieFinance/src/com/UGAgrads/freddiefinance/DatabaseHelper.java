@@ -171,6 +171,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return false;
 	}
 	
+	public boolean deleteUserFromDatabase(User user){
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		return db.delete(TABLE_USERS, KEY_USERNAME + "=? AND " + KEY_PASSWORD + "=? AND " + KEY_EMAIL + "=?", 
+				new String[]{user.getUsername(), user.getPassword(), user.getEmail()}) > 0;
+		
+	}
+	
 	
 	/**
 	 * Used to add new Account to the Account Table of the database
@@ -280,6 +288,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 	}
 	
+	
+	public boolean deleteAccountFromDatabase(Account account){
+		SQLiteDatabase db = this.getWritableDatabase();
+		return db.delete(TABLE_ACCOUNTS, KEY_ACCOUNT_NAME + "=? AND " + KEY_OWNER + "=?" , 
+				new String[] {account.getAccountName(), account.getAccountOwner()}) > 0;
+	}
+	
 	public void addNewTransactionToDatabase(Transaction newTransaction){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -333,5 +348,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 		return transactionList;
 	}
+	
+	public ArrayList<Transaction> getAllAccountWithdrawals(String user){
+		ArrayList<Transaction> withdrawalList = new ArrayList<Transaction>();
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(TABLE_TRANSACTIONS, new String[] {KEY_USERNAME, KEY_ACCOUNT_NAME, KEY_TRANSACTION_TYPE,
+				KEY_TRANSACTION_AMMOUNT, KEY_DATE_ENTERED, KEY_DATE_EFFECTIVE, KEY_DESCRIPTION, KEY_SPEND_SOURCE},
+				KEY_USERNAME + "=? AND " + KEY_TRANSACTION_TYPE + "=?", new String[] {user, "Withdrawal"},
+				null, null, null, null);
+		if(cursor != null){
+			if(cursor.moveToFirst()){
+				withdrawalList.add(new Withdrawal(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
+						this.getUserByUsername(cursor.getString(0)),
+						this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
+						cursor.getString(7), cursor.getString(6)));
+				while(cursor.moveToNext()){
+					withdrawalList.add(new Withdrawal(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
+							this.getUserByUsername(cursor.getString(0)),
+							this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
+							cursor.getString(7), cursor.getString(6)));
+				}
+			}
+		}
+		return withdrawalList;
+	}
+	
+	
 	
 }
