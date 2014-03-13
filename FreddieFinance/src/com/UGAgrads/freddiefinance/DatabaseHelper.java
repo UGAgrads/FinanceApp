@@ -349,8 +349,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return transactionList;
 	}
 	
-	public ArrayList<Transaction> getAllAccountWithdrawals(String user){
-		ArrayList<Transaction> withdrawalList = new ArrayList<Transaction>();
+	public ArrayList<Withdrawal> getAllAccountWithdrawals(String user){
+		ArrayList<Withdrawal> withdrawalList = new ArrayList<Withdrawal>();
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_TRANSACTIONS, new String[] {KEY_USERNAME, KEY_ACCOUNT_NAME, KEY_TRANSACTION_TYPE,
 				KEY_TRANSACTION_AMMOUNT, KEY_DATE_ENTERED, KEY_DATE_EFFECTIVE, KEY_DESCRIPTION, KEY_SPEND_SOURCE},
@@ -364,6 +364,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 						cursor.getString(7), cursor.getString(6)));
 				while(cursor.moveToNext()){
 					withdrawalList.add(new Withdrawal(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
+							this.getUserByUsername(cursor.getString(0)),
+							this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
+							cursor.getString(7), cursor.getString(6)));
+				}
+			}
+		}
+		return withdrawalList;
+	}
+	
+	public ArrayList<Deposit> getAllAccountDeposits(String user){
+		ArrayList<Deposit> withdrawalList = new ArrayList<Deposit>();
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(TABLE_TRANSACTIONS, new String[] {KEY_USERNAME, KEY_ACCOUNT_NAME, KEY_TRANSACTION_TYPE,
+				KEY_TRANSACTION_AMMOUNT, KEY_DATE_ENTERED, KEY_DATE_EFFECTIVE, KEY_DESCRIPTION, KEY_SPEND_SOURCE},
+				KEY_USERNAME + "=? AND " + KEY_TRANSACTION_TYPE + "=?", new String[] {user, "Deposit"},
+				null, null, null, null);
+		if(cursor != null){
+			if(cursor.moveToFirst()){
+				withdrawalList.add(new Deposit(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
+						this.getUserByUsername(cursor.getString(0)),
+						this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
+						cursor.getString(7), cursor.getString(6)));
+				while(cursor.moveToNext()){
+					withdrawalList.add(new Deposit(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
 							this.getUserByUsername(cursor.getString(0)),
 							this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
 							cursor.getString(7), cursor.getString(6)));
