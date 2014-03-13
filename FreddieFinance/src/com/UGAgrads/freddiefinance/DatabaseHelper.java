@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 
 	private static final String DATABASE_NAME = "FreddieFinance.db";
 
@@ -71,9 +71,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
  	  
 	*/
 	
+	//Tables
+	private static UserTable userTable;
+	private static AccountTable accountTable;
+	private static TransactionTable transactionTable;
+	
 	
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		transactionTable = new TransactionTable();
+		userTable = transactionTable.getUserTable();
+		accountTable = transactionTable.getAccountTable();
 	}
 
 	@Override
@@ -107,6 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		//delets old table
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNTS);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTIONS);
 		
 		//implements new one
 		onCreate(db);
@@ -119,12 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public void addNewUserToDatabase(User newUser){
 		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(KEY_USERNAME, newUser.getUsername().toString());
-		values.put(KEY_PASSWORD, newUser.getPassword().toString());
-		values.put(KEY_EMAIL, newUser.getEmail().toString());
-		db.insert(TABLE_USERS, null, values);
-		db.close();
+		userTable.addNewUserToDatabase(db, newUser);
 	}
 	
 	/**
@@ -143,17 +147,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public User getUserByUsername(String username){
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_USERS, new String[] { KEY_USERNAME,
-				KEY_EMAIL, KEY_PASSWORD, KEY_ID}, KEY_USERNAME + "=?", 
-				new String[] {username}, null, null, null, null);
-		if(cursor != null){
-			if(cursor.moveToFirst()){
-				db.close();
-				return new User(cursor.getString(0).toString(), cursor.getString(1).toString(), cursor.getString(2).toString());	
-			}	
-		}
-		db.close();
-		return null;
+		return userTable.getUserByUsername(db, username);
 	}
 	
 	/**
@@ -163,20 +157,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public boolean updateUserInfo(User updatingUser){
 		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(KEY_USERNAME, updatingUser.getUsername().toString());
-		values.put(KEY_PASSWORD, updatingUser.getPassword().toString());
-		values.put(KEY_EMAIL, updatingUser.getEmail().toString());
-		db.update(TABLE_USERS, values, KEY_USERNAME + "=?", new String[]{updatingUser.getUsername()});
-		return false;
+		return userTable.updateUserInfo(db, updatingUser);
 	}
 	
+	/**
+	 * Deletes a user from the database
+	 * @param user User were looking to delete
+	 * @return True if account was deleted, else False
+	 */
 	public boolean deleteUserFromDatabase(User user){
 		SQLiteDatabase db = this.getWritableDatabase();
-		
-		return db.delete(TABLE_USERS, KEY_USERNAME + "=? AND " + KEY_PASSWORD + "=? AND " + KEY_EMAIL + "=?", 
-				new String[]{user.getUsername(), user.getPassword(), user.getEmail()}) > 0;
-		
+		return userTable.deleteUserFromDatabase(db, user);	
 	}
 	
 	
@@ -186,14 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public void addNewAccountToDatabase(Account newAccount){
 		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(KEY_ACCOUNT_NAME, newAccount.getAccountName());
-		values.put(KEY_OWNER, newAccount.getAccountOwner());
-		values.put(KEY_ACCOUNT_TYPE, newAccount.getAccountType());
-		values.put(KEY_BALANCE, newAccount.getBalance());
-		values.put(KEY_INTEREST_RATE, newAccount.getInterestRate());
-		db.insert(TABLE_ACCOUNTS, null, values);
-		db.close();
+		accountTable.addNewAccountToDatabase(db, newAccount);
 	}
 	
 	
@@ -204,20 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public ArrayList<Account> getAccountsByOwner(String username){
 		SQLiteDatabase db = this.getReadableDatabase();
-		ArrayList<Account> accounts = new ArrayList<Account>();
-		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] 
-				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTEREST_RATE},
-				KEY_OWNER + "=?", new String[] {username}, null, null, null, null);
-		if(cursor != null){
-			if(cursor.moveToFirst()){
-				accounts.add(new Account(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));
-			}
-			while(cursor.moveToNext()){
-				accounts.add(new Account(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));
-
-			}
-		}
-		return accounts;
+		return accountTable.getAccountsByOwner(db, username);
 		
 	}
 	
@@ -229,21 +200,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public Account getAccountByOwnerAndAccountName(String ownerUsername, String accountName){
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] 
-				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTEREST_RATE},
-				KEY_OWNER + "=? AND " + KEY_ACCOUNT_NAME + "=?" , new String[] {ownerUsername, accountName}, null, null, null, null);
-		if(cursor != null){
-			if(cursor.moveToFirst()){
-				db.close();
-				return new Account(cursor.getString(0).toString(), cursor.getString(1).toString(), 
-						cursor.getString(2).toString(), cursor.getString(3).toString(), 
-						cursor.getString(4).toString()
-						);
-				
-			}
-		}
-				
-		return null;
+		return accountTable.getAccountByOwnerAndAccountName(db, ownerUsername, accountName);
 	}
 	
 	
@@ -254,18 +211,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * @return True if account already exists by specified name, False if else
 	 */
 	public boolean doesAccountNameAlreadyExistForOwner(String accountName, String owner){
-	    SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_ACCOUNTS, new String[] 
-				{KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTEREST_RATE},
-				KEY_OWNER + "=? AND " + KEY_ACCOUNT_NAME + "=?", new String[] {owner, accountName}, null, null, null, null);
-		if(cursor != null){
-			if(cursor.moveToFirst()){
-				db.close();
-				return true;
-			}
-		}
-			db.close();
-			return false;
+		SQLiteDatabase db = this.getReadableDatabase();
+	    return accountTable.doesAccountNameAlreadyExistForOwner(db, accountName, owner);
 	}
 	
 	
@@ -276,125 +223,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public boolean updateAccountInfo(Account updatingAccount){
 		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(KEY_ACCOUNT_NAME, updatingAccount.getAccountName());
-		values.put(KEY_OWNER, updatingAccount.getAccountOwner());
-		values.put(KEY_ACCOUNT_TYPE, updatingAccount.getAccountType());
-		values.put(KEY_BALANCE, updatingAccount.getBalance());
-		values.put(KEY_INTEREST_RATE, updatingAccount.getInterestRate());
-		//Returns true if more than 0 rows were effected
-		return (db.update(TABLE_ACCOUNTS, values, KEY_OWNER + "=? AND " + KEY_ACCOUNT_NAME + "=?", 
-				new String[]{updatingAccount.getAccountOwner(), updatingAccount.getAccountName()}) > 0);
+		return accountTable.updateAccountInfo(db, updatingAccount);
 		
 	}
 	
 	
 	public boolean deleteAccountFromDatabase(Account account){
 		SQLiteDatabase db = this.getWritableDatabase();
-		return db.delete(TABLE_ACCOUNTS, KEY_ACCOUNT_NAME + "=? AND " + KEY_OWNER + "=?" , 
-				new String[] {account.getAccountName(), account.getAccountOwner()}) > 0;
+		return accountTable.deleteAccountFromDatabase(db, account);
 	}
 	
 	public void addNewTransactionToDatabase(Transaction newTransaction){
 		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(KEY_USERNAME, newTransaction.getTransactionUsername());
-		values.put(KEY_ACCOUNT_NAME, newTransaction.getTransactionAccountName());
-		values.put(KEY_TRANSACTION_TYPE, newTransaction.getClass().toString());
-		values.put(KEY_TRANSACTION_AMMOUNT, String.valueOf(newTransaction.getTransactionAmmount()));
-		values.put(KEY_DATE_ENTERED, newTransaction.getTransactionDateEntered());
-		values.put(KEY_DATE_EFFECTIVE, newTransaction.getTransactionDateEffective());
-		values.put(KEY_DESCRIPTION, newTransaction.getTransactionDescription());
-		values.put(KEY_SPEND_SOURCE, newTransaction.getSpendSourceInfo());	
-		db.insert(TABLE_TRANSACTIONS, null, values);
-		db.close();
+		transactionTable.addNewTransactionToDatabase(db, newTransaction);
 	}
 	
 	public ArrayList<Transaction> getTransactionsByOwnerAndAccountName(String owner, String accountName){
-		ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_TRANSACTIONS, new String[] {KEY_USERNAME, KEY_ACCOUNT_NAME, KEY_TRANSACTION_TYPE,
-				KEY_TRANSACTION_AMMOUNT, KEY_DATE_ENTERED, KEY_DATE_EFFECTIVE, KEY_DESCRIPTION, KEY_SPEND_SOURCE},
-				KEY_USERNAME + "=? AND " + KEY_ACCOUNT_NAME + "=?", new String[] {owner, accountName}, null, null, null, null);
-		if(cursor != null){
-			if(cursor.moveToFirst()){
-				if(cursor.getString(2).compareTo("Deposit") == 0){
-					transactionList.add(new Deposit(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
-							this.getUserByUsername(cursor.getString(0)),
-							this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
-							cursor.getString(7), cursor.getString(6)));
-				}else{
-					transactionList.add(new Withdrawal(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
-							this.getUserByUsername(cursor.getString(0)),
-							this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
-							cursor.getString(7), cursor.getString(6)));
-				}
-			}
-			while(cursor.moveToNext()){
-				if(cursor.getString(2).compareTo("Deposit") == 0){
-					transactionList.add(new Deposit(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
-							this.getUserByUsername(cursor.getString(0)),
-							this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
-							cursor.getString(7), cursor.getString(6)));
-				}else{
-					transactionList.add(new Withdrawal(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
-							this.getUserByUsername(cursor.getString(0)),
-							this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
-							cursor.getString(7), cursor.getString(6)));
-				}
-			}
-			
-		}
-		db.close();
-		return transactionList;
+		return transactionTable.getTransactionsByOwnerAndAccountName(db, owner, accountName);
 	}
 	
 	public ArrayList<Withdrawal> getAllAccountWithdrawals(String user){
-		ArrayList<Withdrawal> withdrawalList = new ArrayList<Withdrawal>();
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_TRANSACTIONS, new String[] {KEY_USERNAME, KEY_ACCOUNT_NAME, KEY_TRANSACTION_TYPE,
-				KEY_TRANSACTION_AMMOUNT, KEY_DATE_ENTERED, KEY_DATE_EFFECTIVE, KEY_DESCRIPTION, KEY_SPEND_SOURCE},
-				KEY_USERNAME + "=? AND " + KEY_TRANSACTION_TYPE + "=?", new String[] {user, "Withdrawal"},
-				null, null, null, null);
-		if(cursor != null){
-			if(cursor.moveToFirst()){
-				withdrawalList.add(new Withdrawal(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
-						this.getUserByUsername(cursor.getString(0)),
-						this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
-						cursor.getString(7), cursor.getString(6)));
-				while(cursor.moveToNext()){
-					withdrawalList.add(new Withdrawal(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
-							this.getUserByUsername(cursor.getString(0)),
-							this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
-							cursor.getString(7), cursor.getString(6)));
-				}
-			}
-		}
-		return withdrawalList;
+		return transactionTable.getAllAccountWithdrawals(db, user);
 	}
 	
 	public ArrayList<Deposit> getAllAccountDeposits(String user){
-		ArrayList<Deposit> withdrawalList = new ArrayList<Deposit>();
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(TABLE_TRANSACTIONS, new String[] {KEY_USERNAME, KEY_ACCOUNT_NAME, KEY_TRANSACTION_TYPE,
-				KEY_TRANSACTION_AMMOUNT, KEY_DATE_ENTERED, KEY_DATE_EFFECTIVE, KEY_DESCRIPTION, KEY_SPEND_SOURCE},
-				KEY_USERNAME + "=? AND " + KEY_TRANSACTION_TYPE + "=?", new String[] {user, "Deposit"},
-				null, null, null, null);
-		if(cursor != null){
-			if(cursor.moveToFirst()){
-				withdrawalList.add(new Deposit(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
-						this.getUserByUsername(cursor.getString(0)),
-						this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
-						cursor.getString(7), cursor.getString(6)));
-				while(cursor.moveToNext()){
-					withdrawalList.add(new Deposit(Double.parseDouble(cursor.getString(3)), cursor.getString(5),
-							this.getUserByUsername(cursor.getString(0)),
-							this.getAccountByOwnerAndAccountName(cursor.getString(0),cursor.getString(1)),
-							cursor.getString(7), cursor.getString(6)));
-				}
-			}
-		}
-		return withdrawalList;
+		return transactionTable.getAllAccountDeposits(db, user);
 	}
 	
 	
