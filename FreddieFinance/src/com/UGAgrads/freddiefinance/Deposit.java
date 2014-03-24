@@ -16,5 +16,7 @@ public class Deposit extends Transaction {
 		return mnySrc;
 	}
 
-
+	public String transactionType(){
+		return "Deposit";
+	}
 }

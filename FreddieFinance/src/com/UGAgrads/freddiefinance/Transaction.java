@@ -63,5 +63,9 @@ public abstract class Transaction {
 	public String getSpendSourceInfo(){
 		return "";
 	}
+	
+	public String transactionType(){
+		return "Transaction";
+	}
 
 }

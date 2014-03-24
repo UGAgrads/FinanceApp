@@ -58,9 +58,9 @@ public class HistoryPresenter {
 		
 		return withdrawal;
 	}
-	
+
 	public static double getTotalSpending() {
-		
+
 		ArrayList<Withdrawal> wd =
 				db.getAllAccountWithdrawals(LoginPresenter.loginUsername);
 		Log.d("mashal", String.valueOf(withdrawal));
@@ -70,7 +70,7 @@ public class HistoryPresenter {
 		Log.d("mashal", String.valueOf(withdrawal));
 		return withdrawal;
 	}
-	
+
 	private static double getFoodSpending() throws ParseException {
 		double foodSpending = 0;
 		ArrayList<Withdrawal> wd =
@@ -113,7 +113,7 @@ public class HistoryPresenter {
 			
 			if ((wdDate.after(startDate))
 					&& endDate.after(wdDate)) {
-				if (wd.get(i).getWithdrawalMoneyExpense().equals("Food")) {
+				if (wd.get(i).getWithdrawalMoneyExpense().equals("Rent")) {
 					spending += wd.get(i).getTransactionAmmount();
 				}
 			}		
@@ -138,7 +138,7 @@ public class HistoryPresenter {
 			
 			if ((wdDate.after(startDate))
 					&& endDate.after(wdDate)) {
-				if (wd.get(i).getWithdrawalMoneyExpense().equals("Food")) {
+				if (wd.get(i).getWithdrawalMoneyExpense().equals("Entertainment")) {
 					spending += wd.get(i).getTransactionAmmount();
 				}
 			}		
@@ -163,7 +163,7 @@ public class HistoryPresenter {
 			
 			if ((wdDate.after(startDate))
 					&& endDate.after(wdDate)) {
-				if (wd.get(i).getWithdrawalMoneyExpense().equals("Food")) {
+				if (wd.get(i).getWithdrawalMoneyExpense().equals("Clothing")) {
 					spending += wd.get(i).getTransactionAmmount();
 				}
 			}		

@@ -15,4 +15,7 @@ public class Withdrawal extends Transaction {
 		return moneyExpense;
 	}
 
+	public String transactionType(){
+		return "Withdrawal";
+	}
 }
