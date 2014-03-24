@@ -20,6 +20,7 @@
     <string name="title_activity_create_account">CreateAccountActivity</string>
     <string name="title_activity_create_trans">Create Transaction</string>
     <string name="title_activity_trans">Create Transaction</string>
+     <string name="title_activity_create_history">Transaction History</string>
     <string name="title_activity_account_home">Account Home</string>
     <string name="enterAmount">Enter an amount:</string>
 
@@ -44,7 +45,6 @@
         <item>Rent</item>
         <item>Entertainment</item>
         <item>Clothing</item>
-        <item>Other</item>
         <!-- should we allow an other category? -->
     </string-array>
 

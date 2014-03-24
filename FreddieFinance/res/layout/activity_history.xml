@@ -1,0 +1,161 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"    
+    android:background="@drawable/activity_main_selector"
+    tools:context=".HistoryActivity" >
+
+    <TextView
+        android:id="@+id/reportType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Spending Category Report for "
+        android:textColor="#000089"
+        android:textSize="20sp" />
+    
+    <TextView
+        android:id="@+id/timeInterval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/reportType"
+        android:text="--/--/---- to --/--/---- "
+        android:textColor="#000089"
+        android:textSize="20sp" />
+    
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:shrinkColumns="*" 
+            android:stretchColumns="*"
+            android:layout_below="@+id/timeInterval"  >
+            
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal"
+             android:background="#eee" >
+                            
+            <TextView
+                android:id="@+id/food" 
+                android:text="Food"
+                android:layout_weight="1"
+                android:textColor="#000089"
+                android:textSize="20sp"
+                android:padding="18dip" 
+                android:gravity="center"/>
+                     
+            <TextView
+                android:id="@+id/foodSpending" 
+                android:text="0.00"
+                android:layout_weight="1"
+                android:padding="18dip"
+                android:textColor="#000089"
+                android:textSize="20sp"
+                android:gravity="center"/>
+        </TableRow>
+        
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal"
+             android:background="#eee" >
+                            
+            <TextView
+                android:id="@+id/rent" 
+                android:text="Rent"
+                android:layout_weight="1"
+                android:textColor="#000089"
+                android:textSize="20sp"
+                android:padding="18dip" 
+                android:gravity="center"/>
+                     
+            <TextView
+                android:id="@+id/rentSpending" 
+                android:text="0.00"
+                android:layout_weight="1"
+                android:padding="18dip"
+                android:textColor="#000089"
+                android:textSize="20sp"
+                android:gravity="center"/>
+        </TableRow>
+        
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal"
+             android:background="#eee" >
+                            
+            <TextView
+                android:id="@+id/entertainment" 
+                android:text="Entertainment"
+                android:layout_weight="1"
+                android:textColor="#000089"
+                android:textSize="20sp"
+                android:padding="18dip" 
+                android:gravity="center"/>
+                     
+            <TextView
+                android:id="@+id/entertainmentSpending" 
+                android:text="0.00"
+                android:layout_weight="1"
+                android:padding="18dip"
+                android:textColor="#000089"
+                android:textSize="20sp"
+                android:gravity="center"/>
+        </TableRow>
+        
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal"
+             android:background="#eee" >
+                            
+            <TextView
+                android:id="@+id/clothing" 
+                android:text="Clothing"
+                android:layout_weight="1"
+                android:textColor="#000089"
+                android:textSize="20sp"
+                android:padding="18dip" 
+                android:gravity="center"/>
+                     
+            <TextView
+                android:id="@+id/clothingSpending" 
+                android:text="0.00"
+                android:layout_weight="1"
+                android:padding="18dip"
+                android:textColor="#000089"
+                android:textSize="20sp"
+                android:gravity="center"/>
+        </TableRow>
+        
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center_horizontal"
+             android:background="#eee" >
+                            
+            <TextView
+                android:id="@+id/Total" 
+                android:text="Total"
+                android:layout_weight="1"
+                android:textColor="#000089"
+                android:textSize="20sp"
+                android:padding="18dip" 
+                android:gravity="center"/>
+                     
+            <TextView
+                android:id="@+id/totalSpending" 
+                android:text="0.00"
+                android:layout_weight="1"
+                android:padding="18dip"
+                android:textColor="#000089"
+                android:textSize="20sp"
+                android:gravity="center"/>
+        </TableRow>
+            
+        </TableLayout>
+
+</RelativeLayout>

@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +29,7 @@ public class UserHomeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_home);
 		setupList();
+		setupTransHistoryButton();
 	}
 
 	private void setupList() {
@@ -104,4 +107,18 @@ public class UserHomeActivity extends Activity {
 			menu.add(3, 3, 3, "Open");
 		}
 	}
+
+	private void setupTransHistoryButton() {
+		Button hist = (Button) findViewById(R.id.transactionHistoryButton);
+		hist.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(UserHomeActivity.this,
+						CreateHistoryActivity.class);
+				startActivity(intent);
+			}
+		});
+	}
+
 }

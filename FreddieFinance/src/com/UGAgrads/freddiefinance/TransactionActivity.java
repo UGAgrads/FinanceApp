@@ -23,10 +23,7 @@ DatePickerDialog.OnDateSetListener {
 	private Context context;
 	String userAccountName;
 	Account userAccount;
-	
-	//putExtra with intent --> send a boolean
-	//then use that boolean to display either deposit or withdrawal
-	
+
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		String monthText = String.valueOf(month + 1);
 		String dayText = String.valueOf(day);
@@ -55,8 +52,7 @@ DatePickerDialog.OnDateSetListener {
 		userAccountName = intent.getExtras().getString("account");
 
 		userAccount = db.getAccountByOwnerAndAccountName(LoginPresenter.loginUsername, userAccountName);
-		Log.d("mash", String.valueOf(userAccount == null));
-		
+
 		if (!isDeposit) {
 			displayWithdrawalFields();
 		} else displayDepositFields();
@@ -101,21 +97,6 @@ DatePickerDialog.OnDateSetListener {
 		spinner2.setAdapter(adapter2);
 	}
 	
-//	private void updateDisplay() {
-//		((Button) findViewById(R.id.editDateEffective)).setText(
-//            new StringBuilder()
-//                    .append(d.getMonth()).append("/")
-//                    .append(d.getDay()).append("/")
-//                    .append(d.getYear()).append(" "));
-//    }
-	/** Displays a notification when the date is updated */
-//	private void displayToast() {
-//        Toast.makeText(context, new StringBuilder().append("Date choosen is ").
-//        		append((TextView)(findViewById(R.id.editDateEffective))).toString(),
-//        		Toast.LENGTH_SHORT).show();
-//             
-//    }
-	
 	private void setUpButton() {
 		
 		Button dateButton = (Button) findViewById(R.id.editDateEffective);
@@ -126,7 +107,6 @@ DatePickerDialog.OnDateSetListener {
 			public void onClick(View arg0) {
 				d = new DatePickerFragment();
 				d.showDatePickerDialog(arg0);
-				
 			}
 		});
 		

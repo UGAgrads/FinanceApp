@@ -42,7 +42,7 @@ public class DatePickerFragment extends DialogFragment  {
 	    newFragment.show(TransactionActivity.transactionActivity.getFragmentManager(), "datePicker");
 	    // added a static reference of TransactionActivty to itself in its class 
 	}
-	
+
 	public int getMonth() {
 		return month + 1;
 	}

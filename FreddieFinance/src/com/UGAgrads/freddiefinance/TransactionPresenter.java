@@ -53,7 +53,6 @@ public class TransactionPresenter {
 				return 4;
 			}
 		}
-		Log.d("leSawce", "dateEffective" + dateEffective);
 		if (amount.equals("")) {
 			return 0;
 		}
