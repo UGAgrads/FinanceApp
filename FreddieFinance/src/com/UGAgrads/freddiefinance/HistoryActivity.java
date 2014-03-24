@@ -15,16 +15,30 @@ public class HistoryActivity extends Activity {
 		
 		setContentView(R.layout.activity_history);
 		
+		HistoryPresenter.initDB(this);
+		
 		displaySpendingReport();
 	}
 	
 	private void displaySpendingReport() {
 		((TextView) findViewById(R.id.reportType)).setText(
-	            "Spending category report for " + "username" );
+	            "Spending category report" );
+		
 		startDate = getIntent().getExtras().getString("start");
 		endDate = getIntent().getExtras().getString("end");
 		((TextView) findViewById(R.id.timeInterval)).setText(
 	            startDate + " - " + endDate );
+		
+		((TextView) findViewById(R.id.foodSpending)).setText(
+	            String.valueOf(HistoryPresenter.getSpending(this, "Food")) );
+		((TextView) findViewById(R.id.rentSpending)).setText(
+				 String.valueOf(HistoryPresenter.getSpending(this, "Rent")) );
+		((TextView) findViewById(R.id.clothingSpending)).setText(
+				 String.valueOf(HistoryPresenter.getSpending(this, "Clothing")) );
+		((TextView) findViewById(R.id.entertainmentSpending)).setText(
+				 String.valueOf(HistoryPresenter.getSpending(this, "Entertainment")) );
+		((TextView) findViewById(R.id.totalSpending)).setText(
+				 String.valueOf(HistoryPresenter.getTotalSpending()) );
 	}
 	
 	public String getStartDate() {
@@ -34,4 +48,6 @@ public class HistoryActivity extends Activity {
 	public String getEndDate() {
 		return endDate;
 	}
+	
+	
 }

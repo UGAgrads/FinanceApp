@@ -80,7 +80,7 @@
         </activity>
         
         <activity
-            android:name="com.UGAgrads.freddiefinance.CreateHistoryActivity"
+            android:name="com.UGAgrads.freddiefinance.ReportDateActivity"
             android:label="@string/title_activity_create_history"
             android:parentActivityName="com.UGAgrads.freddiefinance.UserHomeActivity" >
             <meta-data
@@ -91,10 +91,10 @@
         <activity
             android:name="com.UGAgrads.freddiefinance.HistoryActivity"
             android:label="@string/title_activity_create_history"
-            android:parentActivityName="com.UGAgrads.freddiefinance.CreateHistoryActivity" >
+            android:parentActivityName="com.UGAgrads.freddiefinance.ReportDateActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.UGAgrads.freddiefinance.CreateHistoryActivity" />
+                android:value="com.UGAgrads.freddiefinance.ReportDateActivity" />
         </activity>
     </application>
 
