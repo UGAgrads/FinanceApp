@@ -31,7 +31,6 @@ class UserTable {
 		values.put(KEY_PASSWORD, newUser.getPassword().toString());
 		values.put(KEY_EMAIL, newUser.getEmail().toString());
 		db.insert(TABLE_USERS, null, values);
-		db.close();
 	}
 	
 	/**
@@ -46,11 +45,9 @@ class UserTable {
 				new String[] {username}, null, null, null, null);
 		if(cursor != null){
 			if(cursor.moveToFirst()){
-				db.close();
 				return new User(cursor.getString(0).toString(), cursor.getString(1).toString(), cursor.getString(2).toString());	
 			}	
 		}
-		db.close();
 		return null;
 	}
 	

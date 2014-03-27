@@ -11,7 +11,7 @@ public class Withdrawal extends Transaction {
 		this.moneyExpense = moneyExpense;
 	}
 	
-	public String getWithdrawalMoneyExpense(){
+	public String getSpendSourceInfo(){
 		return moneyExpense;
 	}
 

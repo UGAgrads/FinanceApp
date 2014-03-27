@@ -12,7 +12,7 @@ public class Deposit extends Transaction {
 		this.mnySrc = moneySource;
 	}
 	
-	public String getDepositMoneySource(){
+	public String getSpendSourceInfo(){
 		return mnySrc;
 	}
 

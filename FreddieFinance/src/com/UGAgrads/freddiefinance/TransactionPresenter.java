@@ -46,9 +46,9 @@ public class TransactionPresenter {
 					.findViewById(R.id.editTransWithdrawalAmount)).getText()
 					.toString();
 			transactionDescription = withdrawReason;
-			dateEffective = ((Button) activity.findViewById(R.id.editDateEffective)).toString();
+			dateEffective = ((Button) activity.findViewById(R.id.editDateEffective)).getText().toString();
 			expenseCategory = ((Spinner)
-			activity.findViewById(R.id.expense_category_spinner)).getSelectedItem().toString();
+					activity.findViewById(R.id.expense_category_spinner)).getSelectedItem().toString();
 			if (Double.parseDouble(amount) > Double.parseDouble(acct.getBalance())) {
 				return 4;
 			}

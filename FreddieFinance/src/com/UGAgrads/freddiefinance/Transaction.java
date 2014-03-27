@@ -19,7 +19,7 @@ public abstract class Transaction {
 	Transaction(double amountTransfered, String dateEffective, User user, Account userAccount, String transactionDescription) {
 		Calendar c = Calendar.getInstance();
 		System.out.println("Current time => " + c.getTime());
-		SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+		SimpleDateFormat df = new SimpleDateFormat("mm/dd/yyyy");
 		this.dateEntered = df.format(c.getTime());
 		this.dateEffective = dateEffective;
 		this.quantity = amountTransfered;

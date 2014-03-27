@@ -31,7 +31,6 @@ public class AccountTable {
 		values.put(KEY_BALANCE, newAccount.getBalance());
 		values.put(KEY_INTEREST_RATE, newAccount.getInterestRate());
 		db.insert(TABLE_ACCOUNTS, null, values);
-		db.close();
 	}
 	
 	
@@ -72,7 +71,6 @@ public class AccountTable {
 				KEY_OWNER + "=? AND " + KEY_ACCOUNT_NAME + "=?" , new String[] {ownerUsername, accountName}, null, null, null, null);
 		if(cursor != null){
 			if(cursor.moveToFirst()){
-				db.close();
 				return new Account(cursor.getString(0).toString(), cursor.getString(1).toString(), 
 						cursor.getString(2).toString(), cursor.getString(3).toString(), 
 						cursor.getString(4).toString()
@@ -98,11 +96,9 @@ public class AccountTable {
 				KEY_OWNER + "=? AND " + KEY_ACCOUNT_NAME + "=?", new String[] {owner, accountName}, null, null, null, null);
 		if(cursor != null){
 			if(cursor.moveToFirst()){
-				db.close();
 				return true;
 			}
 		}
-			db.close();
 			return false;
 	}
 	

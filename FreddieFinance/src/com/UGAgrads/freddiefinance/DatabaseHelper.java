@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 8;
 
 	private static final String DATABASE_NAME = "FreddieFinance.db";
 
@@ -129,6 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void addNewUserToDatabase(User newUser){
 		SQLiteDatabase db = this.getWritableDatabase();
 		userTable.addNewUserToDatabase(db, newUser);
+		db.close();
 	}
 	
 	/**
@@ -147,7 +148,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public User getUserByUsername(String username){
 		SQLiteDatabase db = this.getReadableDatabase();
-		return userTable.getUserByUsername(db, username);
+		User newUser = userTable.getUserByUsername(db, username);
+		db.close();
+		return newUser;
+		
 	}
 	
 	/**
@@ -157,7 +161,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public boolean updateUserInfo(User updatingUser){
 		SQLiteDatabase db = this.getWritableDatabase();
-		return userTable.updateUserInfo(db, updatingUser);
+		boolean updateSuccessful =  userTable.updateUserInfo(db, updatingUser);
+		db.close();
+		return updateSuccessful;
 	}
 	
 	/**
@@ -167,7 +173,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public boolean deleteUserFromDatabase(User user){
 		SQLiteDatabase db = this.getWritableDatabase();
-		return userTable.deleteUserFromDatabase(db, user);	
+		boolean deleteSuccessful = userTable.deleteUserFromDatabase(db, user);	
+		db.close();
+		return deleteSuccessful;
 	}
 	
 	
@@ -178,6 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void addNewAccountToDatabase(Account newAccount){
 		SQLiteDatabase db = this.getWritableDatabase();
 		accountTable.addNewAccountToDatabase(db, newAccount);
+		db.close();
 	}
 	
 	
@@ -188,8 +197,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public ArrayList<Account> getAccountsByOwner(String username){
 		SQLiteDatabase db = this.getReadableDatabase();
-		return accountTable.getAccountsByOwner(db, username);
-		
+		ArrayList<Account> ownerAccounts = accountTable.getAccountsByOwner(db, username);
+		db.close();
+		return ownerAccounts;		
 	}
 	
 	/**
@@ -200,7 +210,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public Account getAccountByOwnerAndAccountName(String ownerUsername, String accountName){
 		SQLiteDatabase db = this.getReadableDatabase();
-		return accountTable.getAccountByOwnerAndAccountName(db, ownerUsername, accountName);
+		Account newAccount = accountTable.getAccountByOwnerAndAccountName(db, ownerUsername, accountName);
+		db.close();
+		return newAccount;
 	}
 	
 	
@@ -212,7 +224,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public boolean doesAccountNameAlreadyExistForOwner(String accountName, String owner){
 		SQLiteDatabase db = this.getReadableDatabase();
-	    return accountTable.doesAccountNameAlreadyExistForOwner(db, accountName, owner);
+	    boolean doesExist = accountTable.doesAccountNameAlreadyExistForOwner(db, accountName, owner);
+	    db.close();
+	    return doesExist;
 	}
 	
 	
@@ -223,34 +237,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public boolean updateAccountInfo(Account updatingAccount){
 		SQLiteDatabase db = this.getWritableDatabase();
-		return accountTable.updateAccountInfo(db, updatingAccount);
+		boolean updatedInfo =  accountTable.updateAccountInfo(db, updatingAccount);
+		db.close();
+		return updatedInfo;
 		
 	}
 	
 	
 	public boolean deleteAccountFromDatabase(Account account){
 		SQLiteDatabase db = this.getWritableDatabase();
-		return accountTable.deleteAccountFromDatabase(db, account);
+		boolean accountDeleted =  accountTable.deleteAccountFromDatabase(db, account);
+		db.close();
+		return accountDeleted;
 	}
 	
 	public void addNewTransactionToDatabase(Transaction newTransaction){
 		SQLiteDatabase db = this.getWritableDatabase();
 		transactionTable.addNewTransactionToDatabase(db, newTransaction);
+		db.close();
+		
 	}
 	
 	public ArrayList<Transaction> getTransactionsByOwnerAndAccountName(String owner, String accountName){
 		SQLiteDatabase db = this.getReadableDatabase();
-		return transactionTable.getTransactionsByOwnerAndAccountName(db, owner, accountName);
+		ArrayList<Transaction> ownerTransactions =  transactionTable.getTransactionsByOwnerAndAccountName(db, owner, accountName);
+		db.close();
+		return ownerTransactions;
+		
 	}
 	
 	public ArrayList<Withdrawal> getAllAccountWithdrawals(String user){
 		SQLiteDatabase db = this.getReadableDatabase();
-		return transactionTable.getAllAccountWithdrawals(db, user);
+		ArrayList<Withdrawal> ownerWithdrawals = transactionTable.getAllAccountWithdrawals(db, user);
+		db.close();
+		return ownerWithdrawals;
 	}
 	
 	public ArrayList<Deposit> getAllAccountDeposits(String user){
 		SQLiteDatabase db = this.getReadableDatabase();
-		return transactionTable.getAllAccountDeposits(db, user);
+		ArrayList<Deposit> ownerDeposits = transactionTable.getAllAccountDeposits(db, user);
+		db.close();
+		return ownerDeposits;
 	}
 	
 	

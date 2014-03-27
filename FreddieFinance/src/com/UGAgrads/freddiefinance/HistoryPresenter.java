@@ -88,7 +88,7 @@ public class HistoryPresenter {
 			
 			if ((wdDate.after(startDate))
 					&& endDate.after(wdDate)) {
-				if (wd.get(i).getWithdrawalMoneyExpense().equals("Food")) {
+				if (wd.get(i).getSpendSourceInfo().equals("Food")) {
 					foodSpending += wd.get(i).getTransactionAmmount();
 				}
 			}		
@@ -113,7 +113,7 @@ public class HistoryPresenter {
 			
 			if ((wdDate.after(startDate))
 					&& endDate.after(wdDate)) {
-				if (wd.get(i).getWithdrawalMoneyExpense().equals("Rent")) {
+				if (wd.get(i).getSpendSourceInfo().equals("Rent")) {
 					spending += wd.get(i).getTransactionAmmount();
 				}
 			}		
@@ -138,7 +138,7 @@ public class HistoryPresenter {
 			
 			if ((wdDate.after(startDate))
 					&& endDate.after(wdDate)) {
-				if (wd.get(i).getWithdrawalMoneyExpense().equals("Entertainment")) {
+				if (wd.get(i).getSpendSourceInfo().equals("Entertainment")) {
 					spending += wd.get(i).getTransactionAmmount();
 				}
 			}		
@@ -163,7 +163,7 @@ public class HistoryPresenter {
 			
 			if ((wdDate.after(startDate))
 					&& endDate.after(wdDate)) {
-				if (wd.get(i).getWithdrawalMoneyExpense().equals("Clothing")) {
+				if (wd.get(i).getSpendSourceInfo().equals("Clothing")) {
 					spending += wd.get(i).getTransactionAmmount();
 				}
 			}		

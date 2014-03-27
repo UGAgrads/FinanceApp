@@ -48,7 +48,6 @@ public class TransactionTable {
 		values.put(KEY_DESCRIPTION, newTransaction.getTransactionDescription());
 		values.put(KEY_SPEND_SOURCE, newTransaction.getSpendSourceInfo());	
 		db.insert(TABLE_TRANSACTIONS, null, values);
-		db.close();
 	}
 	
 	
@@ -93,7 +92,6 @@ public class TransactionTable {
 			}
 			
 		}
-		db.close();
 		return transactionList;
 	}
 	
