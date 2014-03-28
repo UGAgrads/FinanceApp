@@ -57,22 +57,10 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/AccountHomeTransactionHistoryButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/AccountHomeInterestRate"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="35dp"
-            android:singleLine="true"
-            android:text="View Transaction History"
-            android:textColor="#620000"
-            android:textSize="20sp" />
-
-        <Button
             android:id="@+id/AccountHomeNewTransactionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/AccountHomeTransactionHistoryButton"
+            android:layout_below="@+id/AccountHomeInterestRate"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:singleLine="true"
