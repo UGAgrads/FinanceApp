@@ -1,5 +1,11 @@
 package com.UGAgrads.freddiefinance;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -52,14 +58,25 @@ public class ReportDateActivity extends Activity implements DatePickerFragmentK.
 		mCreateReport.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if ((startY > endY) || (startM > endM) || (startD > endD)) {
+				String startDate = startM + "/" + startD + "/" + startY;
+				String endDate = endM + "/" + endD + "/" + endY;
+				Date start = Calendar.getInstance().getTime();
+				Date end = Calendar.getInstance().getTime();
+				SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+				try {
+					start = df.parse(startDate);
+					end = df.parse(endDate);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if (start.compareTo(end) > 0) {
 					Toast.makeText(ReportDateActivity.this, "Please check your dates", 
 							Toast.LENGTH_SHORT).show();
 				} else {
 				
 					Intent intent = new Intent(ReportDateActivity.this, HistoryActivity.class);
-					String startDate = startM + "/" + startD + "/" + startY;
-					String endDate = endM + "/" + endD + "/" + endY;
 					intent.putExtra("start", startDate);
 					intent.putExtra("end", endDate);
 					startActivity(intent);

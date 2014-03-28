@@ -1,15 +1,17 @@
 package com.UGAgrads.freddiefinance;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.text.format.DateFormat;
 
 public abstract class Transaction {
 	double quantity;
-	String dateEntered;
-	String dateEffective;
+	Date dateEntered;
+	Date dateEffective;
 	Account userAccount;
 	User user;
 	String description;
@@ -19,16 +21,21 @@ public abstract class Transaction {
 	Transaction(double amountTransfered, String dateEffective, User user, Account userAccount, String transactionDescription) {
 		Calendar c = Calendar.getInstance();
 		System.out.println("Current time => " + c.getTime());
-		SimpleDateFormat df = new SimpleDateFormat("mm/dd/yyyy");
-		this.dateEntered = df.format(c.getTime());
-		this.dateEffective = dateEffective;
+		SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		this.dateEntered = c.getTime();
+		try {
+			this.dateEffective = df.parse(dateEffective);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.quantity = amountTransfered;
 		this.user = user;
 		this.userAccount = userAccount;
 		this.description = transactionDescription;
 	}
 	
-	public double getTransactionAmmount(){
+	public double getTransactionAmount(){
 		return quantity;
 	}
 	
@@ -48,24 +55,24 @@ public abstract class Transaction {
 		return userAccount.getAccountName();
 	}
 	
-	public String getTransactionDateEntered(){
+	public Date getTransactionDateEntered(){
 		return dateEntered;
 	}
 	
-	public String getTransactionDateEffective(){
+	public Date getTransactionDateEffective(){
 		return dateEffective;
 	}
 	
 	public String getTransactionDescription(){
 		return description;
 	}
-	
-	public String getSpendSourceInfo(){
-		return "";
-	}
-	
+
 	public String transactionType(){
 		return "Transaction";
+	}
+
+	public String getSpendSourceInfo() {
+		return "";
 	}
 
 }

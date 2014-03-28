@@ -4,170 +4,63 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import android.util.Log;
 
 public class HistoryPresenter {
 
-	private static ArrayList<String> accountsList;
-	private static DatabaseHelper db;
+	private ArrayList<String> accountsList;
+	private DatabaseHelper db;
 	private HistoryActivity activity;
-	private static String start, end;
-	private static double withdrawal;
+	private Date start, end;
+	private double withdrawal;
+	private SimpleDateFormat format;
 	
-	public static void initDB(HistoryActivity activity) {
+	public HistoryPresenter(HistoryActivity activity) {
 		db = new DatabaseHelper(activity);
 	}
 
-	public static double getSpending(HistoryActivity histAct, String category) {
-		start = histAct.getStartDate();
-		end = histAct.getEndDate();
-		
-		if (category.equalsIgnoreCase("food")) {
-			try {
-				return getFoodSpending();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if (category.equalsIgnoreCase("rent")) {
-			try {
-				return getRentSpending();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if (category.equalsIgnoreCase("clothing")) {
-			try {
-				return getClothingSpending();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if (category.equalsIgnoreCase("entertainment")) {
-			try {
-				return getEntertainmentSpending();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	public double getSpending(HistoryActivity histAct, String category) {
+		format = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+		try {
+			start = format.parse(histAct.getStartDate());
+			end = format.parse(histAct.getEndDate());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
+		ArrayList<Withdrawal> wdList = db.getAllAccountWithdrawals(LoginPresenter.loginUsername);
+		withdrawal = 0;
+		for(int i = 0; i < wdList.size(); i++) {
+			String wdCat = wdList.get(i).getSpendSourceInfo();
+			if (wdCat.equalsIgnoreCase(category)) {
+				if (wdList.get(i).getTransactionDateEffective().compareTo(start) >=0
+						&& wdList.get(i).getTransactionDateEffective().compareTo(end) <=0) {
+					withdrawal += wdList.get(i).getTransactionAmount();
+				}
+			}
+		}
+		if (category.equalsIgnoreCase("total")) {
+			return getTotalSpending();
+		}
 		return withdrawal;
 	}
 
-	public static double getTotalSpending() {
+	private double getTotalSpending() {
+		ArrayList<Withdrawal> wdList = db.getAllAccountWithdrawals(LoginPresenter.loginUsername);
+		double total = 0;
+		
+		for(int i = 0; i < wdList.size(); i++) {
+			Date wdDate = wdList.get(i).getTransactionDateEffective();
+			if (wdDate.compareTo(start) >= 0
+					&& wdDate.compareTo(end) <= 0) {
+				total += wdList.get(i).getTransactionAmount();
+			}
+		}
 
-		ArrayList<Withdrawal> wd =
-				db.getAllAccountWithdrawals(LoginPresenter.loginUsername);
-		Log.d("mashal", String.valueOf(withdrawal));
-		for(int i = 0; i < wd.size(); i++) {
-			withdrawal += wd.get(i).getTransactionAmmount();
-		}
-		Log.d("mashal", String.valueOf(withdrawal));
-		return withdrawal;
+		return total;
 	}
 
-	private static double getFoodSpending() throws ParseException {
-		double foodSpending = 0;
-		ArrayList<Withdrawal> wd =
-				db.getAllAccountWithdrawals(LoginPresenter.loginUsername);
-		for(int i = 0; i < wd.size(); i++) {
-			String dateWD = wd.get(i).getTransactionDateEffective();
-			SimpleDateFormat sdfWD = new SimpleDateFormat("mm/dd/yyyy");
-			Date wdDate = sdfWD.parse(dateWD);
-			
-			SimpleDateFormat endSdf = new SimpleDateFormat("mm/dd/yyyy");
-			Date endDate = endSdf.parse(end);
-			
-			SimpleDateFormat startSdf = new SimpleDateFormat("mm/dd/yyyy");
-			Date startDate = startSdf.parse(start);
-			
-			if ((wdDate.after(startDate))
-					&& endDate.after(wdDate)) {
-				if (wd.get(i).getSpendSourceInfo().equals("Food")) {
-					foodSpending += wd.get(i).getTransactionAmmount();
-				}
-			}		
-		}
-		return foodSpending;
-	}
-	
-	private static double getRentSpending() throws ParseException {
-		double spending = 0;
-		ArrayList<Withdrawal> wd =
-				db.getAllAccountWithdrawals(LoginPresenter.loginUsername);
-		for(int i = 0; i < wd.size(); i++) {
-			String dateWD = wd.get(i).getTransactionDateEffective();
-			SimpleDateFormat sdfWD = new SimpleDateFormat("mm/dd/yyyy");
-			Date wdDate = sdfWD.parse(dateWD);
-			
-			SimpleDateFormat endSdf = new SimpleDateFormat("mm/dd/yyyy");
-			Date endDate = endSdf.parse(end);
-			
-			SimpleDateFormat startSdf = new SimpleDateFormat("mm/dd/yyyy");
-			Date startDate = startSdf.parse(start);
-			
-			if ((wdDate.after(startDate))
-					&& endDate.after(wdDate)) {
-				if (wd.get(i).getSpendSourceInfo().equals("Rent")) {
-					spending += wd.get(i).getTransactionAmmount();
-				}
-			}		
-		}
-		return spending;
-	}
-	
-	private static double getEntertainmentSpending() throws ParseException {
-		double spending = 0;
-		ArrayList<Withdrawal> wd =
-				db.getAllAccountWithdrawals(LoginPresenter.loginUsername);
-		for(int i = 0; i < wd.size(); i++) {
-			String dateWD = wd.get(i).getTransactionDateEffective();
-			SimpleDateFormat sdfWD = new SimpleDateFormat("mm/dd/yyyy");
-			Date wdDate = sdfWD.parse(dateWD);
-			
-			SimpleDateFormat endSdf = new SimpleDateFormat("mm/dd/yyyy");
-			Date endDate = endSdf.parse(end);
-			
-			SimpleDateFormat startSdf = new SimpleDateFormat("mm/dd/yyyy");
-			Date startDate = startSdf.parse(start);
-			
-			if ((wdDate.after(startDate))
-					&& endDate.after(wdDate)) {
-				if (wd.get(i).getSpendSourceInfo().equals("Entertainment")) {
-					spending += wd.get(i).getTransactionAmmount();
-				}
-			}		
-		}
-		return spending;
-	}
-	
-	private static double getClothingSpending() throws ParseException {
-		double spending = 0;
-		ArrayList<Withdrawal> wd =
-				db.getAllAccountWithdrawals(LoginPresenter.loginUsername);
-		for(int i = 0; i < wd.size(); i++) {
-			String dateWD = wd.get(i).getTransactionDateEffective();
-			SimpleDateFormat sdfWD = new SimpleDateFormat("mm/dd/yyyy");
-			Date wdDate = sdfWD.parse(dateWD);
-			
-			SimpleDateFormat endSdf = new SimpleDateFormat("mm/dd/yyyy");
-			Date endDate = endSdf.parse(end);
-			
-			SimpleDateFormat startSdf = new SimpleDateFormat("mm/dd/yyyy");
-			Date startDate = startSdf.parse(start);
-			
-			if ((wdDate.after(startDate))
-					&& endDate.after(wdDate)) {
-				if (wd.get(i).getSpendSourceInfo().equals("Clothing")) {
-					spending += wd.get(i).getTransactionAmmount();
-				}
-			}		
-		}
-		return spending;
-	}
 }

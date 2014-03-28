@@ -1,5 +1,7 @@
 package com.UGAgrads.freddiefinance;
 
+import java.text.ParseException;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -15,8 +17,6 @@ public class HistoryActivity extends Activity {
 		
 		setContentView(R.layout.activity_history);
 		
-		HistoryPresenter.initDB(this);
-		
 		displaySpendingReport();
 	}
 	
@@ -28,17 +28,17 @@ public class HistoryActivity extends Activity {
 		endDate = getIntent().getExtras().getString("end");
 		((TextView) findViewById(R.id.timeInterval)).setText(
 	            startDate + " - " + endDate );
-		
+		HistoryPresenter hp = new HistoryPresenter(this);
 		((TextView) findViewById(R.id.foodSpending)).setText(
-	            String.valueOf(HistoryPresenter.getSpending(this, "Food")) );
+	            String.valueOf(hp.getSpending(this, "Food")) );
 		((TextView) findViewById(R.id.rentSpending)).setText(
-				 String.valueOf(HistoryPresenter.getSpending(this, "Rent")) );
+				 String.valueOf(hp.getSpending(this, "Rent")) );
 		((TextView) findViewById(R.id.clothingSpending)).setText(
-				 String.valueOf(HistoryPresenter.getSpending(this, "Clothing")) );
+				 String.valueOf(hp.getSpending(this, "Clothing")) );
 		((TextView) findViewById(R.id.entertainmentSpending)).setText(
-				 String.valueOf(HistoryPresenter.getSpending(this, "Entertainment")) );
+				 String.valueOf(hp.getSpending(this, "Entertainment")) );
 		((TextView) findViewById(R.id.totalSpending)).setText(
-				 String.valueOf(HistoryPresenter.getTotalSpending()) );
+					 String.valueOf(hp.getSpending(this, "Total")) );
 	}
 	
 	public String getStartDate() {
