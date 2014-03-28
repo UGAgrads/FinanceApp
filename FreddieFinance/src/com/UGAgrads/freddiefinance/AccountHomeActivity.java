@@ -51,17 +51,8 @@ public class AccountHomeActivity extends Activity {
 	}
 	
 	private void setupButtons() {	
-		historyButton = (Button) findViewById(R.id.AccountHomeTransactionHistoryButton);
 		createTransactionButton = (Button) findViewById(R.id.AccountHomeNewTransactionButton);
-		
-		historyButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-					//TODO insert code for launching transaction history activity				
-				}
 
-		});
-		
 		createTransactionButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

@@ -1,6 +1,8 @@
 package com.UGAgrads.freddiefinance;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -42,9 +44,11 @@ public class TransactionTable {
 		values.put(KEY_USERNAME, newTransaction.getTransactionUsername());
 		values.put(KEY_ACCOUNT_NAME, newTransaction.getTransactionAccountName());
 		values.put(KEY_TRANSACTION_TYPE, newTransaction.transactionType());
-		values.put(KEY_TRANSACTION_AMMOUNT, String.valueOf(newTransaction.getTransactionAmmount()));
-		values.put(KEY_DATE_ENTERED, newTransaction.getTransactionDateEntered());
-		values.put(KEY_DATE_EFFECTIVE, newTransaction.getTransactionDateEffective());
+		values.put(KEY_TRANSACTION_AMMOUNT, String.valueOf(newTransaction.getTransactionAmount()));
+		values.put(KEY_DATE_ENTERED,
+				new SimpleDateFormat("MM/dd/yyyy", Locale.US).format(newTransaction.getTransactionDateEntered()));
+		values.put(KEY_DATE_EFFECTIVE,
+				new SimpleDateFormat("MM/dd/yyyy", Locale.US).format(newTransaction.getTransactionDateEffective()));
 		values.put(KEY_DESCRIPTION, newTransaction.getTransactionDescription());
 		values.put(KEY_SPEND_SOURCE, newTransaction.getSpendSourceInfo());	
 		db.insert(TABLE_TRANSACTIONS, null, values);
