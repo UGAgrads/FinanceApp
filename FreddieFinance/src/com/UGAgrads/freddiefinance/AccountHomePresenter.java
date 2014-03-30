@@ -1,12 +1,22 @@
 package com.UGAgrads.freddiefinance;
 
+/**
+ * @author
+ */
 public class AccountHomePresenter {
 	
-	private static DatabaseHelper db;
+    /** FILL THIS IN! */
+    private static DatabaseHelper db;
 	
-	public static Account getAccount(AccountHomeActivity activity, String accountName, String username) {
-		db = new DatabaseHelper(activity);
-		return db.getAccountByOwnerAndAccountName(username, accountName);
-	}
+	/**
+	 * @param activity FILL THIS IN!
+	 * @param accountName FILL THIS IN!
+	 * @param username FILL THIS IN!
+	 * @return FILL THIS IN!
+	 */
+    public static Account getAccount(AccountHomeActivity activity, String accountName, String username) {
+        db = new DatabaseHelper(activity);
+        return db.getAccountByOwnerAndAccountName(username, accountName);
+    }
 
 }

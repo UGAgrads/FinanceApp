@@ -7,7 +7,7 @@ import android.widget.Spinner;
 /**
  * @author
  */
-public class TransactionPresenter {
+class TransactionPresenter {
     
     /**
      * 
@@ -192,3 +192,4 @@ public class TransactionPresenter {
         }
     }
 }
+

@@ -1,22 +1,37 @@
 package com.UGAgrads.freddiefinance;
 
-import android.text.format.DateFormat;
-
+/**
+ * @author
+ */
 public class Deposit extends Transaction {
 	
-	private String mnySrc;
+    /** FILL THIS IN! */
+    private String spendSourceInfo;
 	
-
-	Deposit(double amountTransfered, String dateEffective, User user, Account userAccount, String moneySource, String depositDescription) {
+	/**
+	 * @param amountTransfered FILL THIS IN!
+	 * @param dateEffective FILL THIS IN!
+	 * @param user FILL THIS IN!
+	 * @param userAccount FILL THIS IN!
+	 * @param moneySource FILL THIS IN!
+	 * @param depositDescription FILL THIS IN!
+	 */
+    Deposit(double amountTransfered, String dateEffective, User user, Account userAccount, String moneySource, String depositDescription) {
 		super(amountTransfered, dateEffective, user, userAccount, depositDescription);
-		this.mnySrc = moneySource;
-	}
+        this.spendSourceInfo = moneySource;
+    }
 	
-	public String getSpendSourceInfo(){
-		return mnySrc;
-	}
+	/**
+	 * @return FILL THIS IN!
+	 */
+    public String getSpendSourceInfo() {
+        return spendSourceInfo;
+    }
 
-	public String transactionType(){
-		return "Deposit";
-	}
+	/**
+	 * @return  FILL THIS IN!
+	 */
+    public String transactionType() {
+        return "Deposit";
+    }
 }
