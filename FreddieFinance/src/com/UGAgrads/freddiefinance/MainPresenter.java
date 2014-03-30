@@ -3,9 +3,7 @@ package com.UGAgrads.freddiefinance;
 import android.app.Activity;
 
 /**
- * 
- * @author Brandon
- *
+ * @author
  */
 public class MainPresenter {
 	

@@ -8,74 +8,83 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * @author
+ */
 public class AccountHomeActivity extends Activity {
-	//Fields
-	private String username;
-	private String accountTitle;
-	private Account account;
 	
-	//Views
-	private TextView accountHomeTitle, accountHomeType, accountHomeBalance,
-		accountHomeInterestRate;
+	/** FILL THIS IN! */
+    private String username;
+	/** FILL THIS IN! */
+    private String accountTitle;
+	/** FILL THIS IN! */
+    private Account account;
 	
-	private Button createTransactionButton;
+	/** FILL THIS IN! */
+    private TextView accountHomeTitle, accountHomeType, accountHomeBalance, accountHomeInterestRate;
+	/** FILL THIS IN! */
+    private Button createTransactionButton;
 	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_account_home);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+    	super.onCreate(savedInstanceState);
+    	setContentView(R.layout.activity_account_home);
 		
-		username = LoginPresenter.loginUsername; 
-		accountTitle = getIntent().getStringExtra("accountTitle");	
-		account = AccountHomePresenter.getAccount(this, accountTitle, username);
-		
-		setupViews();
-		
-		setupButtons();
-		
-	}
+    	username = LoginPresenter.loginUsername; 
+    	accountTitle = getIntent().getStringExtra("accountTitle");	
+    	account = AccountHomePresenter.getAccount(this, accountTitle, username);
+    	setupViews();
+    	setupButtons();
+    }
 	
-	protected void onResume() {
-		super.onResume();
-		setContentView(R.layout.activity_account_home);
+    /**
+     * FILL THIS IN!
+     */
+    protected void onResume() {
+    	super.onResume();
+    	setContentView(R.layout.activity_account_home);
+
+    	username = LoginPresenter.loginUsername; 
+    	accountTitle = getIntent().getStringExtra("accountTitle");	
+    	account = AccountHomePresenter.getAccount(this, accountTitle, username);
 		
-		username = LoginPresenter.loginUsername; 
-		accountTitle = getIntent().getStringExtra("accountTitle");	
-		account = AccountHomePresenter.getAccount(this, accountTitle, username);
+    	setupViews();
 		
-		setupViews();
-		
-		setupButtons();
+    	setupButtons();
     }
 
-	private void setupViews() {
-		accountHomeTitle = (TextView) findViewById(R.id.AccountHomeTitle);
-		accountHomeType = (TextView) findViewById(R.id.AccountHomeType);
-		accountHomeBalance = (TextView) findViewById(R.id.AccountHomeBalance);
-		accountHomeInterestRate = (TextView) findViewById(R.id.AccountHomeInterestRate);
+    /**
+     * FILL THIS IN!
+     */
+    private void setupViews() {
+    	accountHomeTitle = (TextView) findViewById(R.id.AccountHomeTitle);
+    	accountHomeType = (TextView) findViewById(R.id.AccountHomeType);
+    	accountHomeBalance = (TextView) findViewById(R.id.AccountHomeBalance);
+    	accountHomeInterestRate = (TextView) findViewById(R.id.AccountHomeInterestRate);
 		
-		accountHomeTitle.setText(accountTitle);
+    	accountHomeTitle.setText(accountTitle);
 		
-		accountHomeType.setText("(" + account.getAccountType() + ")");
+    	accountHomeType.setText("(" + account.getAccountType() + ")");
 		
-		accountHomeBalance.setText("Balance: $" + account.getBalance());
+    	accountHomeBalance.setText("Balance: $" + account.getBalance());
 		
-		accountHomeInterestRate.setText("Interest Rate: " + account.getInterestRate());
-	}
+    	accountHomeInterestRate.setText("Interest Rate: " + account.getInterestRate());
+    }
 	
-	private void setupButtons() {	
-		createTransactionButton = (Button) findViewById(R.id.AccountHomeNewTransactionButton);
+    /**
+     * FILL THIS IN!
+     */
+    private void setupButtons() {	
+    	createTransactionButton = (Button) findViewById(R.id.AccountHomeNewTransactionButton);
 
-		createTransactionButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(AccountHomeActivity.this, CreateTransactionActivity.class);
-				intent.putExtra("accountName", accountTitle);
-				intent.putExtra("username", username);
-				startActivity(intent);
-			}
-
-		});
-	}
-
+    	createTransactionButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            	Intent intent = new Intent(AccountHomeActivity.this, CreateTransactionActivity.class);
+            	intent.putExtra("accountName", accountTitle);
+            	intent.putExtra("username", username);
+            	startActivity(intent);
+            }
+    	});
+    }
 }
