@@ -60,32 +60,32 @@ public class UserHomeActivity extends Activity {
     private void setupList() {
         listView = (ListView) findViewById(R.id.listView);
         registerForContextMenu(listView);
-        List<String> SortedAccountNames = UserHomePresenter.getAccounts(this);
+        List<String> sortedAccountNames = UserHomePresenter.getAccounts(this);
         arrayAdapt = new ArrayAdapter<String>(this,
-        		R.layout.custom_list_item_1, SortedAccountNames);
+        		R.layout.custom_list_item_1, sortedAccountNames);
         listView.setAdapter(arrayAdapt);
         
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-		    public void onItemClick(AdapterView<?> parentAdapter, View view,
+            public void onItemClick(AdapterView<?> parentAdapter, View view,
 					int position, long id) {
 
 				// We know the View is a TextView so we can cast it
-		        TextView clickedView = (TextView) view;
-		        if (clickedView.getText() != null
+            	TextView clickedView = (TextView) view;
+            	if (clickedView.getText() != null
 						&& clickedView.getText().equals("CREATE NEW ACCOUNT")) {
-		            Intent intent = new Intent(UserHomeActivity.this,
+                    Intent intent = new Intent(UserHomeActivity.this,
 							CreateAccountActivity.class);
-		            startActivity(intent);
-		        } else if (clickedView.getText() != null) { // must be legitimate account
-		            accountTitle = (String)clickedView.getText();
-		            Intent intent = new Intent(UserHomeActivity.this,
+                    startActivity(intent);
+                } else if (clickedView.getText() != null) { // must be legitimate account
+                    accountTitle = (String) clickedView.getText();
+                    Intent intent = new Intent(UserHomeActivity.this,
 							AccountHomeActivity.class);
-		            intent.putExtra("accountTitle", accountTitle);
-		            startActivity(intent);
-		        }
-		    }
-		});
-	}
+                    intent.putExtra("accountTitle", accountTitle);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
 	
 
 	// This method is called when user selects an Item in the Context menu
