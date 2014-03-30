@@ -26,7 +26,6 @@ public class CreateAccountActivity extends Activity {
 		setupCreateButton();
 	}
 
-
 	protected void showToast(String text) {
 		createAccountFeedback.setText(text);
 		createAccountFeedback.show();

@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ReportDateActivity extends Activity implements DatePickerFragmentK.TheListener {
+public class ReportDateActivity extends Activity implements DatePickerFragment.TheListener {
 
 	private Button mStartDate;
 	private Button mEndDate;
@@ -38,7 +38,7 @@ public class ReportDateActivity extends Activity implements DatePickerFragmentK.
 		mStartDate.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				DialogFragment picker = new DatePickerFragmentK();
+				DialogFragment picker = new DatePickerFragment();
 				picker.show(getFragmentManager(), "datePicker");
 				i = 1;
 			}
@@ -48,7 +48,7 @@ public class ReportDateActivity extends Activity implements DatePickerFragmentK.
 		mEndDate.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				DialogFragment picker = new DatePickerFragmentK();
+				DialogFragment picker = new DatePickerFragment();
 				picker.show(getFragmentManager(), "datePicker");
 				i = 2;
 			}

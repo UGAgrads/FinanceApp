@@ -45,6 +45,14 @@ public class UserHomeActivity extends Activity {
     	setupList();
     	setupTransHistoryButton();
     }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setContentView(R.layout.activity_user_home);
+        setupList();
+        setupTransHistoryButton();
+    }
 
     /**
      * 

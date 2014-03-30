@@ -18,7 +18,7 @@ public class AccountHomeActivity extends Activity {
 	private TextView accountHomeTitle, accountHomeType, accountHomeBalance,
 		accountHomeInterestRate;
 	
-	private Button historyButton, createTransactionButton;
+	private Button createTransactionButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,19 @@ public class AccountHomeActivity extends Activity {
 		setupButtons();
 		
 	}
+	
+	protected void onResume() {
+		super.onResume();
+		setContentView(R.layout.activity_account_home);
+		
+		username = LoginPresenter.loginUsername; 
+		accountTitle = getIntent().getStringExtra("accountTitle");	
+		account = AccountHomePresenter.getAccount(this, accountTitle, username);
+		
+		setupViews();
+		
+		setupButtons();
+    }
 
 	private void setupViews() {
 		accountHomeTitle = (TextView) findViewById(R.id.AccountHomeTitle);

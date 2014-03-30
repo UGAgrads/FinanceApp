@@ -1,5 +1,6 @@
 package com.UGAgrads.freddiefinance;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,8 +18,8 @@ import android.widget.Toast;
 /**
  * @author
  */
-public class TransactionActivity extends FragmentActivity implements 
-    DatePickerDialog.OnDateSetListener {
+public class TransactionActivity extends Activity implements
+	DatePickerFragment.TheListener {
     
     /**
      * 
@@ -44,28 +45,7 @@ public class TransactionActivity extends FragmentActivity implements
 	 * 
 	 */
     Account userAccount;
-	
-	/**
-	 * @param view FILL THIS IN!
-	 * @param year FILL THIS IN!
-	 * @param month FILL THIS IN!
-	 * @param day FILL THIS IN!
-	 */
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-        String monthText = String.valueOf(month + 1);
-        String dayText = String.valueOf(day);
-        String yearText = String.valueOf(year);
 
-        ((Button) findViewById(R.id.editDateEffective)).setText(
-	            monthText + "/" + dayText + "/" + yearText);
-
-        Toast.makeText(context, new StringBuilder().append("Date chosen is ").
-	        		append(((TextView) (findViewById(R.id.editDateEffective)))
-	        		        .getText()
-	        		        .toString()),
-	        		Toast.LENGTH_SHORT).show();
-    }
-	
     /**
      * @param savedInstanceState FILL THIS IN!
      */
@@ -73,6 +53,27 @@ public class TransactionActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         transactionActivity = this;
         super.onCreate(savedInstanceState);
+        context = this;
+
+        DatabaseHelper db = new DatabaseHelper(context);
+        setContentView(R.layout.activity_create_transaction);
+
+        Intent intent = getIntent();
+
+        isDeposit = intent.getExtras().getBoolean("isDeposit");
+        userAccountName = intent.getExtras().getString("account");
+        userAccount = db.getAccountByOwnerAndAccountName(LoginPresenter.loginUsername, userAccountName);
+
+        if (isDeposit) {
+            displayDepositFields();
+        } else {
+            displayWithdrawalFields();
+        }
+    }
+    
+    protected void onResume() {
+    	super.onResume();
+    	transactionActivity = this;
         context = this;
 
         DatabaseHelper db = new DatabaseHelper(context);
@@ -134,11 +135,10 @@ public class TransactionActivity extends FragmentActivity implements
 		Button dateButton = (Button) findViewById(R.id.editDateEffective);
 		dateButton.setOnClickListener(new OnClickListener() {
 
-			DatePickerFragment d;
 			@Override
 			public void onClick(View arg0) {
-				d = new DatePickerFragment();
-				d.showDatePickerDialog(arg0);
+				DatePickerFragment d = new DatePickerFragment();
+				d.show(getFragmentManager(), "datePicker");
 			}
 		});
 		
@@ -185,6 +185,16 @@ public class TransactionActivity extends FragmentActivity implements
 			}
 		});
 		
+	}
+	
+	public void returnDate(String date) {
+		((Button) findViewById(R.id.editDateEffective)).setText(date);
+
+        Toast.makeText(context, new StringBuilder().append("Date chosen is ").
+	        		append(((TextView) (findViewById(R.id.editDateEffective)))
+	        		        .getText()
+	        		        .toString()),
+	        		Toast.LENGTH_SHORT).show();
 	}
 
 }
