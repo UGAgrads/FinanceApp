@@ -3,29 +3,32 @@ package com.UGAgrads.freddiefinance;
 import java.util.ArrayList;
 
 /**
- * @author
+ * This class is used as a data storage class for Users individual banking accounts.
+ * @author UGAgrads
  */
 public class Account {
 	
-    /** FILL THIS IN! */
+    /** User the account belongs to */
     private String accountOwner;
-    /** FILL THIS IN! */
+    /** Name of the account */
     private String accountName;
-	/** FILL THIS IN! */
+	/** Type of account */
     private String accountType;
-	/** FILL THIS IN! */
+	/** Account balance */
     private String balance;
-	/** FILL THIS IN! */
+	/** Account interest rate */
     private String interestRate;
-	/** FILL THIS IN! */
+	/** Collection of transactions linked to this account */
     private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 	
 	/**
-	 * @param owner FILL THIS IN!
-	 * @param accountName FILL THIS IN!
-	 * @param accountType FILL THIS IN!
-	 * @param balance FILL THIS IN!
-	 * @param interestRate FILL THIS IN!
+	 * Constructs a new Account object.
+	 * 
+	 * @param owner Owner of the account
+	 * @param accountName Name of the account
+	 * @param accountType Account type
+	 * @param balance Account balance
+	 * @param interestRate Account interest rate
 	 */
     Account(String owner, String accountName, String accountType, String balance, String interestRate) {
         this.accountOwner = owner;
@@ -36,50 +39,63 @@ public class Account {
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * Gets account balance.
+	 * 
+	 * @return Account balance
 	 */
     public String getBalance() {
         return CreateAccountPresenter.formatBalance(balance);
     }
 	
 	/**
-	 * @param value FILL THIS IN!
+	 * Sets the account balance.
+	 * 
+	 * @param value Ammount to set account balance to
 	 */
     public void setBalance(String value) {
         balance = value;
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * Gets account name.
+	 * 
+	 * @return Account name as string
 	 */
     public String getAccountName() {
         return accountName;
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * Gets account owner.
+	 * 
+	 * @return Account owner as string
 	 */
     public String getAccountOwner() {
         return accountOwner;
     }
 	
 	/**
+	 * Gets account interest rate.
 	 * 
-	 * @return FILL THIS IN!
+	 * @return Account interest rate as string
 	 */
     public String getInterestRate() {
         return interestRate;
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * Gets the accounts type.
+	 * 
+	 * @return Account type as string
 	 */
     public String getAccountType() {
         return accountType;
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * Gets a collection of the transactions associated with the account.
+	 * 
+	 * @return Collection of transactions in an ArrayList
 	 */
     public ArrayList<Transaction> getTransactions() {
         return transactions;
