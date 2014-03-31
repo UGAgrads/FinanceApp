@@ -99,10 +99,10 @@ public class CreateAccountPresenter {
         if (accountTitle.equals("")) 
 			return FieldError.EMPTY_TITLE; // must enter an account title!	
         try {
-            if (db.doesAccountNameAlreadyExistForOwner(accountTitle, LoginPresenter.loginUsername)){
+            if (db.doesAccountNameAlreadyExistForOwner(accountTitle, LoginPresenter.loginUsername)) {
                 return FieldError.PREXISTING_TITLE;
             }
-        } catch (Exception e) {Log.d("preexist", e.getMessage());};
+        } catch (Exception e) { Log.d("preexist", e.getMessage()); };
 		
         if (balance.equals("")) {
             return FieldError.EMPTY_BALANCE;

@@ -60,7 +60,7 @@ public class AccountTable {
         Cursor cursor = db.query(TABLE_ACCOUNTS, 
                 new String[] {KEY_OWNER, KEY_ACCOUNT_NAME, KEY_ACCOUNT_TYPE, KEY_BALANCE, KEY_INTEREST_RATE}, 
                 KEY_OWNER + "=?", new String[] {username}, null, null, null, null);
-        if (cursor != null){
+        if (cursor != null) {
             if (cursor.moveToFirst()) {
                 accounts.add(new Account(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));
             }
