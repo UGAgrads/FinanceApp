@@ -11,7 +11,7 @@ import android.widget.TextView;
 /**
  * Activity class that contains the data required for the Account Home page. 
  * This page displays the information of specific accounts.
- * It also has the ability to create new transactions.
+ * It also has the ability send you to the Create Transaction page.
  * 
  * @author UGAgrads
  */

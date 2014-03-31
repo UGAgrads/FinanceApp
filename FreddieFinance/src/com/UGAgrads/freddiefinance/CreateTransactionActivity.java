@@ -9,11 +9,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 /**
- * @author
+ * Activity class that holds the data required for the Create Transaction page.
+ * This page takes in the information required to create a new transaction.
+ * 
+ * @author UGAgrads
  */
 public class CreateTransactionActivity extends Activity {
 	
-    /** FILL THIS IN! */
+    /** Name of the account the transaction will be created for. */
     String accnt;
 
     @Override
@@ -27,7 +30,7 @@ public class CreateTransactionActivity extends Activity {
     }
 	
     /**
-     * FILL THIS IN!
+     * Sets up the  spinner containing the transaction types.
      */
     private void setUpSpinner() {
         Spinner spinner = (Spinner) findViewById(R.id.transaction_spinner);
@@ -55,7 +58,7 @@ public class CreateTransactionActivity extends Activity {
     }
 	
     /**
-     * FILL THIS IN!
+     * Starts Transaction Creation for deposits.
      */
     private void goToDeposit() {
         Intent intent = new Intent(this, TransactionActivity.class);
@@ -65,7 +68,7 @@ public class CreateTransactionActivity extends Activity {
     }
 	
 	/**
-	 * FILL THIS IN!
+	 * Starts Transaction Creation for withdrawals.
 	 */
     private void goToWithdrawal() {
         Intent intent = new Intent(this, TransactionActivity.class);
