@@ -10,7 +10,7 @@ import android.util.Log;
 import android.widget.DatePicker;
 
 /**
- * @author
+ * @author UGAgrads
  */
 public class DatePickerFragment extends DialogFragment 
 	implements DatePickerDialog.OnDateSetListener {
@@ -18,7 +18,11 @@ public class DatePickerFragment extends DialogFragment
 	/** FILL THIS IN! */
     TheListener listener;
 	/** FILL THIS IN! */
-    private int year, day, month;
+    private int year;
+    /** FILL THIS IN! */
+    private int day;
+    /** FILL THIS IN! */
+    private int month;
 	/** FILL THIS IN! */
     private boolean dateChanged;
 	
