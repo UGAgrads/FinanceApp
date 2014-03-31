@@ -3,7 +3,7 @@ package com.UGAgrads.freddiefinance;
 /**
  * Presenter class used for computations in the AccountHomeActivity class.
  * 
- * @author
+ * @author UGAgrads
  */
 public class AccountHomePresenter {
 	
