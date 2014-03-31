@@ -11,11 +11,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 /**
- * @author
+ * Activity class that contains the data required for the Create Account page.
+ * 
+ * @author UGAgrads
  */
 public class CreateAccountActivity extends Activity {
 
-	/** FILL THIS IN! */
+	/** Message Toast. */
     private Toast createAccountFeedback;
 
     @Override
@@ -31,7 +33,9 @@ public class CreateAccountActivity extends Activity {
     }
 
     /**
-     * @param text FILL THIS IN!
+     * Displays a specified message through a toast.
+     * 
+     * @param text Text to display in the toast
      */
     protected void showToast(String text) {
     	createAccountFeedback.setText(text);
@@ -39,7 +43,7 @@ public class CreateAccountActivity extends Activity {
     }
 
     /**
-     * FILL THIS IN!
+     * Sets up setting for toast message.
      */
     @SuppressLint("ShowToast")
     private void setupToast() {
@@ -50,7 +54,7 @@ public class CreateAccountActivity extends Activity {
     }
 
     /**
-     * FILL THIS IN!
+     * Sets up settings and data for the accoun type spinner.
      */
     private void setupSpinner() {
     	Spinner spinner = (Spinner) findViewById(R.id.create_type_spinner);
@@ -66,7 +70,7 @@ public class CreateAccountActivity extends Activity {
     }
 
     /**
-     * FILL THIS IN!
+     * Sets up event listener for button click.
      */
     private void setupCreateButton() {
     	Button createButton = (Button) findViewById(R.id.createSubmit);
