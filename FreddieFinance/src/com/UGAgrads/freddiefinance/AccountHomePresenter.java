@@ -1,18 +1,22 @@
 package com.UGAgrads.freddiefinance;
 
 /**
+ * Presenter class used for computations in the AccountHomeActivity class.
+ * 
  * @author
  */
 public class AccountHomePresenter {
 	
-    /** FILL THIS IN! */
+    /** SQLite database reference. */
     private static DatabaseHelper db;
 	
 	/**
-	 * @param activity FILL THIS IN!
-	 * @param accountName FILL THIS IN!
-	 * @param username FILL THIS IN!
-	 * @return FILL THIS IN!
+	 * Gets Account by username and account name.
+	 * 
+	 * @param activity Activity calling the function
+	 * @param accountName Name of account to find
+	 * @param username Username of the owner of the account
+	 * @return The specified account
 	 */
     public static Account getAccount(AccountHomeActivity activity, String accountName, String username) {
         db = new DatabaseHelper(activity);
