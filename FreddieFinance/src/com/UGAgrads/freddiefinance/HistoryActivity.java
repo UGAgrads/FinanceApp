@@ -5,12 +5,17 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 /**
- * @author
+ * Activity class that contains the data for the Transaction History page.
+ * This page displays the History of specified accounts over a specified date range.
+ * 
+ * @author UGAgrads
  */
 public class HistoryActivity extends Activity {
 
-    /** FILL THIS IN! */
-    private String startDate, endDate;
+    /** Start date of the date range Transactions are being searched for. */
+    private String startDate;
+    /** End date of the date range Transactions are being searched for. */
+    private String endDate;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +27,7 @@ public class HistoryActivity extends Activity {
     }
 	
     /**
-     * FILL THIS IN!
+     * Uses HistoryPresenter helper class to gather the Transaction history and display it.
      */
     private void displaySpendingReport() {
         ((TextView) findViewById(R.id.reportType)).setText(
@@ -46,14 +51,14 @@ public class HistoryActivity extends Activity {
     }
 	
     /**
-     * @return FILL THIS IN!
+     * @return Start date of date range entered by user.
      */
     public String getStartDate() {
         return startDate;
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * @return End date of date range entered by users.
 	 */
     public String getEndDate() {
         return endDate;
