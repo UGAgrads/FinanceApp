@@ -7,34 +7,42 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * @author
+ * Presenter class used for the computations in the HistoryActivity class.
+ * 
+ * @author UGAgrads
  */
 public class HistoryPresenter {
 
-    /** FILL THIS IN! */
+    /** List of accounts that are being searched for Transactions. */
     private ArrayList<String> accountsList;
-	/** FILL THIS IN! */
+	/** SQLite Database reference. */
     private DatabaseHelper db;
-	/** FILL THIS IN! */
+	/** History Activity. */
     private HistoryActivity activity;
-	/** FILL THIS IN! */
-    private Date start, end;
-	/** FILL THIS IN! */
+	/** Start date of date range specified by user. */
+    private Date start;
+    /** End date of date range specified by user. */
+    private Date end;
+	/** Total withdrawal ammount. */
     private double withdrawal;
-	/** FILL THIS IN! */
+	/** Format tool to format start and end dates. */
     private SimpleDateFormat format;
 	
 	/**
-	 * @param activity FILL THIS IN!
+	 * Constructor for class that initializes the SQLite db.
+	 * 
+	 * @param activity HistoryActivity
 	 */
     public HistoryPresenter(HistoryActivity activity) {
         db = new DatabaseHelper(activity);
     }
 
     /**
-     * @param histAct FILL THIS IN!
-     * @param category FILL THIS IN!
-     * @return FILL THIS IN!
+     * Gets the total amount of withdrawals in the specified expense category.
+     * 
+     * @param histAct HistoryActivity
+     * @param category Expense category to search for
+     * @return Total withdrawal amount in the specified expense category
      */
     public double getSpending(HistoryActivity histAct, String category) {
         format = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
@@ -64,7 +72,9 @@ public class HistoryPresenter {
     }
 
     /**
-     * @return FILL THIS IN!
+     * Gets the total withdrawal amount over all of the users accounts.
+     * 
+     * @return Total withdrawal amount of all a specified users accounts
      */
     private double getTotalSpending() {
         ArrayList<Withdrawal> wdList = db.getAllAccountWithdrawals(LoginPresenter.loginUsername);
