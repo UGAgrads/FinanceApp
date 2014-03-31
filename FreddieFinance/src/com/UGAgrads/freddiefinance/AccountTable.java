@@ -7,28 +7,31 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * @author
+ * Helper class for the Database helper that contains methods relating to Accounts.
+ * 
+ * @author UGAgrads
  */
 public class AccountTable {
 	
-    /** FILL THIS IN! */
+    /** Account table name. */
     private static final String TABLE_ACCOUNTS = "accounts";
-    /** FILL THIS IN! */
+    /** Key column. */
     private static final String KEY_BALANCE = "balance";
-	/** FILL THIS IN! */
+	/** Account name column. */
     private static final String KEY_ACCOUNT_NAME = "account_name";
-	/** FILL THIS IN! */
+	/** Account owner column. */
     private static final String KEY_OWNER = "owner";
-	/** FILL THIS IN! */
+	/** Account interest rate column. */
     private static final String KEY_INTEREST_RATE = "interest_rate";
-	/** FILL THIS IN! */
+	/** Account type column. */
     private static final String KEY_ACCOUNT_TYPE = "account_type";
 	
-	/** FILL THIS IN! */
+	/** SQLite database reference. */
     private static SQLiteDatabase db;
 
 	/**
 	 * Used to add new Account to the Account Table of the database.
+	 * 
 	 * @param database Writable SQLite database
 	 * @param newAccount Account to be added to the table
 	 */
@@ -46,6 +49,7 @@ public class AccountTable {
 	
 	/**
 	 * Gets all accounts a single owner has.
+	 * 
 	 * @param database Readable SQLite database
 	 * @param username Used when searching through the table
 	 * @return ArrayList of accounts, Null if none exist
@@ -69,6 +73,7 @@ public class AccountTable {
 	
 	/**
 	 * Gets account by owner and account name.
+	 * 
 	 * @param database Readable SQLite database
 	 * @param ownerUsername Account owner
 	 * @param accountName Name of account
@@ -93,6 +98,7 @@ public class AccountTable {
 	
 	/**
 	 * Checks if a specific user already has an account with a specific name.
+	 * 
 	 * @param database Readable SQLite database
 	 * @param accountName Name of the account were checking to see already exists
 	 * @param owner User who we are checking accounts
@@ -114,6 +120,7 @@ public class AccountTable {
 	
 	/**
 	 * Updates account info by searching for name then inputing new data.
+	 * 
 	 * @param database Writable SQLite database
 	 * @param updatingAccount Account were searching for and looking to update
 	 * @return True if account found and updated, else False
@@ -133,6 +140,7 @@ public class AccountTable {
 	
 	/**
 	 * Deletes an account from the database.
+	 * 
 	 * @param database Writable SQLite database
 	 * @param account Account were looking to delete
 	 * @return True if account was deleted, else False
