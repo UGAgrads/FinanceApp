@@ -1,20 +1,24 @@
 package com.UGAgrads.freddiefinance;
 
 /**
- * @author
+ * Type of transaction in which an accounts balance was increased.
+ * 
+ * @author UGAgrads
  */
 public class Deposit extends Transaction {
 	
-    /** FILL THIS IN! */
+    /** Specifies how the money was acquired. */
     private String spendSourceInfo;
 	
 	/**
-	 * @param amountTransfered FILL THIS IN!
-	 * @param dateEffective FILL THIS IN!
-	 * @param user FILL THIS IN!
-	 * @param userAccount FILL THIS IN!
-	 * @param moneySource FILL THIS IN!
-	 * @param depositDescription FILL THIS IN!
+	 * Constructor for a Deposit transaction.
+	 * 
+	 * @param amountTransfered Ammount of money acquired
+	 * @param dateEffective Date the transaction will take effect
+	 * @param user User that the transaction will take effect for
+	 * @param userAccount Account the transaction will take effect for
+	 * @param moneySource Source where the money came from
+	 * @param depositDescription Any other details about the transaction
 	 */
     Deposit(double amountTransfered, String dateEffective, User user, Account userAccount, String moneySource, String depositDescription) {
 		super(amountTransfered, dateEffective, user, userAccount, depositDescription);
@@ -22,14 +26,18 @@ public class Deposit extends Transaction {
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * Gets the reason for the transaction.
+	 * 
+	 * @return How the money was acquired
 	 */
     public String getSpendSourceInfo() {
         return spendSourceInfo;
     }
 
 	/**
-	 * @return  FILL THIS IN!
+	 * Returns the transaction type.
+	 * 
+	 * @return  Deposit
 	 */
     public String transactionType() {
         return "Deposit";
