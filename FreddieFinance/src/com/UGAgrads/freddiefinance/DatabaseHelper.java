@@ -6,68 +6,65 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * @author
+ * Helper class for the SQLite database.
+ * 
+ * @author UGAgrads
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    /** FILL THIS IN! */
+    /** Database version. */
     private static final int DATABASE_VERSION = 9;
 	
-	/** FILL THIS IN! */
+	/** Name of database file. */
     private static final String DATABASE_NAME = "FreddieFinance.db";
 
-	/** FILL THIS IN! */
+	/** User table name. */
     private static final String TABLE_USERS = "users";
-	/** FILL THIS IN! */
+	/** Key column. */
     private static final String KEY_ID = "id";
-	/** FILL THIS IN! */
+	/** Username column. */
     private static final String KEY_USERNAME = "username";
-	/** FILL THIS IN! */
+	/** Password Column. */
     private static final String KEY_PASSWORD = "password";
-	/** FILL THIS IN! */
+	/** Email Column. */
     private static final String KEY_EMAIL = "email";
-	/** FILL THIS IN! */
+	/** Total Assets column. */
     private static final String KEY_TOTAL_ASSETS = "total_assets";
-	/** FILL THIS IN! */
 	
-	/** FILL THIS IN! */
+	/** Account table name. */
     private static final String TABLE_ACCOUNTS = "accounts";
-	/** FILL THIS IN! */
+    //Columns in the Account table already defined
+    	//ID
+	/** Balance column. */
     private static final String KEY_BALANCE = "balance";
-	/** FILL THIS IN! */
+	/** Account name column. */
     private static final String KEY_ACCOUNT_NAME = "account_name";
-	/** FILL THIS IN! */
+	/** Account owner column. */
     private static final String KEY_OWNER = "owner";
-	/** FILL THIS IN! */
+	/** Account interest rate column. */
     private static final String KEY_INTEREST_RATE = "interest_rate";
-	/** FILL THIS IN! */
+	/** Account type column. */
     private static final String KEY_ACCOUNT_TYPE = "account_type";
 	
-	/** FILL THIS IN! */
+	/** Transaction table name. */
     private static final String TABLE_TRANSACTIONS = "transactions";
-	//Columns in the transaction table
+	//Columns in the transaction table already defined
 		//ID
 		//username
 		//Account name
-	/** FILL THIS IN! */
+	/** Transaction type column. */
     private static final String KEY_TRANSACTION_TYPE = "transaction_type";
-	/** FILL THIS IN! */
+	/** Transaction ammount column. */
     private static final String KEY_TRANSACTION_AMMOUNT = "transaction_ammount";
-	/** FILL THIS IN! */
+	/** Transaction date entered column. */
     private static final String KEY_DATE_ENTERED = "date_entered";
-	/** FILL THIS IN! */
+	/** Transaction date effective column. */
     private static final String KEY_DATE_EFFECTIVE = "date_effective";
-	/** FILL THIS IN! */
+	/** Transaction description column. */
     private static final String KEY_DESCRIPTION = "transaction_description";
-	/** FILL THIS IN! */
+	/** Transaction Spend/Source column. */
     private static final String KEY_SPEND_SOURCE = "spend_source";
-	/** FILL THIS IN! */
-	
-	
-	//For Future Purposes
-	//private static final String KEY_TRANSACTIONS = "transactions";
-	
-	
+    
 	/*
 	   User Table
 	   ___________________________________________________________________
@@ -88,22 +85,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
  	  
 	*/
 	
-	//Tables
-	/** FILL THIS IN! */
+	/** User table helper reference.  Contains methods only pertaining to the User table in the database. */
     private static UserTable userTable;
-	/** FILL THIS IN! */
+	/** Account table helper reference.  Contains methods only pertaining to the Account table in the database. */
     private static AccountTable accountTable;
-	/** FILL THIS IN! */
+	/** Transaction table helper reference.  Contains methods only pertaining to the Transaction table in the database. */
     private static TransactionTable transactionTable;
 	
 	/**
-	 * @param context FILL THIS IN!
+	 * Constructor that initializes the database and database helper classes.
+	 * 
+	 * @param context Context creating helper
 	 */
     public DatabaseHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		transactionTable = new TransactionTable();
-		userTable = transactionTable.getUserTable();
-		accountTable = transactionTable.getAccountTable();
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        transactionTable = new TransactionTable();
+        userTable = transactionTable.getUserTable();
+        accountTable = transactionTable.getAccountTable();
     }
 
     @Override
@@ -134,7 +132,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		//delets old table
+		//deletes old table
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTIONS);
@@ -144,8 +142,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	/**
 	 * Used when creating account from the Register Activity.
-	 * @param newUser User to be added to the table
 	 * 
+	 * @param newUser User to be added to the table
 	 */
     public void addNewUserToDatabase(User newUser) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -155,6 +153,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	/**
 	 * Checks if user exists by calling getUserByUsername().
+	 * 
 	 * @param username String username we are checking to see exists
 	 * @return True if user exists, False if not
 	 */
@@ -164,6 +163,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	/**
 	 * Finds and returns a user given the parameter username.
+	 * 
 	 * @param username Name of the user were looking for
 	 * @return User if found, else Null
 	 */
@@ -176,6 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	/**
 	 * Updates the user info.  Takes in an existing user and updates the information by searching for the name(doesnt change).
+	 * 
 	 * @param updatingUser updated user info
 	 * @return True if account existed and was updated, else False
 	 */
@@ -188,6 +189,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	/**
 	 * Deletes a user from the database.
+	 * 
 	 * @param user User were looking to delete
 	 * @return True if account was deleted, else False
 	 */
@@ -201,6 +203,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	/**
 	 * Used to add new Account to the Account Table of the database.
+	 * 
 	 * @param newAccount Account to be added to the table
 	 */
     public void addNewAccountToDatabase(Account newAccount) {
@@ -212,6 +215,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	/**
 	 * Gets all accounts a single owner has.
+	 * 
 	 * @param username Used when searching through the table
 	 * @return ArrayList of accounts, Null if none exist
 	 */
@@ -224,6 +228,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	/**
 	 * Gets account by owner and account name.
+	 * 
 	 * @param ownerUsername Account owner
 	 * @param accountName Name of account
 	 * @return Account if exists, else Null
@@ -238,6 +243,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	/**
 	 * Checks if a specific user already has an account with a specific name.
+	 * 
 	 * @param accountName Name of the account were checking to see already exists
 	 * @param owner User who we are checking accounts
 	 * @return True if account already exists by specified name, False if else
@@ -252,6 +258,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	/**
 	 * Updates account info by searching for name then inputing new data.
+	 * 
 	 * @param updatingAccount Account were searching for and looking to update
 	 * @return True if account found and updated, else False
 	 */
@@ -263,8 +270,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 	
 	/**
-	 * @param account FILL THIS IN!
-	 * @return FILL THIS IN!
+	 * Deletes specified account from database.
+	 * 
+	 * @param account Account to delete from database
+	 * @return True if account was found and deleted, False if else
 	 */
     public boolean deleteAccountFromDatabase(Account account) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -274,7 +283,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 	
 	/**
-	 * @param newTransaction FILL THIS IN!
+	 * Adds new transaction transaction to the database.
+	 * 
+	 * @param newTransaction Transaction to be added to database
 	 */
     public void addNewTransactionToDatabase(Transaction newTransaction) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -283,9 +294,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 	
 	/**
-	 * @param owner FILL THIS IN!
-	 * @param accountName FILL THIS IN!
-	 * @return FILL THIS IN!
+	 * Gets all transaction the belong to a specific user and specific account.
+	 * 
+	 * @param owner User we are looking for transactions for
+	 * @param accountName Name of the account we want transactions for
+	 * @return Collection of Transactions in the form of an ArrayList
 	 */
     public ArrayList<Transaction> getTransactionsByOwnerAndAccountName(String owner, String accountName) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -295,8 +308,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 	
 	/**
-	 * @param user FILL THIS IN!
-	 * @return FILL THIS IN!
+	 * Gets the withdrawals over all the accounts of a specific user.
+	 * 
+	 * @param user Username used to search for withdrawals
+	 * @return Collection of Withdrawals in the form of an ArrayList
 	 */
     public ArrayList<Withdrawal> getAllAccountWithdrawals(String user) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -306,8 +321,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 	
 	/**
-	 * @param user FILL THIS IN!
-	 * @return FILL THIS IN!
+	 * Gets the deposits over all the accounts of a specific user.
+	 * 
+	 * @param user Username used to search for deposits
+	 * @return Collection of Deposits in the form of an ArrayList
 	 */
     public ArrayList<Deposit> getAllAccountDeposits(String user) {
         SQLiteDatabase db = this.getReadableDatabase();
