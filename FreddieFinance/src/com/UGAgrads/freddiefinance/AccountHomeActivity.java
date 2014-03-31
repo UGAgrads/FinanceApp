@@ -9,20 +9,30 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * @author
+ * Activity class that contains the data required for the Account Home page. 
+ * This page displays the information of specific accounts.
+ * It also has the ability to create new transactions.
+ * 
+ * @author UGAgrads
  */
 public class AccountHomeActivity extends Activity {
 	
-	/** FILL THIS IN! */
+	/** Account owners username. */
     private String username;
-	/** FILL THIS IN! */
+	/** Name of account. */
     private String accountTitle;
-	/** FILL THIS IN! */
+	/** Accout object.  */
     private Account account;
 	
-	/** FILL THIS IN! */
-    private TextView accountHomeTitle, accountHomeType, accountHomeBalance, accountHomeInterestRate;
-	/** FILL THIS IN! */
+	/** TextView containing the Account Name. */
+    private TextView accountHomeTitle;
+    /** TextView containing the Account Type. */
+    private TextView accountHomeType;
+    /** TextView containing the Account Balance. */
+    private TextView accountHomeBalance;
+    /** TextView containing the Account Interest Rate. */
+    private TextView accountHomeInterestRate;
+	/** Button to redirect to CreateTransactionActivity. */
     private Button createTransactionButton;
 	
     @Override
@@ -38,7 +48,7 @@ public class AccountHomeActivity extends Activity {
     }
 	
     /**
-     * FILL THIS IN!
+     * Refreshes the page when resumed.
      */
     protected void onResume() {
     	super.onResume();
@@ -54,7 +64,7 @@ public class AccountHomeActivity extends Activity {
     }
 
     /**
-     * FILL THIS IN!
+     * Sets TextView values.
      */
     private void setupViews() {
     	accountHomeTitle = (TextView) findViewById(R.id.AccountHomeTitle);
@@ -72,7 +82,7 @@ public class AccountHomeActivity extends Activity {
     }
 	
     /**
-     * FILL THIS IN!
+     * Sets button controls.
      */
     private void setupButtons() {	
     	createTransactionButton = (Button) findViewById(R.id.AccountHomeNewTransactionButton);

@@ -4,21 +4,22 @@ import java.util.ArrayList;
 
 /**
  * This class is used as a data storage class for Users individual banking accounts.
+ * 
  * @author UGAgrads
  */
 public class Account {
 	
-    /** User the account belongs to */
+    /** User the account belongs to. */
     private String accountOwner;
-    /** Name of the account */
+    /** Name of the account. */
     private String accountName;
-	/** Type of account */
+	/** Type of account. */
     private String accountType;
-	/** Account balance */
+	/** Account balance. */
     private String balance;
-	/** Account interest rate */
+	/** Account interest rate. */
     private String interestRate;
-	/** Collection of transactions linked to this account */
+	/** Collection of transactions linked to this account. */
     private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 	
 	/**
