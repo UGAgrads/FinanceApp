@@ -3,34 +3,34 @@ package com.UGAgrads.freddiefinance;
 import android.widget.EditText;
 
 /**
- * @author
+ * @author UGA grads
  */
 public class RegisterPresenter {
 
     /**
-     * 
+     * database helper
      */
     private static DatabaseHelper db;
     
     /**
-     * 
+     * desired username
      */
     public static String registerUsername;
     
     /**
-     * 
+     * desired password
      */
     public static String registerPassword;
     
     /**
-     * 
+     * desired email
      */
     public static String registerEmail;
     
 
     /**
 	 * This class handles login of a user.
-	 * @param activity FILL THIS IN!
+	 * @param activity the activity coupled with this presenter
 	 * @return integer value encoding login success information
 	 */
     public static int attemptRegister(RegisterActivity activity) {
@@ -55,8 +55,8 @@ public class RegisterPresenter {
     }
 
     /**
-     * @param newUser FILL THIS IN!
-     * @return FILL THIS IN!
+     * @param newUser the user that is to be added!
+     * @return whether registering the user was successful or not
      */
     private static boolean registerNewUser(User newUser) {
         if (!db.doesUserAlreadyExist(newUser.getUsername())) {

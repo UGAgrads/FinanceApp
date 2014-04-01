@@ -1,26 +1,39 @@
 package com.UGAgrads.freddiefinance;
 
 /**
- * @author
+ * Constant values use for categories the sources of deposits
+ * 
+ * @author UGAGrads
  */
 public enum Source {
-    /**
-     * 
-     */
-    Salary("Salary"), Interest("Interest"), Gift("Gift");
 	
     /**
-     * 
+     * enum for salary source
+     */
+    Salary("Salary"), 
+    
+    /**
+     * enum for interest source
+     */
+    Interest("Interest"), 
+    
+    /**
+     * enum for gift source
+     */
+    Gift("Gift");
+	
+    /**
+     * variable holding the name of the source 
      */
     private final String name;
 	
 	/**
-	 * @param sourceName FILL THIS IN!
+	 * @param sourceName which is what the use wants to name the source
 	 */
     Source(String sourceName) { this.name = sourceName; };
 	
 	/**
-	 * @return FILL THIS IN!
+	 * @return string of the name of the source given by the user
 	 */
     public String getName() { return this.name; };
 }

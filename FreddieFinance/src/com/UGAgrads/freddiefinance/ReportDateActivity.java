@@ -15,22 +15,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * @author
+ * @author UGAGrads
  */
 public class ReportDateActivity extends Activity implements DatePickerFragment.TheListener {
 	
-	/** FILL THIS IN! */
+	/** button holding start date for range you are looking through */
     private Button mStartDate;
-	/** FILL THIS IN! */
+    
+	/** button holding end date for the range you are looking through */
     private Button mEndDate;
-    /** FILL THIS IN! */
+    
+    /** button for generating report */
     private Button mCreateReport;
-	/** FILL THIS IN! */
+    
+	/** TextView holding end date for the range you are looking through */
     private TextView mStartDateText;
+    
 	/** FILL THIS IN! */
     private TextView mEndDateText;
+    
 	/** FILL THIS IN! */
     private int startY, startM, startD, endY, endM, endD;
+    
 	/** FILL THIS IN! */
     private int i = 0;
 	

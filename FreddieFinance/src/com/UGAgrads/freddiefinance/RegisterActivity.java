@@ -9,12 +9,12 @@ import android.widget.Toast;
 import android.annotation.SuppressLint;
 
 /**
- * @author
+ * @author UGAGrads
  */
 public class RegisterActivity extends Activity {
 
     /**
-     * 
+     *  text that is displayed based on register success/failure
      */
     private Toast registerFeedback;
 	
@@ -22,13 +22,12 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         setupToast();
         setupRegisterButton();
     }
 
     /**
-     * @param text FILL THIS IN!
+     * @param text text to be shown by the toast
      */
     protected void showToast(String text) {
         registerFeedback.setText(text);
@@ -36,7 +35,7 @@ public class RegisterActivity extends Activity {
     }
 	
     /**
-     * FILL THIS IN!
+     * sets up UI elements and button listeners
      */
     private void setupRegisterButton() {
         Button registerButton = (Button) findViewById(R.id.registerSubmit);
@@ -62,7 +61,7 @@ public class RegisterActivity extends Activity {
     }
 	
     /**
-     * FILL THIS IN!
+     * sets up toast
      */ 
     @SuppressLint("ShowToast") 
     private void setupToast() {
@@ -73,7 +72,7 @@ public class RegisterActivity extends Activity {
     }
 	
     /**
-     * FILL THIS IN!
+     * removes the toast on activity left
      */
     @Override
     protected void onPause() {

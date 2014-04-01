@@ -7,46 +7,46 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 
 /**
- * @author
+ * @author UGAGrads
  */
 public abstract class Transaction {
 	
     /**
-	 * 
+	 * amount for the transaction
 	 */
     double transactionAmount;
     
     /**
-     * 
+     * date the transaction was entered
      */
     Date transactionDateEntered;
 	
 	/**
-	 * 
+	 * date the transaction is supposed to occur
 	 */
     Date transactionDateEffective;
 	
 	/**
-	 * 
+	 * user account associated with the transaction
 	 */
     Account transactionUserAccount;
 	
 	/**
-	 * 
+	 * user associated with the transaction
 	 */
     User transactionUser;
 	
 	/**
-	 * 
+	 * description of the transaction given by the user
 	 */
     String transactionDescription;
 	
 	/**
-	 * @param amountTransfered FILL THIS IN!
-	 * @param dateEffectiveString  FILL THIS IN!
-	 * @param user FILL THIS IN!
-	 * @param userAccount FILL THIS IN!
-	 * @param description FILL THIS IN!
+	 * @param amountTransfered money amount in the transaction
+	 * @param dateEffectiveString string for when the 
+	 * @param user the user associated with the transaction
+	 * @param userAccount user account associated with the transaction
+	 * @param description description of transaction given by user
 	 */
     @SuppressLint("SimpleDateFormat")
     Transaction(double amountTransfered, String dateEffectiveString, User user, Account userAccount, String description) {
@@ -67,70 +67,70 @@ public abstract class Transaction {
     }
 	
     /**
-     * @return FILL THIS IN!
+     * @return amount transfered in transaction
      */
     public double getTransactionAmount() {
         return transactionAmount;
     }
 	
     /**
-     * @return FILL THIS IN!
+     * @return User associated with transaction
      */
     public User getTransactionUser() {
         return transactionUser;
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * @return username of user associated with the transaction
 	 */
     public String getTransactionUsername() {
         return transactionUser.getUsername();
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * @return user account associated with the transaction
 	 */
     public Account getTransactionUserAccount() {
         return transactionUserAccount;
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * @return name of account associated with the transaction
 	 */
     public String getTransactionAccountName() {
         return transactionUserAccount.getAccountName();
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * @return date transaction was entered
 	 */
     public Date getTransactionDateEntered() {
         return transactionDateEntered;
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * @return date transaction transpired
 	 */
     public Date getTransactionDateEffective() {
         return transactionDateEffective;
     }
 	
 	/**
-	 * @return FILL THIS IN!
+	 * @return description of the transaction
 	 */
     public String getTransactionDescription() {
         return transactionDescription;
     }
 
 	/**
-	 * @return FILL THIS IN!
+	 * @return type of transaction
 	 */
     public String transactionType() {
         return "Transaction";
     }
 
 	/**
-	 * @return FILL THIS IN!
+	 * @return info about the spending source entered by users
 	 */
     public String getSpendSourceInfo() {
         return "";
