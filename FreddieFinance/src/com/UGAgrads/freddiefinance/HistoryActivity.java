@@ -39,15 +39,15 @@ public class HistoryActivity extends Activity {
 	            startDate + " - " + endDate );
         HistoryPresenter hp = new HistoryPresenter(this);
         ((TextView) findViewById(R.id.foodSpending)).setText(
-	            String.valueOf(hp.getSpending(this, "Food")) );
+	            String.valueOf(hp.getSpending("Food")) );
         ((TextView) findViewById(R.id.rentSpending)).setText(
-				 String.valueOf(hp.getSpending(this, "Rent")) );
+				 String.valueOf(hp.getSpending("Rent")) );
         ((TextView) findViewById(R.id.clothingSpending)).setText(
-				 String.valueOf(hp.getSpending(this, "Clothing")) );
+				 String.valueOf(hp.getSpending("Clothing")) );
         ((TextView) findViewById(R.id.entertainmentSpending)).setText(
-				 String.valueOf(hp.getSpending(this, "Entertainment")) );
+				 String.valueOf(hp.getSpending("Entertainment")) );
         ((TextView) findViewById(R.id.totalSpending)).setText(
-					 String.valueOf(hp.getSpending(this, "Total")) );
+					 String.valueOf(hp.getSpending("Total")) );
     }
 	
     /**
@@ -64,5 +64,12 @@ public class HistoryActivity extends Activity {
         return endDate;
     }
 	
+    public void setStartDate(String date) {
+    	startDate = date;
+    }
+    
+    public void setEndDate(String date) {
+    	endDate = date;
+    }
 	
 }

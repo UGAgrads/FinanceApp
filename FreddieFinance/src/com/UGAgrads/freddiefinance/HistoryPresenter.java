@@ -13,8 +13,6 @@ import java.util.Locale;
  */
 public class HistoryPresenter {
 
-    /** List of accounts that are being searched for Transactions. */
-    private ArrayList<String> accountsList;
 	/** SQLite Database reference. */
     private DatabaseHelper db;
 	/** History Activity. */
@@ -23,7 +21,7 @@ public class HistoryPresenter {
     private Date start;
     /** End date of date range specified by user. */
     private Date end;
-	/** Total withdrawal ammount. */
+	/** Total withdrawal amount. */
     private double withdrawal;
 	/** Format tool to format start and end dates. */
     private SimpleDateFormat format;
@@ -35,6 +33,7 @@ public class HistoryPresenter {
 	 */
     public HistoryPresenter(HistoryActivity activity) {
         db = new DatabaseHelper(activity);
+        this.activity = activity;
     }
 
     /**
@@ -44,13 +43,12 @@ public class HistoryPresenter {
      * @param category Expense category to search for
      * @return Total withdrawal amount in the specified expense category
      */
-    public double getSpending(HistoryActivity histAct, String category) {
+    public double getSpending(String category) {
         format = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
         try {
-            start = format.parse(histAct.getStartDate());
-            end = format.parse(histAct.getEndDate());
+            start = format.parse(activity.getStartDate());
+            end = format.parse(activity.getEndDate());
         } catch (ParseException e) {
-			// TODO Auto-generated catch block
             e.printStackTrace();
         }
 		

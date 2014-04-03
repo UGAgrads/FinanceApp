@@ -3,34 +3,38 @@ package com.UGAgrads.freddiefinance;
 import java.util.ArrayList;
 
 /**
+ * A class representing the User
+ * 
  * @author
  */
 public class User {
 
     /**
-     * 
+     * The user's username
      */
     private String username;
     
     /**
-     * 
+     * The user's password
      */
     private String password;
     
     /**
-     * 
+     * The user's email
      */
     private String email;
     
     /**
-     * 
+     * The user's list of accounts
      */
     private ArrayList<Account> accounts;
 	
     /**
-     * @param userUsername FILL IN THIS!!
-     * @param userEmail FILL IN THIS!!
-     * @param userPassword FILL IN THIS!!
+     * Constructor for a user object
+     * 
+     * @param userUsername The user's username
+     * @param userEmail the user's email
+     * @param userPassword the user's password
      */
     public User(String userUsername, String userEmail, String userPassword) {
     	this.username = userUsername;
@@ -39,49 +43,56 @@ public class User {
     }
 	
     /**
-     * @param userUsername FILL IN THIS!!
+     * Allows the user's username to change
+     * 
+     * @param userUsername The new username
      */
     public void changeUsername(String userUsername) {
     	this.username = userUsername;
     }
 	
     /**
-     * @param userPassword FILL IN THIS!!
+     * Allows the user's password to change
+     * 
+     * @param userPassword the new password
      */
     public void changePassword(String userPassword) {
     	this.password = userPassword;
     }
 	
     /**
-     * @param userEmail FILL IN THIS!!
+     * Allows the user's email to change
+     * @param userEmail the new email
      */
     public void changeEmail(String userEmail) {
     	this.email = userEmail;
     }
 	
     /**
-     * @return FILL IN THIS!!
+     * @return Returns the username
      */
     public String getUsername() {
     	return this.username;
     }
 
 	/**
-	 * @return FILL THIS IN!
+	 * @return returns the password
 	 */
     public String getPassword() {
     	return this.password;
     }
 	
 	/**
-	 * @return FILL THIS IN!!
+	 * @return returns the email
 	 */
     public String getEmail() {
     	return this.email;
     }
 	
 	/**
-	 * @param userAccounts FILL THIS IN!
+	 * Sets the user's accounts
+	 * 
+	 * @param userAccounts the list of accounts
 	 */
     public void populateAccounts(ArrayList<Account> userAccounts) {
     	accounts = userAccounts;
@@ -89,7 +100,7 @@ public class User {
 	
 	/**
 	 * 
-	 * @return FILL THIS IN!!
+	 * @return the list of accounts
 	 */
     public ArrayList<Account> getAccounts() {
     	return accounts;

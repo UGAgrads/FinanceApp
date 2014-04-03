@@ -4,23 +4,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * @author
+/** Presenter class for the UserActivity
+ * 
+ * @author UGA Grads
  */
 public class UserHomePresenter {
     /**
-     * 
+     * The list of accounts
      */
     private static ArrayList<String> accountsList;
     /**
-     * 
+     * A reference to the SQLite database
      */
     private static DatabaseHelper db;
 
     /**
+     * Gets the list of user accounts
      * 
-     * @param activity FILL THIS IN!!
-     * @return FILL THIS IN!!
+     * @param activity Reference to the UserHomeActivity
+     * @return The list of the user's accounts
      */
     public static ArrayList<String> getAccounts(UserHomeActivity activity) {
         db = new DatabaseHelper(activity);

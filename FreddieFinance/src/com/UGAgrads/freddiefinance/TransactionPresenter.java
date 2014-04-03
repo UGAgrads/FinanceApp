@@ -5,70 +5,74 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 /**
- * @author
+ * The presenter for TransactionActivity
+ * 
+ * @author UGA Grads
  */
 class TransactionPresenter {
     
     /**
-     * 
+     * Whether this transaction is a deposit or not
      */
     public static boolean isDeposit;
 	
 	/**
-	 * 
+	 * The user's account to add a transaction to 
 	 */
     public static Account userAccount;
 	
 	/**
-	 * 
+	 * The user who is making a transaction 
 	 */
     public static String user;
 	
 	/**
-	 * 
+	 * The amount of the transaction
 	 */
     public static String amount;
 	
 	/**
-	 * 
+	 * The spending category or source of this transaction
 	 */
     public static String sourceString;
 	
 	/**
-	 * 
+	 * The spending category or source of this transaction
 	 */
     public static String moneySource;
 	
 	/**
-	 * 
+	 * The description for withdrawing
 	 */
     public static String withdrawReason;
 	
 	/**
-	 * 
+	 * The spending category of this transaction
 	 */
     public static String expenseCategory;
 	
 	/**
-	 * 
+	 * The date this transaction was made
 	 */
     public static String dateEffective;
 	
 	/**
-	 * 
+	 * A reference to the SQLite database
 	 */
     public static DatabaseHelper db;
 	
 	/**
-	 * 
+	 * The description of this transaction
 	 */
     public static String transactionDescription = "";
 
 	/**
-	 * FILL THIS IN.
-	 * @param activity FILL THIS IN!
-	 * @param acct FILL THIS IN!
-	 * @return FILL THIS IN!
+	 * Method called when the user attempts to make a transaction.
+	 * Verifies that the values entered are correct.
+	 * 
+	 * @param activity A reference to the transaction activity
+	 * @param acct a reference to the account
+	 * @return an value corresponding to an error type
 	 */
     public static int verifyTransaction(TransactionActivity activity,
 			Account acct) {
@@ -133,8 +137,10 @@ class TransactionPresenter {
     }
     
     /**
-     * @param activity FILL THIS IN!
-     * @return FILL THIS IN!
+     * Creates a transaction of type deposit
+     * 
+     * @param activity A reference to the TransactionActivity
+     * @return the deposit being created
      */
     public static Transaction createDeposit(TransactionActivity activity) {
         db = new DatabaseHelper(activity);
@@ -145,8 +151,10 @@ class TransactionPresenter {
     }
 
     /**
-     * @param activity FILL THIS IN!
-     * @return FILL THIS IN!
+     * Creates a transaction of type withdrawal
+     * 
+     * @param activity A reference to the TransactionActivity
+     * @returnthe withdrawal being created
      */
     public static Transaction createWithdrawal(TransactionActivity activity) {
         db = new DatabaseHelper(activity);
@@ -157,9 +165,11 @@ class TransactionPresenter {
     }
 
     /**
-     * @param acct FILL THIS IN!
-     * @param accAmount FILL THIS IN!
-     * @param isDepositTest FILL THIS IN!
+     * Makes the change in the accoun'ts stored balance
+     * 
+     * @param acct The account being withdrawn or deposited from
+     * @param accAmount the amount being changed
+     * @param isDepositTest whether this is a deposit or not
      */
     public static void changeAccValues(Account acct, double accAmount,
 			boolean isDepositTest) {
@@ -171,8 +181,10 @@ class TransactionPresenter {
     }
 
     /**
-     * @param action FILL THIS IN!
-     * @param acct FILL THIS IN!
+     * Saves the transaction to the database
+     * 
+     * @param action A reference to the Transaction
+     * @param acct The account this transaction is ovvurring in
      */
     public static void saveTransaction(Transaction action, Account acct) {
         db.addNewTransactionToDatabase(action);
@@ -181,7 +193,9 @@ class TransactionPresenter {
     }
 
     /**
-     * @param activity FILL THIS IN!
+     * Changes and saves the transaction
+     * 
+     * @param activity A reference to the TransactionActivity
      */
     public static void makeTheTransaction(TransactionActivity activity) {
         changeAccValues(userAccount, Double.parseDouble(amount), isDeposit);

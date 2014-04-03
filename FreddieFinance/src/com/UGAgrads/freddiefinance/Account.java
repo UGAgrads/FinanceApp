@@ -31,7 +31,7 @@ public class Account {
 	 * @param balance Account balance
 	 * @param interestRate Account interest rate
 	 */
-    Account(String owner, String accountName, String accountType, String balance, String interestRate) {
+    public Account(String owner, String accountName, String accountType, String balance, String interestRate) {
         this.accountOwner = owner;
         this.balance = balance;
         this.accountName = accountName;
@@ -51,7 +51,7 @@ public class Account {
 	/**
 	 * Sets the account balance.
 	 * 
-	 * @param value Ammount to set account balance to
+	 * @param value Amount to set account balance to
 	 */
     public void setBalance(String value) {
         balance = value;

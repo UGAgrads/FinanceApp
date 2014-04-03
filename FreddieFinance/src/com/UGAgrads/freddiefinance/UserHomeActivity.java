@@ -19,23 +19,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- * @author
+ * The activity for a user's home page
+ * 
+ * @author UGA Grads
  */
 public class UserHomeActivity extends Activity {
     
-    /**
-     *
-     */
+
     ListView listView;
-    
-    /**
-     * 
-     */
     ArrayAdapter<String> arrayAdapt;
-    
-    /**
-     * 
-     */
     String accountTitle = "";
     
     @Override
@@ -55,6 +47,7 @@ public class UserHomeActivity extends Activity {
     }
 
     /**
+     * Sets up the listView of accounts
      * 
      */
     private void setupList() {
@@ -127,6 +120,7 @@ public class UserHomeActivity extends Activity {
     }
 
     /**
+     * Sets up the button for viewing the transaction history
      * 
      */
     private void setupTransHistoryButton() {

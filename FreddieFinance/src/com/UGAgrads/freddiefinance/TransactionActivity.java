@@ -13,39 +13,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * @author
+ * The page for adding a Transaction
+ * 
+ * @author UGA Grads
  */
 public class TransactionActivity extends Activity implements
 	DatePickerFragment.TheListener {
     
     /**
-     * 
+     * A reference to this class
      */
     public static TransactionActivity transactionActivity;
 	
 	/**
-	 * 
+	 * Whether this transaction is of type deposit or not
 	 */
     boolean isDeposit;
 	
 	/**
-	 * 
+	 * A reference to the TransactionActivity
 	 */
     private Context context;
 	
 	/**
-	 * 
+	 * The user's account in String form
 	 */
     String userAccountName;
 	
 	/**
-	 * 
+	 * The user's account
 	 */
     Account userAccount;
 
-    /**
-     * @param savedInstanceState FILL THIS IN!
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         transactionActivity = this;
@@ -68,9 +67,7 @@ public class TransactionActivity extends Activity implements
         }
     }
     
-    /**
-     * FILL THIS IN!
-     */
+    @Override
     protected void onResume() {
     	super.onResume();
     	transactionActivity = this;
@@ -93,7 +90,8 @@ public class TransactionActivity extends Activity implements
     }
 	
     /**
-     * FILL THIS IN!
+     * Displays the deposit fields the user must enter values into
+     * 
      */
     private void displayDepositFields() {
     	setContentView(R.layout.activity_transdeposit);
@@ -102,7 +100,7 @@ public class TransactionActivity extends Activity implements
     }
 	
     /**
-     * FILL THIS IN!
+     * Displays the withdrawal fields the user must enter values into
      */
     private void displayWithdrawalFields() {
     	setContentView(R.layout.activity_transwithdrawal);
@@ -111,7 +109,7 @@ public class TransactionActivity extends Activity implements
     }
 	
 	/**
-	 * FILL THIS IN!
+	 * Sets up the spinner for choosing an expense category for withdrawals
 	 */
     private void setUpSpinner() {
     	Spinner spinner = (Spinner) findViewById(R.id.expense_category_spinner);
@@ -127,7 +125,7 @@ public class TransactionActivity extends Activity implements
     }
 	
     /**
-     * FILL THIS IN!
+     * Sets up a spinner for choosing the source of money for deposits
      */
     private void setUpSpinner2() {
     	Spinner spinner2 = (Spinner) findViewById(R.id.money_source_spinner);
@@ -143,7 +141,9 @@ public class TransactionActivity extends Activity implements
     }
 	
     /**
-     * FILL THIS IN!
+     * Sets up the button for choosing a date. Launches the date picker.
+     * Also sets up the button for making the transaction.
+     * 
      */
     private void setUpButton() {
 		
@@ -200,7 +200,9 @@ public class TransactionActivity extends Activity implements
     }
 	
 	/**
-	 * @param date FILL THIS IN!
+	 * Required method from the datePickerFragment class
+	 * 
+	 * @param date The date chosen in the date picker.
 	 */
     public void returnDate(String date) {
     	((Button) findViewById(R.id.editDateEffective)).setText(date);

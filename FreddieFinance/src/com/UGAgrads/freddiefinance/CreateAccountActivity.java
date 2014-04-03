@@ -54,7 +54,7 @@ public class CreateAccountActivity extends Activity {
     }
 
     /**
-     * Sets up settings and data for the accoun type spinner.
+     * Sets up settings and data for the account type spinner.
      */
     private void setupSpinner() {
     	Spinner spinner = (Spinner) findViewById(R.id.create_type_spinner);
